@@ -890,14 +890,18 @@ function App() {
                     <div className="track__author">
                       <a
                         className="track__author-link"
-                        href="http://"
-                      />
+                        href="!#"
+                      >
+                        {}
+                      </a>
                     </div>
                     <div className="track__album">
                       <a
                         className="track__album-link"
-                        href="http://"
-                      />
+                        href="!#"
+                      >
+                        {}
+                      </a>
                     </div>
                     <div className="track__time">
                       <svg
