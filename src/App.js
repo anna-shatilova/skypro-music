@@ -24,7 +24,6 @@ function App() {
                   <a
                     href="http://"
                     className="menu__link"
-                    aria-label="Главное"
                   >
                     Главное
                   </a>
@@ -33,7 +32,6 @@ function App() {
                   <a
                     href="http://"
                     className="menu__link"
-                    aria-label="Мой плейлист"
                   >
                     Мой плейлист
                   </a>
@@ -43,7 +41,6 @@ function App() {
                     // href="../signin.html"
                     href="http://"
                     className="menu__link"
-                    aria-label="Войти"
                   >
                     Войти
                   </a>
@@ -930,7 +927,7 @@ function App() {
                 <div className="sidebar__item">
                   <a
                     className="sidebar__link"
-                    href="#"
+                    href="http://"
                   >
                     <img
                       className="sidebar__img"
@@ -942,7 +939,7 @@ function App() {
                 <div className="sidebar__item">
                   <a
                     className="sidebar__link"
-                    href="#"
+                    href="http://"
                   >
                     <img
                       className="sidebar__img"
@@ -954,7 +951,7 @@ function App() {
                 <div className="sidebar__item">
                   <a
                     className="sidebar__link"
-                    href="#"
+                    href="http://"
                   >
                     <img
                       className="sidebar__img"
