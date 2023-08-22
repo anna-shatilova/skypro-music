@@ -345,6 +345,24 @@
   align-items: center;
 }
 
+.skeleton_title {
+  width: 356px;
+  height: 19px;
+  background:#313131;
+}
+
+.skeleton_author {
+  width: 271px;
+  height: 19px;
+  background:#313131;
+}
+
+.skeleton_album {
+  width: 305px;
+  height: 19px;
+  background:#313131;
+}
+
 .track__title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -507,6 +525,12 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.skeleton_sidebar {
+  width: 250px;
+  height: 150px;
+  background:#313131;
 }
 
 .sidebar__item {
@@ -684,6 +708,12 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
+}
+
+.skeleton_track-play {
+  width: 59px;
+  height: 15px;
+  background:#313131;
 }
 
 .track-play__contain {

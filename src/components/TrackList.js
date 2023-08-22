@@ -2,7 +2,7 @@ import TrackListItems from './TrackListItems'
 import Filter from './Filter'
 import Search from './Search'
 
-function TrackList() {
+function TrackList({loading}) {
   return (
     <div className="main__centerblock centerblock">
       <Search />
@@ -23,7 +23,7 @@ function TrackList() {
           </div>
         </div>
         <div className="content__playlist playlist">
-          <TrackListItems />
+          <TrackListItems loading={loading} />
         </div>
       </div>
     </div>

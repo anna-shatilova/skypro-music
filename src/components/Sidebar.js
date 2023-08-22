@@ -1,6 +1,6 @@
-import Playlist from './Playlist'
+import SidebarItems from './SidebarItems'
 
-function Sidebar() {
+function Sidebar(loading) {
   return (
     <div className="main__sidebar sidebar">
       <div className="sidebar__personal">
@@ -13,31 +13,18 @@ function Sidebar() {
       </div>
       <div className="sidebar__block">
         <div className="sidebar__list">
-          <Playlist />
-          <div className="sidebar__item">
-            <a
-              className="sidebar__link"
-              href="http://"
-            >
-              <img
-                className="sidebar__img"
-                src="img/playlist02.png"
-                alt="day's playlist"
-              />
-            </a>
-          </div>
-          <div className="sidebar__item">
-            <a
-              className="sidebar__link"
-              href="http://"
-            >
-              <img
-                className="sidebar__img"
-                src="img/playlist03.png"
-                alt="day's playlist"
-              />
-            </a>
-          </div>
+          <SidebarItems
+            loading={loading}
+            imgSrc="img/playlist01.png"
+          />
+          <SidebarItems
+            loading={loading}
+            imgSrc="img/playlist02.png"
+          />
+          <SidebarItems
+            loading={loading}
+            imgSrc="img/playlist03.png"
+          />
         </div>
       </div>
     </div>
