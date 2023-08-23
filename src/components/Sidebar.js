@@ -1,6 +1,6 @@
 import SidebarItems from './SidebarItems'
 
-function Sidebar(loading) {
+function Sidebar({loading}) {
   return (
     <div className="main__sidebar sidebar">
       <div className="sidebar__personal">

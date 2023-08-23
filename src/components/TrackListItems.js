@@ -1,4 +1,4 @@
-const tracks = [
+export const tracks = [
   {
     id: 1,
     title: 'Guilt',

@@ -1,4 +1,4 @@
-function Search () {
+function TrackListSearch () {
     return (
         <div className="centerblock__search search">
         <svg className="search__svg">
@@ -14,4 +14,4 @@ function Search () {
 
     )
 }
-export default Search
+export default TrackListSearch

@@ -1,13 +1,13 @@
 import TrackListItems from './TrackListItems'
-import Filter from './Filter'
-import Search from './Search'
+import TrackListFilter from './TrackListFilter'
+import TrackListSearch from './TrackListSearch'
 
 function TrackList({loading}) {
   return (
     <div className="main__centerblock centerblock">
-      <Search />
+      <TrackListSearch />
       <h2 className="centerblock__h2">Треки</h2>
-      <Filter />
+      <TrackListFilter />
       <div className="centerblock__content">
         <div className="content__title playlist-title">
           <div className="playlist-title__col col01">Трек</div>
