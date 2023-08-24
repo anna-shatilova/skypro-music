@@ -6,6 +6,7 @@ import TrackListFilterPopupGenre from './TrackListFilterPopupGenre'
 
 function TrackListFilter() {
   const [activeFilter, setActiveFilter] = useState(null)
+  
   const filters = [
     { id: 'author', name: 'исполнителю' },
     { id: 'year', name: 'году выпуска' },
@@ -19,20 +20,12 @@ function TrackListFilter() {
     setActiveFilter(activeFilter === id ? null : id)
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      filterClickHandler()
-    }
-  }
-
   return (
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
       {filters.map((filter) => (
         <div
-          role="button"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
+          aria-hidden="true"
           className={
             activeFilter === filter.id
               ? `${getClassesForFilterBtns(filter.id)} btn-text_active`
