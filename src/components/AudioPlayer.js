@@ -1,7 +1,7 @@
 import PlayerButtons from './PlayerButtons'
-import TrackPlay from './TrackPlay'
+import AudioPlayerTrack from './AudioPlayerTrack'
 
-function AudioPlayer() {
+function AudioPlayer({loading}) {
   return (
     <div className="bar">
       <div className="bar__content">
@@ -9,7 +9,7 @@ function AudioPlayer() {
         <div className="bar__player-block">
           <div className="bar__player player">
             <PlayerButtons />
-            <TrackPlay />
+            <AudioPlayerTrack loading={loading} />
           </div>
           <div className="bar__volume-block volume">
             <div className="volume__content">
