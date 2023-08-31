@@ -1,7 +1,7 @@
 // import { createGlobalStyle } from 'styled-components'
 import './App.css'
 import { useEffect, useState } from 'react'
-import AudioPlayer from './components/AudioPlayer'
+import AudioPlayer from './components/AudioPlayer/AudioPlayer'
 import NavMenu from './components/NavMenu/NavMenu'
 import Sidebar from './components/SideBar/Sidebar'
 import TrackList from './components/Tracklist/TrackList'
