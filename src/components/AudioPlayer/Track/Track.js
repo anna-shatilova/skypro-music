@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function AudioPlayerTrack({ loading }) {
+function Track({ loading }) {
   return (
     <S.PlayerTrackPlay>
       <S.TrackPlayContain>
@@ -42,4 +42,4 @@ function AudioPlayerTrack({ loading }) {
   )
 }
 
-export default AudioPlayerTrack
+export default Track

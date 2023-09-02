@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import * as S from '../Styles'
+import * as S from './Styles'
 import PopupPerformer from './PopupPerformer'
 import PopupYear from './PopupYear'
 import PopupGenre from './PopupGenre'

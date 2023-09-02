@@ -1,5 +1,5 @@
-import * as S from '../Styles'
-import { tracks } from '../Items'
+import * as S from './Styles'
+import { tracks } from '../Items/Items'
 
 function PopupPerformer() {
   return (

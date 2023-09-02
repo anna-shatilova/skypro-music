@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function PlayerButtons() {
+function Buttons() {
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev>
@@ -32,4 +32,4 @@ function PlayerButtons() {
   )
 }
 
-export default PlayerButtons
+export default Buttons

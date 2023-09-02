@@ -1,6 +1,6 @@
 import * as S from './Styles'
-import PlayerButtons from './PlayerButtons'
-import AudioPlayerTrack from './AudioPlayerTrack'
+import Buttons from './Buttons/Buttons'
+import Track from './Track/Track'
 
 function AudioPlayer({ loading }) {
   return (
@@ -9,8 +9,8 @@ function AudioPlayer({ loading }) {
         <S.BarPlayerProgress />
         <S.BarPlayerBlock>
           <S.BarPlayer>
-            <PlayerButtons />
-            <AudioPlayerTrack loading={loading} />
+            <Buttons />
+            <Track loading={loading} />
           </S.BarPlayer>
           <S.BarVolumeBlock>
             <S.VolumeContent>

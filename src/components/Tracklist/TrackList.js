@@ -1,8 +1,8 @@
 import * as S from './Styles'
 
-import Items from './Items'
+import Items from './Items/Items'
 import Filter from './Filter/Filter'
-import Search from './Search'
+import Search from './Search/Search'
 
 function TrackList({ loading }) {
   return (
