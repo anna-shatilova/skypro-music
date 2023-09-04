@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 export const PlayerTrackPlay = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
 `
@@ -16,7 +16,7 @@ export const TrackPlayContain = styled.div`
   -ms-grid-columns: auto 1fr;
   grid-template-columns: auto 1fr;
   grid-template-areas: 'image author' 'image album';
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
 `
@@ -24,13 +24,13 @@ export const TrackPlayImg = styled.div`
   width: 51px;
   height: 51px;
   background-color: #313131;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
+  box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
   margin-right: 12px;
@@ -78,14 +78,14 @@ export const TrackPlayAlbumLink = styled.a`
   color: #ffffff;
 `
 export const TrackPlayLikeDis = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
   margin-left: 26%;

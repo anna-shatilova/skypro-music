@@ -8,11 +8,11 @@ export const Bar = styled.div`
   background: rgba(28, 28, 28, 0.5);
 `
 export const BarContent = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
 `
@@ -23,55 +23,55 @@ export const BarPlayerProgress = styled.div`
 `
 export const BarPlayerBlock = styled.div`
   height: 73px;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: justify;
+  box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
 `
 export const BarPlayer = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: start;
+  box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 `
 
 export const BarVolumeBlock = styled.div`
   width: auto;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
   padding: 0 92px 0 0;
 `
 export const VolumeContent = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
+  box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
 `

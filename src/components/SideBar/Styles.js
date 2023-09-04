@@ -5,17 +5,17 @@ export const MainSidebar = styled.div`
   padding: 20px 90px 20px 78px;
 `
 export const SidebarPersonal = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
+  box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
   padding: 12px 0 15px 0;
@@ -41,27 +41,27 @@ export const SidebarIcon = styled.div`
 export const SidebarBlock = styled.div`
   height: 100%;
   padding: 330px 0 0 0;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: start;
+  box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 `
 
 export const SidebarList = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
 `

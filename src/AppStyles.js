@@ -4,13 +4,13 @@ export const GlobalStyle = createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   box-sizing: border-box;
 }
 
 *:before,
 *:after {
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -80,28 +80,27 @@ body {
 `
 
 export const Wrapper = styled.div`
-    width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-    background-color: #383838;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background-color: #383838;
 `
-  
-export const Container= styled.div`
-    max-width: 1920px;
-    height: 100vh;
-    margin: 0 auto;
-    position: relative;
-    background-color: #181818;
-` 
-  
+
+export const Container = styled.div`
+  max-width: 1920px;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background-color: #181818;
+`
+
 export const Main = styled.div`
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-  `
-  
+  box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: box;
+  display: -ms-flexbox;
+  display: flex;
+  box-pack: justify;
+  -ms-flex-pack: justify;
+`

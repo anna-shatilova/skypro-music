@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const MainCenterblock = styled.div`
   width: auto;
-  -webkit-box-flex: 3;
+  box-flex: 3;
   -ms-flex-positive: 3;
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
@@ -18,27 +18,27 @@ export const CenterblockTitle = styled.h2`
 `
 
 export const CenterblockContent = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
 `
 
 export const ContentTitle = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
+  box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
   margin-bottom: 24px;
@@ -73,11 +73,11 @@ export const PlaylistTitleSvg = styled.svg`
   stroke: #696969;
 `
 export const ContentPlaylistTitle = styled.div`
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;

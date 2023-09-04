@@ -2,14 +2,14 @@ import styled from 'styled-components'
 
 export const CenterblockFilter = styled.div`
   position: relative;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 51px;
@@ -60,13 +60,13 @@ export const PopupList = styled.ul`
   justify-content: center;
   gap: 28px;
 
-  &::-webkit-scrollbar {
+  &::scrollbar {
     width: 4px;
     border-radius: 4px;
     background-color: #4b4949;
   }
 
-  &::-webkit-scrollbar-thumb {
+  &::scrollbar-thumb {
     border-radius: 4px;
     background-color: #ffffff;
   }

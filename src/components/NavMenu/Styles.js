@@ -24,14 +24,14 @@ export const NavBurger = styled.div`
   width: 20px;
   height: 36px;
   padding: 13px 0;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
+  box-orient: vertical;
+  box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: justify;
+  box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
 `

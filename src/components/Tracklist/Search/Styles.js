@@ -4,14 +4,14 @@ export const CenterblockSearch = styled.div`
   width: 100%;
   border-bottom: 1px solid #4e4e4e;
   margin-bottom: 51px;
-  display: -webkit-box;
+  display: box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
+  box-orient: horizontal;
+  box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
 `
@@ -23,7 +23,7 @@ export const SearchSvg = styled.svg`
   fill: transparent;
 `
 export const SearchText = styled.input`
-  -webkit-box-flex: 100;
+  box-flex: 100;
   -ms-flex-positive: 100;
   flex-grow: 100;
   background-color: transparent;
@@ -53,7 +53,7 @@ export const SearchText = styled.input`
     line-height: 24px;
   }
 
-  ::-webkit-input-placeholder {
+  ::input-placeholder {
     background-color: transparent;
     color: #ffffff;
     font-style: normal;
