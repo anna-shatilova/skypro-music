@@ -1,18 +1,19 @@
+import * as S from './Styles'
 import SidebarItems from './SidebarItems'
 
-function Sidebar({loading}) {
+function Sidebar({ loading }) {
   return (
-    <div className="main__sidebar sidebar">
-      <div className="sidebar__personal">
-        <p className="sidebar__personal-name">Sergey.Ivanov</p>
-        <div className="sidebar__icon">
+    <S.MainSidebar>
+      <S.SidebarPersonal>
+        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout" />
           </svg>
-        </div>
-      </div>
-      <div className="sidebar__block">
-        <div className="sidebar__list">
+        </S.SidebarIcon>
+      </S.SidebarPersonal>
+      <S.SidebarBlock>
+        <S.SidebarList>
           <SidebarItems
             loading={loading}
             imgSrc="img/playlist01.png"
@@ -25,9 +26,9 @@ function Sidebar({loading}) {
             loading={loading}
             imgSrc="img/playlist03.png"
           />
-        </div>
-      </div>
-    </div>
+        </S.SidebarList>
+      </S.SidebarBlock>
+    </S.MainSidebar>
   )
 }
 export default Sidebar

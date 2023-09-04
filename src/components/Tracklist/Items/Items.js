@@ -1,3 +1,5 @@
+import * as S from './Styles'
+
 export const tracks = [
   {
     id: 1,
@@ -132,76 +134,56 @@ export const tracks = [
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
 
-function TrackListItems({ loading }) {
+function Items({ loading }) {
   return (
     <>
       {tracks.map((track) => (
-        <div
-          key={track.id}
-          className="playlist__item"
-        >
-          <div className="playlist__track track">
-            <div className="track__title">
-              <div className="track__title-image">
-                <svg
-                  className="track__title-svg"
-                  alt="music"
-                >
+        <S.PlaylistItem key={track.id}>
+          <S.PlaylistTrack>
+            <S.TrackTitle>
+              <S.TrackTitleImg>
+                <S.TrackTitleSvg alt="music">
                   <use xlinkHref={loading ? '' : titleSvg} />
-                </svg>
-              </div>
+                </S.TrackTitleSvg>
+              </S.TrackTitleImg>
               {loading ? (
-                <div className="skeleton_title" />
+                <S.TrackTitleSkeleton />
               ) : (
-                <div className="track__title-text">
-                  <a
-                    className="track__title-link"
-                    href="http://"
-                  >
-                    {track.title}
-                    <span className="track__title-span">{track.titleSpan}</span>
-                  </a>
-                </div>
+                <S.TrackTitleLink href="http://">
+                  {track.title}
+                  <S.TrackTitleSpan>{track.titleSpan}</S.TrackTitleSpan>
+                </S.TrackTitleLink>
               )}
-            </div>
+            </S.TrackTitle>
             {loading ? (
-              <div className="skeleton_author" />
+              <S.TrackAuthorSkeleton />
             ) : (
-              <div className="track__author">
-                <a
-                  className="track__author-link"
-                  href="http://"
-                >
+              <S.TrackAuthor>
+                <S.TrackAuthorLink href="http://">
                   {track.author}
-                </a>
-              </div>
+                </S.TrackAuthorLink>
+              </S.TrackAuthor>
             )}
             {loading ? (
-              <div className="skeleton_album" />
+              <S.TrackAlbumSkeleton />
             ) : (
-              <div className="track__album">
-                <a
-                  className="track__album-link"
-                  href="http://"
-                >
+              <S.TrackAlbum>
+                <S.TrackAlbumLink href="http://">
                   {track.album}
-                </a>
-              </div>
+                </S.TrackAlbumLink>
+              </S.TrackAlbum>
             )}
-            <div className="track__time">
-              <svg
-                className="track__time-svg"
-                alt="time"
-              >
+            <div>
+              <S.TrackTimeSvg alt="time">
                 <use xlinkHref={likeSvg} />
-              </svg>
-              <span className="track__time-text">{track.time}</span>
+              </S.TrackTimeSvg>
+              <S.TrackTimeText>{track.time}</S.TrackTimeText>
             </div>
-          </div>
-        </div>
+          </S.PlaylistTrack>
+        </S.PlaylistItem>
       ))}
     </>
   )
 }
 
-export default TrackListItems
+export default Items
