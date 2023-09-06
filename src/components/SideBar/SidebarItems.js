@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function SidebarItems({ loading, imgSrc }) {
+export const SidebarItems = ({ loading, imgSrc }) => {
   return (
     <S.SidebarItem>
       {loading ? (
@@ -16,4 +16,3 @@ function SidebarItems({ loading, imgSrc }) {
     </S.SidebarItem>
   )
 }
-export default SidebarItems

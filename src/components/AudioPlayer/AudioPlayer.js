@@ -1,8 +1,8 @@
 import * as S from './Styles'
-import Buttons from './Buttons/Buttons'
-import Track from './Track/Track'
+import {Buttons} from './Buttons/Buttons'
+import {Track} from './Track/Track'
 
-function AudioPlayer({ loading }) {
+export const AudioPlayer = ({ loading }) => {
   return (
     <S.Bar>
       <S.BarContent>
@@ -32,4 +32,3 @@ function AudioPlayer({ loading }) {
     </S.Bar>
   )
 }
-export default AudioPlayer

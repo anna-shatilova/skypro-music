@@ -19,7 +19,7 @@ const menuItems = [
   },
 ]
 
-function NavMenu() {
+export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
 
   return (
@@ -31,7 +31,9 @@ function NavMenu() {
         />
       </S.NavLogo>
       <S.NavBurger
-        onClick={() => setOpenBurger(!openBurger)}
+        onClick={() => {
+          return setOpenBurger(!openBurger)
+        }}
         aria-hidden="true"
       >
         <S.BurgerLine />
@@ -41,11 +43,13 @@ function NavMenu() {
       {openBurger ? (
         <S.NavMenu>
           <S.MenuList>
-            {menuItems.map((menuItem) => (
-              <S.MenuItem key={menuItem.id}>
-                <S.MenuLink href={menuItem.link}>{menuItem.title}</S.MenuLink>
-              </S.MenuItem>
-            ))}
+            {menuItems.map((menuItem) => {
+              return (
+                <S.MenuItem key={menuItem.id}>
+                  <S.MenuLink href={menuItem.link}>{menuItem.title}</S.MenuLink>
+                </S.MenuItem>
+              )
+            })}
           </S.MenuList>
         </S.NavMenu>
       ) : (
@@ -54,5 +58,3 @@ function NavMenu() {
     </S.MainNav>
   )
 }
-
-export default NavMenu

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import * as S from './AppStyles'
 
-import AudioPlayer from './components/AudioPlayer/AudioPlayer'
-import NavMenu from './components/NavMenu/NavMenu'
-import Sidebar from './components/SideBar/Sidebar'
-import TrackList from './components/Tracklist/TrackList'
+import { AudioPlayer } from './components/AudioPlayer/AudioPlayer'
+import { NavMenu } from './components/NavMenu/NavMenu'
+import { Sidebar } from './components/SideBar/Sidebar'
+import { TrackList } from './components/Tracklist/TrackList'
 
-function App() {
+export const App = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    const timerId = setInterval(() => setLoading(!loading), 5000)
+    const timerId = setInterval(() => {
+      return setLoading(!loading)
+    }, 5000)
 
     return () => {
       clearInterval(timerId)
@@ -32,5 +34,3 @@ function App() {
     </>
   )
 }
-
-export default App

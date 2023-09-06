@@ -22,6 +22,13 @@
     "react/prop-types": 0,
     "react/destructuring-assignment": [0],
     "react/react-in-jsx-scope": 0,
-    "react/jsx-uses-react": 0
+    "react/jsx-uses-react": 0,
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "off",
+    "arrow-body-style": ["error", "always"],
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ]
   }
 }

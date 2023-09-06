@@ -1,7 +1,7 @@
 import * as S from './Styles'
-import SidebarItems from './SidebarItems'
+import {SidebarItems} from './SidebarItems'
 
-function Sidebar({ loading }) {
+export const Sidebar = ({ loading }) => {
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
@@ -31,4 +31,3 @@ function Sidebar({ loading }) {
     </S.MainSidebar>
   )
 }
-export default Sidebar
