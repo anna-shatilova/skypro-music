@@ -3,17 +3,17 @@ import * as S from './Styles'
 
 const menuItems = [
   {
-    link: '!#',
+    link: '/',
     title: 'Главное',
     id: 1,
   },
   {
-    link: '!#',
+    link: '/favorites',
     title: 'Мой плейлист',
     id: 2,
   },
   {
-    link: '../signin.html',
+    link: '/login',
     title: 'Войти',
     id: 3,
   },
@@ -46,7 +46,7 @@ export const NavMenu = () => {
             {menuItems.map((menuItem) => {
               return (
                 <S.MenuItem key={menuItem.id}>
-                  <S.MenuLink href={menuItem.link}>{menuItem.title}</S.MenuLink>
+                  <S.MenuLink to={menuItem.link}>{menuItem.title}</S.MenuLink>
                 </S.MenuItem>
               )
             })}
