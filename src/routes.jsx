@@ -27,7 +27,7 @@ export const AppRoutes = () => {
         element={<Category />}
       />
       <Route
-        path="/favorites"
+        path="/favorites/:id"
         element={<Favorites />}
       />
       <Route
