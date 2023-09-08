@@ -1,27 +1,11 @@
 import { useState } from 'react'
 import * as S from './Styles'
 
-const menuItems = [
-  {
-    link: '/',
-    title: 'Главное',
-    id: 1,
-  },
-  {
-    link: '/favorites',
-    title: 'Мой плейлист',
-    id: 2,
-  },
-  {
-    link: '/login',
-    title: 'Войти',
-    id: 3,
-  },
-]
-
 export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
-
+  const setUser = () => {
+    localStorage.clear()
+  }
   return (
     <S.MainNav>
       <S.NavLogo>
@@ -43,13 +27,20 @@ export const NavMenu = () => {
       {openBurger ? (
         <S.NavMenu>
           <S.MenuList>
-            {menuItems.map((menuItem) => {
-              return (
-                <S.MenuItem key={menuItem.id}>
-                  <S.MenuLink to={menuItem.link}>{menuItem.title}</S.MenuLink>
-                </S.MenuItem>
-              )
-            })}
+            <S.MenuItem key={1}>
+              <S.MenuLink to="/">Главное</S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem key={2}>
+              <S.MenuLink to="/favorites">Мой плейлист</S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem key={3}>
+              <S.MenuLink
+                to="/login"
+                onClick={setUser}
+              >
+                Выйти
+              </S.MenuLink>
+            </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
       ) : (

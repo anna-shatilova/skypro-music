@@ -24,7 +24,7 @@ export const Sidebar = ({ loading }) => {
                 {loading ? (
                   <S.SidebarSkeleton />
                 ) : (
-                  <S.SidebarLink to={`/favorites/${sidebarItem.id}`}>
+                  <S.SidebarLink to={`/category/${sidebarItem.id}`}>
                     <S.SidebarImg
                       src={sidebarItem.imgSrc}
                       alt="day's playlist"
