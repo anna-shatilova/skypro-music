@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import * as S from './Styles'
-import PopupPerformer from './PopupPerformer'
-import PopupYear from './PopupYear'
-import PopupGenre from './PopupGenre'
+import { PopupPerformer } from './PopupPerformer'
+import { PopupYear } from './PopupYear'
+import { PopupGenre } from './PopupGenre'
 
-function Filter() {
+export const Filter = () => {
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = [
@@ -20,17 +20,21 @@ function Filter() {
   return (
     <S.CenterblockFilter>
       <S.FilterTitle>Искать по:</S.FilterTitle>
-      {filters.map((filter) => (
-        <S.FilterButton
-          aria-hidden="true"
-          className="_btn-text"
-          $activeButton={activeFilter === filter.id}
-          key={filter.id}
-          onClick={() => filterClickHandler(filter.id)}
-        >
-          {filter.name}
-        </S.FilterButton>
-      ))}
+      {filters.map((filter) => {
+        return (
+          <S.FilterButton
+            aria-hidden="true"
+            className="_btn-text"
+            $activeButton={activeFilter === filter.id}
+            key={filter.id}
+            onClick={() => {
+              return filterClickHandler(filter.id)
+            }}
+          >
+            {filter.name}
+          </S.FilterButton>
+        )
+      })}
 
       {activeFilter === filters[0].id && <PopupPerformer />}
       {activeFilter === filters[1].id && <PopupYear />}
@@ -38,4 +42,3 @@ function Filter() {
     </S.CenterblockFilter>
   )
 }
-export default Filter

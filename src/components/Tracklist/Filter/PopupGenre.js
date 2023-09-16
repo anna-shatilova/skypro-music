@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function PopupGenre() {
+export const PopupGenre = () => {
   return (
     <S.FilterPopup style={{ top: '49px', left: '390px' }}>
       <S.PopupList>
@@ -23,5 +23,3 @@ function PopupGenre() {
     </S.FilterPopup>
   )
 }
-
-export default PopupGenre

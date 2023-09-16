@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function Track({ loading }) {
+export const Track = ({ loading }) => {
   return (
     <S.PlayerTrackPlay>
       <S.TrackPlayContain>
@@ -41,5 +41,3 @@ function Track({ loading }) {
     </S.PlayerTrackPlay>
   )
 }
-
-export default Track

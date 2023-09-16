@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function Buttons() {
+export const Buttons = () => {
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev>
@@ -31,5 +31,3 @@ function Buttons() {
     </S.PlayerControls>
   )
 }
-
-export default Buttons

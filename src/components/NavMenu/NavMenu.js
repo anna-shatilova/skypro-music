@@ -1,27 +1,11 @@
 import { useState } from 'react'
 import * as S from './Styles'
 
-const menuItems = [
-  {
-    link: '!#',
-    title: 'Главное',
-    id: 1,
-  },
-  {
-    link: '!#',
-    title: 'Мой плейлист',
-    id: 2,
-  },
-  {
-    link: '../signin.html',
-    title: 'Войти',
-    id: 3,
-  },
-]
-
-function NavMenu() {
+export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
-
+  const setUser = () => {
+    localStorage.clear()
+  }
   return (
     <S.MainNav>
       <S.NavLogo>
@@ -31,7 +15,9 @@ function NavMenu() {
         />
       </S.NavLogo>
       <S.NavBurger
-        onClick={() => setOpenBurger(!openBurger)}
+        onClick={() => {
+          return setOpenBurger(!openBurger)
+        }}
         aria-hidden="true"
       >
         <S.BurgerLine />
@@ -41,11 +27,20 @@ function NavMenu() {
       {openBurger ? (
         <S.NavMenu>
           <S.MenuList>
-            {menuItems.map((menuItem) => (
-              <S.MenuItem key={menuItem.id}>
-                <S.MenuLink href={menuItem.link}>{menuItem.title}</S.MenuLink>
-              </S.MenuItem>
-            ))}
+            <S.MenuItem key={1}>
+              <S.MenuLink to="/">Главное</S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem key={2}>
+              <S.MenuLink to="/favorites">Мой плейлист</S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem key={3}>
+              <S.MenuLink
+                to="/login"
+                onClick={setUser}
+              >
+                Выйти
+              </S.MenuLink>
+            </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
       ) : (
@@ -54,5 +49,3 @@ function NavMenu() {
     </S.MainNav>
   )
 }
-
-export default NavMenu

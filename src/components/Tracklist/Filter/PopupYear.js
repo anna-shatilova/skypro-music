@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-function PopupYear() {
+export const PopupYear = () => {
   return (
     <S.FilterPopup style={{ top: '49px', left: '240px' }}>
       <S.PopupList>
@@ -17,5 +17,3 @@ function PopupYear() {
     </S.FilterPopup>
   )
 }
-
-export default PopupYear

@@ -134,56 +134,56 @@ export const tracks = [
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
 
-function Items({ loading }) {
+export const Items = ({ loading }) => {
   return (
     <>
-      {tracks.map((track) => (
-        <S.PlaylistItem key={track.id}>
-          <S.PlaylistTrack>
-            <S.TrackTitle>
-              <S.TrackTitleImg>
-                <S.TrackTitleSvg alt="music">
-                  <use xlinkHref={loading ? '' : titleSvg} />
-                </S.TrackTitleSvg>
-              </S.TrackTitleImg>
+      {tracks.map((track) => {
+        return (
+          <S.PlaylistItem key={track.id}>
+            <S.PlaylistTrack>
+              <S.TrackTitle>
+                <S.TrackTitleImg>
+                  <S.TrackTitleSvg alt="music">
+                    <use xlinkHref={loading ? '' : titleSvg} />
+                  </S.TrackTitleSvg>
+                </S.TrackTitleImg>
+                {loading ? (
+                  <S.TrackTitleSkeleton />
+                ) : (
+                  <S.TrackTitleLink href="http://">
+                    {track.title}
+                    <S.TrackTitleSpan>{track.titleSpan}</S.TrackTitleSpan>
+                  </S.TrackTitleLink>
+                )}
+              </S.TrackTitle>
               {loading ? (
-                <S.TrackTitleSkeleton />
+                <S.TrackAuthorSkeleton />
               ) : (
-                <S.TrackTitleLink href="http://">
-                  {track.title}
-                  <S.TrackTitleSpan>{track.titleSpan}</S.TrackTitleSpan>
-                </S.TrackTitleLink>
+                <S.TrackAuthor>
+                  <S.TrackAuthorLink href="http://">
+                    {track.author}
+                  </S.TrackAuthorLink>
+                </S.TrackAuthor>
               )}
-            </S.TrackTitle>
-            {loading ? (
-              <S.TrackAuthorSkeleton />
-            ) : (
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="http://">
-                  {track.author}
-                </S.TrackAuthorLink>
-              </S.TrackAuthor>
-            )}
-            {loading ? (
-              <S.TrackAlbumSkeleton />
-            ) : (
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="http://">
-                  {track.album}
-                </S.TrackAlbumLink>
-              </S.TrackAlbum>
-            )}
-            <div>
-              <S.TrackTimeSvg alt="time">
-                <use xlinkHref={likeSvg} />
-              </S.TrackTimeSvg>
-              <S.TrackTimeText>{track.time}</S.TrackTimeText>
-            </div>
-          </S.PlaylistTrack>
-        </S.PlaylistItem>
-      ))}
+              {loading ? (
+                <S.TrackAlbumSkeleton />
+              ) : (
+                <S.TrackAlbum>
+                  <S.TrackAlbumLink href="http://">
+                    {track.album}
+                  </S.TrackAlbumLink>
+                </S.TrackAlbum>
+              )}
+              <div>
+                <S.TrackTimeSvg alt="time">
+                  <use xlinkHref={likeSvg} />
+                </S.TrackTimeSvg>
+                <S.TrackTimeText>{track.time}</S.TrackTimeText>
+              </div>
+            </S.PlaylistTrack>
+          </S.PlaylistItem>
+        )
+      })}
     </>
   )
 }
-
-export default Items

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const MainSidebar = styled.div`
@@ -53,7 +54,7 @@ export const SidebarBlock = styled.div`
   justify-content: flex-start;
 `
 
-export const SidebarList = styled.div`
+export const SidebarList = styled.ul`
   display: box;
   display: -ms-flexbox;
   display: flex;
@@ -65,12 +66,12 @@ export const SidebarList = styled.div`
   -ms-flex-align: center;
   align-items: center;
 `
-export const SidebarItem = styled.div`
+export const SidebarItem = styled.li`
   width: 250px;
   height: 150px;
   margin-bottom: 30px;
 `
-export const SidebarLink = styled.a`
+export const SidebarLink = styled(Link)`
   width: 100%;
   height: 100%;
 `
