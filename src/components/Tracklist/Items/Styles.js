@@ -63,13 +63,16 @@ export const TrackTitleSkeleton = styled.div`
   background: #313131;
 `
 
-export const TrackTitleLink = styled.a`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-`
+// export const TrackTitleLink = styled.a`
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 16px;
+//   line-height: 24px;
+//   color: #ffffff;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `
 // export const TrackTitleSpan = styled.span`
 //   font-style: normal;
 //   font-weight: 400;
@@ -91,14 +94,14 @@ export const TrackAuthor = styled.div`
   -ms-flex-pack: start;
   justify-content: flex-start;
 `
-export const TrackAuthorLink = styled.a`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-  text-align: left;
-`
+// export const TrackAuthorLink = styled.a`
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 16px;
+//   line-height: 24px;
+//   color: #ffffff;
+//   text-align: left;
+// `
 export const TrackAlbumSkeleton = styled.div`
   width: 305px;
   height: 19px;
@@ -107,13 +110,13 @@ export const TrackAlbumSkeleton = styled.div`
 export const TrackAlbum = styled.div`
   width: 245px;
 `
-export const TrackAlbumLink = styled.a`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #696969;
-`
+// export const TrackAlbumLink = styled.a`
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 16px;
+//   line-height: 24px;
+//   color: #696969;
+// `
 export const TrackTimeSvg = styled.svg`
   width: 14px;
   height: 12px;

@@ -56,7 +56,7 @@ export const TrackPlayAuthor = styled.div`
   grid-area: author;
   min-width: 49px;
 `
-export const TrackPlayAuthorLink = styled.a`
+export const TrackPlayAuthorLink = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;

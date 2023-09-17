@@ -2,7 +2,7 @@ import * as S from './Styles'
 import {Buttons} from './Buttons/Buttons'
 import {Track} from './Track/Track'
 
-export const AudioPlayer = ({ loading }) => {
+export const AudioPlayer = ({ currentTrack }) => {
   return (
     <S.Bar>
       <S.BarContent>
@@ -10,7 +10,7 @@ export const AudioPlayer = ({ loading }) => {
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <Buttons />
-            <Track loading={loading} />
+            <Track currentTrack={currentTrack} />
           </S.BarPlayer>
           <S.BarVolumeBlock>
             <S.VolumeContent>
