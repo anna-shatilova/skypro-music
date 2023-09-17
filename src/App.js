@@ -11,22 +11,21 @@ export const App = () => {
   const [trackListError, setTrackListError] = useState(null)
 
   useEffect(() => {
+    setLoading(true)
     async function handleGetTracks() {
       try {
         setTrackListError(null)
-        setLoading(loading)
         await getTracks().then((data) => {
           setTracks(data)
         })
-        setLoading((prev)=>!prev)
+        setLoading((prev) => !prev)
       } catch (error) {
         setTrackListError(error.message)
       }
     }
 
     handleGetTracks()
-    setLoading(!loading)
-
+    setLoading(false)
     // try {
     //   async function startFetching() {
     //     setBio(null);
@@ -61,7 +60,7 @@ export const App = () => {
     // }
   }, [])
 
-  console.log(tracks)
+  // console.log(tracks)
 
   const handleLogin = () => setUser(localStorage.setItem('user', 'token'))
   const handleLogout = () => {

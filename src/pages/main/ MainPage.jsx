@@ -13,8 +13,7 @@ export const MainPage = ({loading, tracks, trackListError}) => {
         <S.Container>
           <S.Main>
             <NavMenu />
-            {trackListError? <p> Не удалось загрузить плейлист, попробуйте позже</p> : 
-            <TrackList tracks={tracks} loading={loading} />}
+            <TrackList trackListError={trackListError} tracks={tracks} loading={loading} />
             <Sidebar loading={loading} />
           </S.Main>
           <AudioPlayer loading={loading} />
