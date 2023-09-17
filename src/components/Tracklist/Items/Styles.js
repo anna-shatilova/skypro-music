@@ -70,13 +70,13 @@ export const TrackTitleLink = styled.a`
   line-height: 24px;
   color: #ffffff;
 `
-export const TrackTitleSpan = styled.span`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #4e4e4e;
-`
+// export const TrackTitleSpan = styled.span`
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 16px;
+//   line-height: 24px;
+//   color: #4e4e4e;
+// `
 export const TrackAuthorSkeleton = styled.div`
   width: 271px;
   height: 19px;

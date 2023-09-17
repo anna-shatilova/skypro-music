@@ -8,7 +8,7 @@ import { Category } from './pages/category'
 import { Favorites } from './pages/favorites'
 import { ProtectedRout } from './components/ProtectedRout/index'
 
-export const AppRoutes = ({ user }) => {
+export const AppRoutes = ({ user, loading, tracks, trackListError }) => {
   return (
     <Routes>
       <Route
@@ -26,7 +26,11 @@ export const AppRoutes = ({ user }) => {
             user={user}
             isAllowed={Boolean(user)}
           >
-            <MainPage />
+            <MainPage
+              tracks={tracks}
+              loading={loading}
+              trackListError={trackListError}
+            />
           </ProtectedRout>
         }
       />

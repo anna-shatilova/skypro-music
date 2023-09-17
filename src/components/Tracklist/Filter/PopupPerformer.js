@@ -1,7 +1,6 @@
 import * as S from './Styles'
-import { tracks } from '../Items/Items'
 
-export const PopupPerformer = () => {
+export const PopupPerformer = ({tracks}) => {
   return (
     <S.FilterPopup style={{ top: '49px', left: '92px' }}>
       <S.PopupList>
