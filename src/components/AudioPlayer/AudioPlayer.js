@@ -1,11 +1,19 @@
 import * as S from './Styles'
-import {Buttons} from './Buttons/Buttons'
-import {Track} from './Track/Track'
+import { Buttons } from './Buttons/Buttons'
+import { Track } from './Track/Track'
 
 export const AudioPlayer = ({ currentTrack }) => {
   return (
     <S.Bar>
       <S.BarContent>
+        <audio
+          controls
+          src={currentTrack.track_file}
+          autoPlay
+        >
+          <track kind="captions" />
+        </audio>
+
         <S.BarPlayerProgress />
         <S.BarPlayerBlock>
           <S.BarPlayer>

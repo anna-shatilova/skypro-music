@@ -24,18 +24,10 @@ export const MainPage = ({ loading, tracks, trackListError }) => {
             <Sidebar loading={loading} />
           </S.Main>
           {currentTrack ? (
-            <>
-              <audio
-                controls
-                src={currentTrack.track_file}
-              >
-                <track kind="captions" />
-              </audio>
-              <AudioPlayer
-                loading={loading}
-                currentTrack={currentTrack}
-              />
-            </>
+            <AudioPlayer
+              loading={loading}
+              currentTrack={currentTrack}
+            />
           ) : null}
           <footer />
         </S.Container>
