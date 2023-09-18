@@ -6,61 +6,32 @@ import { getTracks } from './api'
 export const App = () => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
-  const [tracks, setTracks] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [tracks, setTracks] = useState([
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+  ])
   const [trackListError, setTrackListError] = useState(null)
 
   useEffect(() => {
-    setLoading(true)
     async function handleGetTracks() {
       try {
+        setLoading(true)
         setTrackListError(null)
         await getTracks().then((data) => {
           setTracks(data)
         })
-        setLoading((prev) => !prev)
       } catch (error) {
         setTrackListError(error.message)
+      } finally {
+        setLoading(false)
       }
     }
 
     handleGetTracks()
-    setLoading(false)
-    // try {
-    //   async function startFetching() {
-    //     setBio(null);
-    //     const result = await fetchBio(person);
-    //     if (!ignore) {
-    //       setBio(result);
-    //     }
-    //   }
-
-    //   let ignore = false;
-    //   startFetching();
-    //   return () => {
-    //     ignore = true;
-    //   }
-    //   setLoading(true)
-
-    //   getTracks().then((data) => {
-    //       setTracks(data)
-    //   })
-    //   return
-    //   setLoading(false)
-
-    // } catch (error) {
-    //   setTrackListError(error.message)
-    // }
-    // const timerId = setInterval(() => {
-    //   return setLoading(!loading)
-    // }, 5000)
-
-    // return () => {
-    //   clearInterval(timerId)
-    // }
   }, [])
-
-  // console.log(tracks)
 
   const handleLogin = () => setUser(localStorage.setItem('user', 'token'))
   const handleLogout = () => {
