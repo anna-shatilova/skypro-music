@@ -4,12 +4,17 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ loading }) => {
+export const TrackList = ({
+  loading,
+  tracks,
+  trackListError,
+  setCurrentTrack,
+}) => {
   return (
     <S.MainCenterblock>
       <Search />
       <S.CenterblockTitle>Треки</S.CenterblockTitle>
-      <Filter />
+      <Filter tracks={tracks} />
       <S.CenterblockContent>
         <S.ContentTitle>
           <S.PlaylistTitle01>Трек</S.PlaylistTitle01>
@@ -22,7 +27,15 @@ export const TrackList = ({ loading }) => {
           </S.PlaylistTitle04>
         </S.ContentTitle>
         <S.ContentPlaylistTitle>
-          <Items loading={loading} />
+          {trackListError ? (
+            <p> Не удалось загрузить плейлист, попробуйте позже</p>
+          ) : (
+            <Items
+              tracks={tracks}
+              loading={loading}
+              setCurrentTrack={setCurrentTrack}
+            />
+          )}
         </S.ContentPlaylistTitle>
       </S.CenterblockContent>
     </S.MainCenterblock>

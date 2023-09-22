@@ -1,30 +1,24 @@
 import * as S from './Styles'
 
-export const Track = ({ loading }) => {
+export const Track = ({ currentTrack }) => {
   return (
     <S.PlayerTrackPlay>
       <S.TrackPlayContain>
         <S.TrackPlayImg>
           <S.TrackPlaySvg alt="music">
-            <use xlinkHref={loading ? '' : 'img/icon/sprite.svg#icon-note'} />
+            <use xlinkHref="img/icon/sprite.svg#icon-note" />
           </S.TrackPlaySvg>
         </S.TrackPlayImg>
-        {loading ? (
-          <S.TrackPlaySkeleton />
-        ) : (
-          <S.TrackPlayAuthor>
-            <S.TrackPlayAuthorLink href="http://">
-              Ты та...
-            </S.TrackPlayAuthorLink>
-          </S.TrackPlayAuthor>
-        )}
-        {loading ? (
-          <S.TrackPlaySkeleton />
-        ) : (
-          <S.TrackPlayAlbum>
-            <S.TrackPlayAlbumLink href="http://">Баста</S.TrackPlayAlbumLink>
-          </S.TrackPlayAlbum>
-        )}
+        <S.TrackPlayAuthor>
+          <S.TrackPlayAuthorLink href="http://">
+            {currentTrack ? currentTrack.name : null}
+          </S.TrackPlayAuthorLink>
+        </S.TrackPlayAuthor>
+        <S.TrackPlayAlbum>
+          <S.TrackPlayAlbumLink href="http://">
+            {currentTrack ? currentTrack.author : null}
+          </S.TrackPlayAlbumLink>
+        </S.TrackPlayAlbum>
       </S.TrackPlayContain>
       <S.TrackPlayLikeDis>
         <S.TrackPlayLike className="_btn-icon">

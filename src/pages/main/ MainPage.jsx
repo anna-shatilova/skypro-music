@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import * as S from '../../AppStyles'
 
 import { AudioPlayer } from '../../components/AudioPlayer/AudioPlayer'
@@ -6,17 +6,8 @@ import { NavMenu } from '../../components/NavMenu/NavMenu'
 import { Sidebar } from '../../components/SideBar/Sidebar'
 import { TrackList } from '../../components/Tracklist/TrackList'
 
-export const MainPage = () => {
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      return setLoading(!loading)
-    }, 5000)
-
-    return () => {
-      clearInterval(timerId)
-    }
-  }, [])
+export const MainPage = ({ loading, tracks, trackListError }) => {
+  const [currentTrack, setCurrentTrack] = useState(null)
   return (
     <>
       <S.GlobalStyle />
@@ -24,10 +15,20 @@ export const MainPage = () => {
         <S.Container>
           <S.Main>
             <NavMenu />
-            <TrackList loading={loading} />
+            <TrackList
+              trackListError={trackListError}
+              tracks={tracks}
+              loading={loading}
+              setCurrentTrack={setCurrentTrack}
+            />
             <Sidebar loading={loading} />
           </S.Main>
-          <AudioPlayer loading={loading} />
+          {currentTrack ? (
+            <AudioPlayer
+              loading={loading}
+              currentTrack={currentTrack}
+            />
+          ) : null}
           <footer />
         </S.Container>
       </S.Wrapper>
