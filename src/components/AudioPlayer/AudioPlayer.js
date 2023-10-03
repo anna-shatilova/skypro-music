@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import * as S from './Styles'
 import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
-import { ProgressBar } from '../ProgressBar/ProgressBar'
+import { VolumeBar } from './VolumeBar/VolumeBar'
+import { ProgressBar } from './ProgressBar/ProgressBar'
 
 export const AudioPlayer = ({ currentTrack }) => {
   const audioRef = useRef(null)
@@ -35,6 +36,7 @@ export const AudioPlayer = ({ currentTrack }) => {
     audioRef.current.loop = !isLoop
     setIsLoop(!isLoop)
   }
+
   // прогресс трека
   const [currentTime, setCurrentTime] = useState(null)
 
@@ -55,6 +57,15 @@ export const AudioPlayer = ({ currentTrack }) => {
     const newTime = parseFloat(event.target.value)
     setCurrentTime(newTime)
     audioRef.current.currentTime = newTime
+  }
+
+  // регулятор громкости
+
+  const [volume, setVolume] = useState(0, 5)
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event.target.value)
+    setVolume(newVolume)
+    audioRef.current.volume = newVolume
   }
 
   return (
@@ -84,21 +95,10 @@ export const AudioPlayer = ({ currentTrack }) => {
             />
             <Track currentTrack={currentTrack} />
           </S.BarPlayer>
-          <S.BarVolumeBlock>
-            <S.VolumeContent>
-              <S.VolumeImg>
-                <S.VolumeSvg alt="volume">
-                  <use xlinkHref="img/icon/sprite.svg#icon-volume" />
-                </S.VolumeSvg>
-              </S.VolumeImg>
-              <S.VolumeProgress>
-                <S.VolumeProgressLine
-                  type="range"
-                  name="range"
-                />
-              </S.VolumeProgress>
-            </S.VolumeContent>
-          </S.BarVolumeBlock>
+          <VolumeBar
+            volume={volume}
+            handleVolumeChange={handleVolumeChange}
+          />
         </S.BarPlayerBlock>
       </S.BarContent>
     </S.Bar>

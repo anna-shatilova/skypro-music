@@ -12,7 +12,7 @@ export const ProgressTime = styled.div`
   padding: 0 5px 10px 0;
 `
 
-export const StyledProgressInput = styled.input`
+export const ProgressInput = styled.input`
   --progress-height: 8px;
   --progress-color: #b672ff;
   --progress-color: ${(props) => props.$color ?? '#B672FF'};

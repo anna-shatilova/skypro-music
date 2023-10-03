@@ -12,7 +12,7 @@ export const ProgressBar = ({
       <S.ProgressTime>
         {formatTime(currentTime)} / {formatTime(duration)}
       </S.ProgressTime>
-      <S.StyledProgressInput
+      <S.ProgressInput
         type="range"
         min={0}
         max={duration}
