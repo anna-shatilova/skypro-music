@@ -1,6 +1,6 @@
 import * as S from './Styles'
 
-export const Buttons = ({ isPlaying, togglePlay }) => {
+export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop}) => {
   const handleNotRealized = () => {
     alert('Эта функция еще не реализована')
   }
@@ -31,8 +31,8 @@ export const Buttons = ({ isPlaying, togglePlay }) => {
           <use xlinkHref="img/icon/sprite.svg#icon-next" />
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
-      <S.PlayerBtnRepeat className="_btn-icon">
-        <S.PlayerBtnRepeatSvg alt="repeat">
+      <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
+        <S.PlayerBtnRepeatSvg alt="repeat" $isLoop={isLoop}>
           <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>

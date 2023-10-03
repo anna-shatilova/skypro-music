@@ -4,10 +4,11 @@ import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 
 export const AudioPlayer = ({ currentTrack }) => {
-  const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef(null)
 
-  // запуск/пауза
+  // старт/пауза
+  const [isPlaying, setIsPlaying] = useState(false)
+
   const handleStart = () => {
     audioRef.current.play()
     setIsPlaying(true)
@@ -27,6 +28,13 @@ export const AudioPlayer = ({ currentTrack }) => {
     }
   }, [currentTrack])
 
+  // зацикленность трека
+  const [isLoop, setIsLoop] = useState(false)
+  const toggleLoop = () => {
+    audioRef.current.loop = !isLoop
+    setIsLoop(!isLoop)
+  }
+
   return (
     <S.Bar>
       <S.BarContent>
@@ -45,6 +53,8 @@ export const AudioPlayer = ({ currentTrack }) => {
             <Buttons
               togglePlay={togglePlay}
               isPlaying={isPlaying}
+              isLoop={isLoop}
+              toggleLoop={toggleLoop}
             />
             <Track currentTrack={currentTrack} />
           </S.BarPlayer>
