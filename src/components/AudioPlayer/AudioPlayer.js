@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as S from './Styles'
 import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
+import { ProgressBar } from '../ProgressBar/ProgressBar'
 
 export const AudioPlayer = ({ currentTrack }) => {
   const audioRef = useRef(null)
@@ -34,6 +35,27 @@ export const AudioPlayer = ({ currentTrack }) => {
     audioRef.current.loop = !isLoop
     setIsLoop(!isLoop)
   }
+  // прогресс трека
+  const [currentTime, setCurrentTime] = useState(null)
+
+  const duration = currentTrack.duration_in_seconds
+
+  useEffect(() => {
+    audioRef.current.addEventListener('timeupdate', () => {
+      setCurrentTime(audioRef.current.currentTime)
+      return () => {
+        audioRef.current.removeEventListener('timeupdate', () => {
+          setCurrentTime(audioRef.current.currentTime)
+        })
+      }
+    })
+  })
+
+  const handleProgressBarChange = (event) => {
+    const newTime = parseFloat(event.target.value)
+    setCurrentTime(newTime)
+    audioRef.current.currentTime = newTime
+  }
 
   return (
     <S.Bar>
@@ -42,12 +64,16 @@ export const AudioPlayer = ({ currentTrack }) => {
           controls
           ref={audioRef}
           src={currentTrack.track_file}
-          autoPlay
+          style={{ display: 'none' }}
         >
           <track kind="captions" />
         </audio>
 
-        <S.BarPlayerProgress />
+        <ProgressBar
+          currentTime={currentTime}
+          duration={duration}
+          handleProgressBarChange={handleProgressBarChange}
+        />
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <Buttons
