@@ -9,6 +9,7 @@ export const AudioPlayer = ({ currentTrack }) => {
   const audioRef = useRef(null)
 
   // старт/пауза
+
   const [isPlaying, setIsPlaying] = useState(false)
 
   const handleStart = () => {
@@ -31,6 +32,7 @@ export const AudioPlayer = ({ currentTrack }) => {
   }, [currentTrack])
 
   // зацикленность трека
+
   const [isLoop, setIsLoop] = useState(false)
   const toggleLoop = () => {
     audioRef.current.loop = !isLoop
@@ -38,6 +40,7 @@ export const AudioPlayer = ({ currentTrack }) => {
   }
 
   // прогресс трека
+
   const [currentTime, setCurrentTime] = useState(null)
 
   const duration = currentTrack.duration_in_seconds
