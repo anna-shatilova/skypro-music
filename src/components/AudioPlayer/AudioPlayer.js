@@ -41,7 +41,7 @@ export const AudioPlayer = ({ currentTrack }) => {
 
   // прогресс трека
 
-  const [currentTime, setCurrentTime] = useState(null)
+  const [currentTime, setCurrentTime] = useState(0)
 
   const duration = currentTrack.duration_in_seconds
 
