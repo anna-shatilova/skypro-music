@@ -1,39 +1,15 @@
-// import { Link, useNavigate } from 'react-router-dom'
-
-// export const Login = () => {
-//   const navigate = useNavigate()
-
-//   const setUser = () => {
-//     localStorage.setItem('user', 'token')
-//     navigate('/', { replace: true })
-//   }
-//   return (
-//     <>
-//       <h1>Страница логина</h1>
-//       <div className="modal__btn-enter">
-//         <Link
-//           to="/"
-//           onClick={setUser}
-//         >
-//           Войти
-//         </Link>
-//       </div>
-//       <div className="modal__btn-signup">
-//         <Link to="/register">Зарегистрироваться</Link>
-//       </div>
-//     </>
-//   )
-// }
-
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './LoginAndRegister.styles'
+import { getToken, loginUser } from '../../api'
+import { useUserContext } from '../../context/UserContext'
 
 export const Login = () => {
   const [loginError, setLoginError] = useState(null)
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const user = useUserContext()
 
   const handleLogin = async () => {
     try {
@@ -45,13 +21,12 @@ export const Login = () => {
       if (!password) {
         setLoginError('Введите пароль')
       }
-      // await localStorage.setItem('user', 'token')
 
-      // await loginUser({ email, password }).then((loginData) => {
-      //   getToken({ email, password }).then((tokenData) => {
-      //     login(loginData, tokenData.access);
-      //   });
-      // });
+      await loginUser({ email, password }).then((loginData) => {
+        getToken({ email, password }).then((tokenData) => {
+          user(loginData, tokenData.access)
+        })
+      })
     } catch (error) {
       setLoginError(error.message)
     }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from './routes'
 import { getTracks } from './api'
+import { UserProvider } from './context/UserContext'
 
 export const App = () => {
   const [user, setUser] = useState(null)
@@ -40,12 +41,14 @@ export const App = () => {
   }
 
   return (
-    <AppRoutes
-      user={user}
-      onAuthButtonClick={user ? handleLogout : handleLogin}
-      loading={loading}
-      tracks={tracks}
-      trackListError={trackListError}
-    />
+    <UserProvider>
+      <AppRoutes
+        user={user}
+        onAuthButtonClick={user ? handleLogout : handleLogin}
+        loading={loading}
+        tracks={tracks}
+        trackListError={trackListError}
+      />
+    </UserProvider>
   )
 }

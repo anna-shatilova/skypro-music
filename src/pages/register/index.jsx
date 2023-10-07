@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from '../login/LoginAndRegister.styles'
+import { registerUser, getToken } from '../../api'
+import { useUserContext } from '../../context/UserContext'
 
 export const Register = () => {
   const [regError, setRegError] = useState(null)
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+
+  const { user } = useUserContext()
 
   const handleRegister = async () => {
     try {
@@ -29,11 +32,11 @@ export const Register = () => {
       if (password !== repeatPassword) {
         setRegError('Пароли не совпадают')
       }
-      // await registerUser({ email, password }).then((loginData) => {
-      //     getToken({ email, password }).then((tokenData) => {
-      //       login(loginData, tokenData.access);
-      //     });
-      //   });
+      await registerUser({ email, password }).then((loginData) => {
+        getToken({ email, password }).then((tokenData) => {
+          user(loginData, tokenData.access)
+        })
+      })
     } catch (error) {
       setRegError(error.message)
     }
