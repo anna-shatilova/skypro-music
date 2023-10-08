@@ -1,3 +1,4 @@
+import { useUserContext } from '../../context/UserProvider'
 import * as S from './Styles'
 
 export const sidebarItems = [
@@ -6,11 +7,16 @@ export const sidebarItems = [
   { id: 3, imgSrc: 'img/playlist03.png' },
 ]
 export const Sidebar = ({ loading }) => {
+  const { user, logout } = useUserContext()
+
+  const handleLogout = () => {
+    logout()
+  }
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-        <S.SidebarIcon>
+        <S.SidebarPersonalName>{user.username}</S.SidebarPersonalName>
+        <S.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout" />
           </svg>
