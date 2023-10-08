@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import * as S from './Styles'
+import { useUserContext } from '../../context/UserProvider'
 
 export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
-  const setUser = () => {
-    localStorage.clear()
+  const { logout } = useUserContext()
+  
+  const handleLogout = () => {
+    logout()
   }
+
   return (
     <S.MainNav>
       <S.NavLogo>
@@ -36,7 +40,7 @@ export const NavMenu = () => {
             <S.MenuItem key={3}>
               <S.MenuLink
                 to="/login"
-                onClick={setUser}
+                onClick={handleLogout}
               >
                 Выйти
               </S.MenuLink>

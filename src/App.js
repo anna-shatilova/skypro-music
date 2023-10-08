@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from './routes'
 import { getTracks } from './api'
-import { UserProvider } from './context/UserContext'
+import { UserProvider } from './context/UserProvider'
 
 export const App = () => {
   const [user, setUser] = useState(null)

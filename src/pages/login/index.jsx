@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './LoginAndRegister.styles'
 import { getToken, loginUser } from '../../api'
-import { useUserContext } from '../../context/UserContext'
+import { useUserContext } from '../../context/UserProvider'
 
 export const Login = () => {
   const [loginError, setLoginError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const user = useUserContext()
+  const {login} = useUserContext()
 
   const handleLogin = async () => {
     try {
@@ -24,7 +24,7 @@ export const Login = () => {
 
       await loginUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
-          user(loginData, tokenData.access)
+          login(loginData, tokenData.access)
         })
       })
     } catch (error) {

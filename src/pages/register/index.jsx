@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from '../login/LoginAndRegister.styles'
 import { registerUser, getToken } from '../../api'
-import { useUserContext } from '../../context/UserContext'
+import { useUserContext } from '../../context/UserProvider'
 
 export const Register = () => {
   const [regError, setRegError] = useState(null)
@@ -10,7 +10,7 @@ export const Register = () => {
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
 
-  const { user } = useUserContext()
+  const { login } = useUserContext()
 
   const handleRegister = async () => {
     try {
@@ -34,7 +34,7 @@ export const Register = () => {
       }
       await registerUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
-          user(loginData, tokenData.access)
+          login(loginData, tokenData.access)
         })
       })
     } catch (error) {

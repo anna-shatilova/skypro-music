@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export const UserContext = React.createContext(null)
 
 export const useUserContext = () => {
-  const user = useContext(UserContext)
-  return user
+  return useContext(UserContext)
 }
 
 function getAuthFromLocalStorage() {
