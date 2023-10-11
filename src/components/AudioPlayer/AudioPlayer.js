@@ -43,13 +43,11 @@ export const AudioPlayer = ({ currentTrack }) => {
 
   const [currentTime, setCurrentTime] = useState(0)
 
-  const duration = currentTrack.duration_in_seconds
+  let duration = 0
 
-  // let duration = 0
-
-  // if (audioRef.current) {
-  //   duration = audioRef.current.duration
-  // }
+  if (audioRef.current) {
+    duration = audioRef.current.duration
+  }
 
   useEffect(() => {
     audioRef.current.addEventListener('timeupdate', () => {

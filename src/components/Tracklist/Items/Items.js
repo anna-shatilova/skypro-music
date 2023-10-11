@@ -2,6 +2,27 @@ import * as S from './Styles'
 
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
+// const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
+
+export const formatTime = (time) => {
+  const hours = Math.floor(time / 3600)
+  const minutes = Math.floor((time % 3600) / 60)
+  const seconds = Math.floor(time % 60)
+  let fulltime = 0
+
+  const formattedHours = String(hours).padStart(2)
+  let formattedMinutes = String(minutes).padStart(2)
+  const formattedSeconds = String(seconds).padStart(2, '0')
+
+  if (hours === 0) {
+    fulltime = `${formattedMinutes}:${formattedSeconds}`
+  } else {
+    formattedMinutes = String(minutes).padStart(2, '0')
+    fulltime = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+  }
+
+  return fulltime
+}
 
 export const Items = ({ loading, tracks, setCurrentTrack }) => {
   return (
@@ -35,7 +56,9 @@ export const Items = ({ loading, tracks, setCurrentTrack }) => {
                 <S.TrackTimeSvg alt="time">
                   <use xlinkHref={likeSvg} />
                 </S.TrackTimeSvg>
-                <S.TrackTimeText>{track.duration_in_seconds}</S.TrackTimeText>
+                <S.TrackTimeText>
+                  {formatTime(track.duration_in_seconds)}
+                </S.TrackTimeText>
               </div>
             </S.PlaylistTrack>
           </S.PlaylistItem>
