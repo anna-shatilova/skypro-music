@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from './routes'
-import { getTracks } from './api'
+import { getTracks } from './api/apiTrack'
 import { UserProvider } from './context/UserProvider'
 
 export const App = () => {
