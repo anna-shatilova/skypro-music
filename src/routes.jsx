@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { MainPage } from './pages/main/ MainPage'
+import { MainPage } from './pages/main/MainPage'
 import { Login } from './pages/login'
 import { Register } from './pages/register'
 import { NotFound } from './pages/not-found'

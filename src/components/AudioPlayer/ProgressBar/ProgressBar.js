@@ -1,12 +1,11 @@
 import * as S from './Styles'
+import { formatTime } from '../../Tracklist/Items/Items'
 
 export const ProgressBar = ({
   duration,
   currentTime,
   handleProgressBarChange,
 }) => {
-  const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
-
   return (
     <>
       <S.ProgressTime>
@@ -15,7 +14,7 @@ export const ProgressBar = ({
       <S.ProgressInput
         type="range"
         min={0}
-        max={duration}
+        max={duration || 'Infinity'}
         value={currentTime}
         step={0.01}
         onChange={handleProgressBarChange}
