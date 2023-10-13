@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux'
 import * as S from './Styles'
 
-export const PopupPerformer = ({tracks}) => {
+export const PopupPerformer = () => {
+  const tracks = useSelector((state) => state.tracks.tracks[0].tracks)
+
   return (
     <S.FilterPopup style={{ top: '49px', left: '92px' }}>
       <S.PopupList>

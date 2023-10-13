@@ -6,7 +6,7 @@ import { NavMenu } from '../../components/NavMenu/NavMenu'
 import { Sidebar } from '../../components/SideBar/Sidebar'
 import { TrackList } from '../../components/Tracklist/TrackList'
 
-export const MainPage = ({ loading, tracks, trackListError }) => {
+export const MainPage = ({ loading, trackListError }) => {
   const [currentTrack, setCurrentTrack] = useState(null)
   return (
     <>
@@ -17,7 +17,6 @@ export const MainPage = ({ loading, tracks, trackListError }) => {
             <NavMenu />
             <TrackList
               trackListError={trackListError}
-              tracks={tracks}
               loading={loading}
               setCurrentTrack={setCurrentTrack}
             />

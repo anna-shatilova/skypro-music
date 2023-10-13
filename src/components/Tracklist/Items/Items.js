@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import * as S from './Styles'
 
 const titleSvg = 'img/icon/sprite.svg#icon-note'
@@ -24,7 +25,18 @@ export const formatTime = (time) => {
   return fulltime
 }
 
-export const Items = ({ loading, tracks, setCurrentTrack }) => {
+export const Items = ({ loading, setCurrentTrack }) => {
+  const tracksData = useSelector((state) => state.tracks.tracks)
+  const tracks = tracksData[0]?.tracks || [
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 },
+    { id: 6 },
+    { id: 7 },
+  ]
+
   return (
     <>
       {tracks.map((track) => {

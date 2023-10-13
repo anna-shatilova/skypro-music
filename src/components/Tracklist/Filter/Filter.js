@@ -4,7 +4,7 @@ import { PopupPerformer } from './PopupPerformer'
 import { PopupYear } from './PopupYear'
 import { PopupGenre } from './PopupGenre'
 
-export const Filter = ({tracks}) => {
+export const Filter = () => {
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = [
@@ -36,7 +36,7 @@ export const Filter = ({tracks}) => {
         )
       })}
 
-      {activeFilter === filters[0].id && <PopupPerformer tracks={tracks} />}
+      {activeFilter === filters[0].id && <PopupPerformer />}
       {activeFilter === filters[1].id && <PopupYear />}
       {activeFilter === filters[2].id && <PopupGenre />}
     </S.CenterblockFilter>
