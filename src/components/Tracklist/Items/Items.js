@@ -28,15 +28,17 @@ export const formatTime = (time) => {
 
 export const Items = ({ loading }) => {
   const tracksData = useSelector((state) => state.tracks.tracks)
-  const tracks = tracksData[0]?.tracks || [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
-  ]
+  const tracks = loading
+    ? [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        { id: 4 },
+        { id: 5 },
+        { id: 6 },
+        { id: 7 },
+      ]
+    : tracksData
 
   const dispatch = useDispatch()
 

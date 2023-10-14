@@ -8,10 +8,9 @@ const playlistSlice = createSlice({
   },
   reducers: {
     addTracks(state, action) {
-      state.tracks.push({
-        tracks: action.payload,
-      })
+      state.tracks = action.payload
     },
+
     setCurrentTrack(state, action) {
       state.currentTrack = action.payload
     },

@@ -8,6 +8,7 @@ import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
 
 export const AudioPlayer = () => {
+
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
 
   const audioRef = useRef(null)
