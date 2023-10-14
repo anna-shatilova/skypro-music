@@ -4,7 +4,7 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ loading, trackListError, setCurrentTrack }) => {
+export const TrackList = ({ loading, trackListError}) => {
   return (
     <S.MainCenterblock>
       <Search />
@@ -27,7 +27,6 @@ export const TrackList = ({ loading, trackListError, setCurrentTrack }) => {
           ) : (
             <Items
               loading={loading}
-              setCurrentTrack={setCurrentTrack}
             />
           )}
         </S.ContentPlaylistTitle>

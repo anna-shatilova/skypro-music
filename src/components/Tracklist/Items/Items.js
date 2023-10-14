@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
+import { setCurrentTrack } from '../../../store/playlistSlice'
 
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
@@ -25,7 +26,7 @@ export const formatTime = (time) => {
   return fulltime
 }
 
-export const Items = ({ loading, setCurrentTrack }) => {
+export const Items = ({ loading }) => {
   const tracksData = useSelector((state) => state.tracks.tracks)
   const tracks = tracksData[0]?.tracks || [
     { id: 1 },
@@ -37,13 +38,15 @@ export const Items = ({ loading, setCurrentTrack }) => {
     { id: 7 },
   ]
 
+  const dispatch = useDispatch()
+
   return (
     <>
       {tracks.map((track) => {
         return (
           <S.PlaylistItem
             key={track.id}
-            onClick={() => setCurrentTrack(track)}
+            onClick={() => dispatch(setCurrentTrack(track))}
           >
             <S.PlaylistTrack>
               <S.TrackTitle>

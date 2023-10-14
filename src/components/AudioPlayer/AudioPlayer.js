@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import * as S from './Styles'
+
 import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
 
-export const AudioPlayer = ({ currentTrack }) => {
+export const AudioPlayer = () => {
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+
   const audioRef = useRef(null)
 
   // старт/пауза
@@ -100,7 +104,7 @@ export const AudioPlayer = ({ currentTrack }) => {
               isLoop={isLoop}
               toggleLoop={toggleLoop}
             />
-            <Track currentTrack={currentTrack} />
+            <Track />
           </S.BarPlayer>
           <VolumeBar
             volume={volume}

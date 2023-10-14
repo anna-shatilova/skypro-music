@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux'
 import * as S from './Styles'
 
-export const Track = ({ currentTrack }) => {
+export const Track = () => {
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+
   return (
     <S.PlayerTrackPlay>
       <S.TrackPlayContain>

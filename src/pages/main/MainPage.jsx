@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
+
 import * as S from '../../AppStyles'
 
 import { AudioPlayer } from '../../components/AudioPlayer/AudioPlayer'
@@ -7,7 +8,8 @@ import { Sidebar } from '../../components/SideBar/Sidebar'
 import { TrackList } from '../../components/Tracklist/TrackList'
 
 export const MainPage = ({ loading, trackListError }) => {
-  const [currentTrack, setCurrentTrack] = useState(null)
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+
   return (
     <>
       <S.GlobalStyle />
@@ -18,16 +20,10 @@ export const MainPage = ({ loading, trackListError }) => {
             <TrackList
               trackListError={trackListError}
               loading={loading}
-              setCurrentTrack={setCurrentTrack}
             />
             <Sidebar loading={loading} />
           </S.Main>
-          {currentTrack ? (
-            <AudioPlayer
-              loading={loading}
-              currentTrack={currentTrack}
-            />
-          ) : null}
+          {currentTrack ? <AudioPlayer loading={loading} /> : null}
           <footer />
         </S.Container>
       </S.Wrapper>
