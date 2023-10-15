@@ -1,10 +1,12 @@
+import { useDispatch } from 'react-redux'
 import * as S from './Styles'
+import { playNextTrack } from '../../../store/playlistSlice'
 
-export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop}) => {
+export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop }) => {
   const handleNotRealized = () => {
     alert('Эта функция еще не реализована')
   }
-
+const dispatch = useDispatch()
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev onClick={handleNotRealized}>
@@ -26,13 +28,19 @@ export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop}) => {
           </S.PlayerBtnPlaySvg>
         )}
       </S.PlayerBtnPlay>
-      <S.PlayerBtnNext onClick={handleNotRealized}>
+      <S.PlayerBtnNext onClick={() => dispatch(playNextTrack())}>
         <S.PlayerBtnNextSvg alt="next">
           <use xlinkHref="img/icon/sprite.svg#icon-next" />
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
-      <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
-        <S.PlayerBtnRepeatSvg alt="repeat" $isLoop={isLoop}>
+      <S.PlayerBtnRepeat
+        className="_btn-icon"
+        onClick={toggleLoop}
+      >
+        <S.PlayerBtnRepeatSvg
+          alt="repeat"
+          $isLoop={isLoop}
+        >
           <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
