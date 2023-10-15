@@ -1,12 +1,14 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
 import { playNextTrack, playPrevTrack } from '../../../store/playlistSlice'
 
-export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop }) => {
+export const Buttons = ({ togglePlay, isLoop, toggleLoop }) => {
   const handleNotRealized = () => {
     alert('Эта функция еще не реализована')
   }
 const dispatch = useDispatch()
+const isPlaying = useSelector((state) => state.tracks.isPlaying)
+
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev onClick={() => dispatch(playPrevTrack())}>

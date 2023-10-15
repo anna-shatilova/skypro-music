@@ -5,6 +5,7 @@ const playlistSlice = createSlice({
   initialState: {
     tracks: [],
     currentTrack: null,
+    isPlaying: false,
   },
   reducers: {
     addTracks(state, action) {
@@ -38,10 +39,18 @@ const playlistSlice = createSlice({
       if (nextIndex < 0) return
       state.currentTrack = state.tracks[nextIndex]
     },
+
+    playTrack(state, action) {
+      state.isPlaying = action.payload
+    },
+
+    stopTrack(state, action) {
+      state.isPlaying = action.payload
+    },
   },
 })
 
-export const { addTracks, setCurrentTrack, playNextTrack, playPrevTrack } =
+export const { addTracks, setCurrentTrack, playNextTrack, playPrevTrack, playTrack, stopTrack } =
   playlistSlice.actions
 
 export const playlistReducer = playlistSlice.reducer

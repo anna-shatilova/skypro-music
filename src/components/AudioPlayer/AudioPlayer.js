@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
 
 import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
+import { playTrack, stopTrack } from '../../store/playlistSlice'
 
 export const AudioPlayer = () => {
 
@@ -15,16 +16,18 @@ export const AudioPlayer = () => {
 
   // старт/пауза
 
-  const [isPlaying, setIsPlaying] = useState(false)
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+
+  const dispatch = useDispatch()
 
   const handleStart = () => {
     audioRef.current.play()
-    setIsPlaying(true)
+    dispatch(playTrack(true))
   }
 
   const handleStop = () => {
     audioRef.current.pause()
-    setIsPlaying(false)
+    dispatch(stopTrack(false))
   }
 
   const togglePlay = isPlaying ? handleStop : handleStart
@@ -101,7 +104,6 @@ export const AudioPlayer = () => {
           <S.BarPlayer>
             <Buttons
               togglePlay={togglePlay}
-              isPlaying={isPlaying}
               isLoop={isLoop}
               toggleLoop={toggleLoop}
             />
