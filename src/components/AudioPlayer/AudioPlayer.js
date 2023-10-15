@@ -6,10 +6,9 @@ import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
-import { playTrack, stopTrack } from '../../store/playlistSlice'
+import { playNextTrack, playTrack, stopTrack } from '../../store/playlistSlice'
 
 export const AudioPlayer = () => {
-
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
 
   const audioRef = useRef(null)
@@ -90,6 +89,7 @@ export const AudioPlayer = () => {
           controls
           ref={audioRef}
           src={currentTrack.track_file}
+          onEnded={() => dispatch(playNextTrack())}
           style={{ display: 'none' }}
         >
           <track kind="captions" />
