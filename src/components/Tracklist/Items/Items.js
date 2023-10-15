@@ -41,6 +41,8 @@ export const Items = ({ loading }) => {
     : tracksData
 
   const dispatch = useDispatch()
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
 
   return (
     <>
@@ -53,9 +55,18 @@ export const Items = ({ loading }) => {
             <S.PlaylistTrack>
               <S.TrackTitle>
                 <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref={loading ? '' : titleSvg} />
-                  </S.TrackTitleSvg>
+                  {currentTrack?.id !== track.id ? (
+                    <S.TrackTitleSvg alt="music">
+                      <use xlinkHref={loading ? '' : titleSvg} />
+                    </S.TrackTitleSvg>
+                  ) : (
+                    <S.TrackTitleSvgActive
+                      alt="music"
+                      isPlaying={isPlaying}
+                    >
+                      <use xlinkHref="img/icon/sprite.svg#icon-colorcircle" />
+                    </S.TrackTitleSvgActive>
+                  )}
                 </S.TrackTitleImg>
                 {loading ? <S.TrackTitleSkeleton /> : track.name}
               </S.TrackTitle>
