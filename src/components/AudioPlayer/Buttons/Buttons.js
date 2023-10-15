@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import * as S from './Styles'
-import { playNextTrack } from '../../../store/playlistSlice'
+import { playNextTrack, playPrevTrack } from '../../../store/playlistSlice'
 
 export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop }) => {
   const handleNotRealized = () => {
@@ -9,7 +9,7 @@ export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop }) => {
 const dispatch = useDispatch()
   return (
     <S.PlayerControls>
-      <S.PlayerBtnPrev onClick={handleNotRealized}>
+      <S.PlayerBtnPrev onClick={() => dispatch(playPrevTrack())}>
         <S.PlayerBtnPrevSvg alt="prev">
           <use xlinkHref="img/icon/sprite.svg#icon-prev" />
         </S.PlayerBtnPrevSvg>
