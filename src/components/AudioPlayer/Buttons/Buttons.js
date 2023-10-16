@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
 import {
-  // addTracks,
+  addShuffleTracks,
   playNextTrack,
   playPrevTrack,
   shuffleMode,
@@ -9,32 +9,28 @@ import {
 
 export const Buttons = ({ togglePlay, isLoop, toggleLoop, playTrackStart }) => {
   const dispatch = useDispatch()
+
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
-
-  // const tracksArray = useSelector((state) => state.tracks.tracks)
+  const tracks = useSelector((state) => state.tracks.tracks)
+  const shuffleTracks = useSelector((state) => state.tracks.shuffleTracks)
 
   const handleShuffle = () => {
     dispatch(shuffleMode(!isShuffleMode))
-    // const shuffleArray = (array) => {
-    //   let currentIndex = array.length
-    //   let temporaryValue
-    //   let randomIndex
-    //   while (currentIndex !== 0) {
-    //     randomIndex = Math.floor(Math.random() * currentIndex)
-    //     currentIndex -= 1
-    //     temporaryValue = array[currentIndex]
-    //     array[currentIndex] = array[randomIndex]
-    //     array[randomIndex] = temporaryValue
-    //   }
-    //   return array
-    // }
-    // dispatch(addTracks(shuffleArray(tracksArray)))
+
+    const shuffleArray = (array) => {
+      return array.sort(() => Math.random() - 0.5)
+    }
+    if (shuffleTracks.length === 0) {
+      dispatch(addShuffleTracks(shuffleArray([...tracks])))
+    }
   }
+
   const handlePlayPrevTrack = () => {
     playTrackStart()
     dispatch(playPrevTrack())
   }
+
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev onClick={handlePlayPrevTrack}>
