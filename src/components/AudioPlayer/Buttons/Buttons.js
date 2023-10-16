@@ -1,13 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
-import { playNextTrack, playPrevTrack } from '../../../store/playlistSlice'
+import {
+  // addTracks,
+  playNextTrack,
+  playPrevTrack,
+  shuffleMode,
+} from '../../../store/playlistSlice'
 
 export const Buttons = ({ togglePlay, isLoop, toggleLoop }) => {
-  const handleNotRealized = () => {
-    alert('Эта функция еще не реализована')
+  const dispatch = useDispatch()
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+  const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
+
+  // const tracksArray = useSelector((state) => state.tracks.tracks)
+
+  const handleShuffle = () => {
+    dispatch(shuffleMode(!isShuffleMode))
+    // const shuffleArray = (array) => {
+    //   let currentIndex = array.length
+    //   let temporaryValue
+    //   let randomIndex
+    //   while (currentIndex !== 0) {
+    //     randomIndex = Math.floor(Math.random() * currentIndex)
+    //     currentIndex -= 1
+    //     temporaryValue = array[currentIndex]
+    //     array[currentIndex] = array[randomIndex]
+    //     array[randomIndex] = temporaryValue
+    //   }
+    //   return array
+    // }
+    // dispatch(addTracks(shuffleArray(tracksArray)))
   }
-const dispatch = useDispatch()
-const isPlaying = useSelector((state) => state.tracks.isPlaying)
 
   return (
     <S.PlayerControls>
@@ -48,9 +71,12 @@ const isPlaying = useSelector((state) => state.tracks.isPlaying)
       </S.PlayerBtnRepeat>
       <S.PlayerBtnShuffle
         className="_btn-icon"
-        onClick={handleNotRealized}
+        onClick={handleShuffle}
       >
-        <S.PlayerBtnShuffleSvg alt="shuffle">
+        <S.PlayerBtnShuffleSvg
+          $isShuffleMode={isShuffleMode}
+          alt="shuffle"
+        >
           <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
         </S.PlayerBtnShuffleSvg>
       </S.PlayerBtnShuffle>
