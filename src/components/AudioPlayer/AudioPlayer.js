@@ -38,6 +38,14 @@ export const AudioPlayer = () => {
     }
   }, [currentTrack])
 
+  // перемотка трека на начало, если он играет дольше 5 сек
+
+  const playTrackStart = () => {
+    if (audioRef.current.currentTime > 5) {
+      audioRef.current.currentTime = 0
+    }
+  }
+
   // зацикленность трека
 
   const [isLoop, setIsLoop] = useState(false)
@@ -106,6 +114,7 @@ export const AudioPlayer = () => {
               togglePlay={togglePlay}
               isLoop={isLoop}
               toggleLoop={toggleLoop}
+              playTrackStart={playTrackStart}
             />
             <Track />
           </S.BarPlayer>

@@ -7,7 +7,7 @@ import {
   shuffleMode,
 } from '../../../store/playlistSlice'
 
-export const Buttons = ({ togglePlay, isLoop, toggleLoop }) => {
+export const Buttons = ({ togglePlay, isLoop, toggleLoop, playTrackStart }) => {
   const dispatch = useDispatch()
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
@@ -31,10 +31,13 @@ export const Buttons = ({ togglePlay, isLoop, toggleLoop }) => {
     // }
     // dispatch(addTracks(shuffleArray(tracksArray)))
   }
-
+  const handlePlayPrevTrack = () => {
+    playTrackStart()
+    dispatch(playPrevTrack())
+  }
   return (
     <S.PlayerControls>
-      <S.PlayerBtnPrev onClick={() => dispatch(playPrevTrack())}>
+      <S.PlayerBtnPrev onClick={handlePlayPrevTrack}>
         <S.PlayerBtnPrevSvg alt="prev">
           <use xlinkHref="img/icon/sprite.svg#icon-prev" />
         </S.PlayerBtnPrevSvg>
