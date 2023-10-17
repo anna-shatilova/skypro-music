@@ -52,7 +52,7 @@ const playlistSlice = createSlice({
       state.isPlaying = action.payload
     },
 
-    addShuffleTracks(state, action) {
+    toggleShuffle(state, action) {
       state.shuffleTracks = action.payload
       state.activePlaylist = [...state.shuffleTracks]
     },
@@ -71,7 +71,7 @@ export const {
   playTrack,
   stopTrack,
   shuffleMode,
-  addShuffleTracks,
+  toggleShuffle,
 } = playlistSlice.actions
 
 export const playlistReducer = playlistSlice.reducer

@@ -1,12 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
 import {
-  addShuffleTracks,
+  toggleShuffle,
   playNextTrack,
   shuffleMode,
 } from '../../../store/playlistSlice'
 
-export const Buttons = ({ togglePlay, isLoop, toggleLoop, handlePlayPrevTrack }) => {
+export const Buttons = ({
+  togglePlay,
+  isLoop,
+  toggleLoop,
+  handlePlayPrevTrack,
+}) => {
   const dispatch = useDispatch()
 
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
@@ -21,7 +26,9 @@ export const Buttons = ({ togglePlay, isLoop, toggleLoop, handlePlayPrevTrack })
       return array.sort(() => Math.random() - 0.5)
     }
     if (shuffleTracks.length === 0) {
-      dispatch(addShuffleTracks(shuffleArray([...tracks])))
+      dispatch(toggleShuffle(shuffleArray([...tracks])))
+    } else {
+      dispatch(toggleShuffle([...tracks]))
     }
   }
 
