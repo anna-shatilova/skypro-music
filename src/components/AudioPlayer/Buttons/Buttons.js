@@ -17,7 +17,6 @@ export const Buttons = ({
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
   const tracks = useSelector((state) => state.tracks.tracks)
-  const shuffleTracks = useSelector((state) => state.tracks.shuffleTracks)
 
   const handleShuffle = () => {
     dispatch(shuffleMode(!isShuffleMode))
@@ -25,7 +24,7 @@ export const Buttons = ({
     const shuffleArray = (array) => {
       return array.sort(() => Math.random() - 0.5)
     }
-    if (shuffleTracks.length === 0) {
+    if (!isShuffleMode) {
       dispatch(toggleShuffle(shuffleArray([...tracks])))
     } else {
       dispatch(toggleShuffle([...tracks]))
