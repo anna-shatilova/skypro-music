@@ -6,7 +6,12 @@ import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
-import { playNextTrack, playTrack, stopTrack } from '../../store/playlistSlice'
+import {
+  playNextTrack,
+  playTrack,
+  stopTrack,
+  playPrevTrack,
+} from '../../store/playlistSlice'
 
 export const AudioPlayer = () => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
@@ -37,14 +42,6 @@ export const AudioPlayer = () => {
       handleStart()
     }
   }, [currentTrack])
-
-  // перемотка трека на начало, если он играет дольше 5 сек
-
-  const playTrackStart = () => {
-    if (audioRef.current.currentTime > 5) {
-      audioRef.current.currentTime = 0
-    }
-  }
 
   // зацикленность трека
 
@@ -81,6 +78,17 @@ export const AudioPlayer = () => {
     audioRef.current.currentTime = newTime
   }
 
+  // перемотка трека на начало, если он играет дольше 5 сек
+  // или переключение на предыдущий трек, если он играет меньше 5 сек
+
+  const handlePlayPrevTrack = () => {
+    if (audioRef.current.currentTime > 5) {
+      audioRef.current.currentTime = 0
+    } else {
+      dispatch(playPrevTrack())
+    }
+  }
+
   // регулятор громкости
 
   const [volume, setVolume] = useState(0, 5)
@@ -114,7 +122,7 @@ export const AudioPlayer = () => {
               togglePlay={togglePlay}
               isLoop={isLoop}
               toggleLoop={toggleLoop}
-              playTrackStart={playTrackStart}
+              handlePlayPrevTrack={handlePlayPrevTrack}
             />
             <Track />
           </S.BarPlayer>

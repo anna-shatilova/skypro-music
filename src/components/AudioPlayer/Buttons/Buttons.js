@@ -3,11 +3,10 @@ import * as S from './Styles'
 import {
   addShuffleTracks,
   playNextTrack,
-  playPrevTrack,
   shuffleMode,
 } from '../../../store/playlistSlice'
 
-export const Buttons = ({ togglePlay, isLoop, toggleLoop, playTrackStart }) => {
+export const Buttons = ({ togglePlay, isLoop, toggleLoop, handlePlayPrevTrack }) => {
   const dispatch = useDispatch()
 
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
@@ -24,11 +23,6 @@ export const Buttons = ({ togglePlay, isLoop, toggleLoop, playTrackStart }) => {
     if (shuffleTracks.length === 0) {
       dispatch(addShuffleTracks(shuffleArray([...tracks])))
     }
-  }
-
-  const handlePlayPrevTrack = () => {
-    playTrackStart()
-    dispatch(playPrevTrack())
   }
 
   return (
