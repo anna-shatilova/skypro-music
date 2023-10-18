@@ -8,7 +8,7 @@ const playlistSlice = createSlice({
     isPlaying: false,
     shuffleTracks: [],
     isShuffleMode: false,
-    activePlaylist :[],
+    activePlaylist: [],
   },
   reducers: {
     addTracks(state, action) {

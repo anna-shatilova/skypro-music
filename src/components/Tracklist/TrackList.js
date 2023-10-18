@@ -4,7 +4,7 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ loading, trackListError}) => {
+export const TrackList = ({ loading, trackListError }) => {
   return (
     <S.MainCenterblock>
       <Search />
@@ -25,9 +25,7 @@ export const TrackList = ({ loading, trackListError}) => {
           {trackListError ? (
             <p> Не удалось загрузить плейлист, попробуйте позже</p>
           ) : (
-            <Items
-              loading={loading}
-            />
+            <Items loading={loading} />
           )}
         </S.ContentPlaylistTitle>
       </S.CenterblockContent>
