@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { AppRoutes } from './routes'
 import { getTracks } from './api/apiTrack'
 import { UserProvider } from './context/UserProvider'
+import { addTracks } from './store/playlistSlice'
 
 export const App = () => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [tracks, setTracks] = useState([
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-  ])
   const [trackListError, setTrackListError] = useState(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     async function handleGetTracks() {
@@ -22,7 +19,7 @@ export const App = () => {
         setLoading(true)
         setTrackListError(null)
         await getTracks().then((data) => {
-          setTracks(data)
+          dispatch(addTracks(data))
         })
       } catch (error) {
         setTrackListError(error.message)
@@ -46,7 +43,6 @@ export const App = () => {
         user={user}
         onAuthButtonClick={user ? handleLogout : handleLogin}
         loading={loading}
-        tracks={tracks}
         trackListError={trackListError}
       />
     </UserProvider>

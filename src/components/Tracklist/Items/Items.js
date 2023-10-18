@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
+import { setCurrentTrack } from '../../../store/playlistSlice'
 
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
@@ -24,21 +26,47 @@ export const formatTime = (time) => {
   return fulltime
 }
 
-export const Items = ({ loading, tracks, setCurrentTrack }) => {
+export const Items = ({ loading }) => {
+  const tracksData = useSelector((state) => state.tracks.tracks)
+  const tracks = loading
+    ? [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        { id: 4 },
+        { id: 5 },
+        { id: 6 },
+        { id: 7 },
+      ]
+    : tracksData
+
+  const dispatch = useDispatch()
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+
   return (
     <>
       {tracks.map((track) => {
         return (
           <S.PlaylistItem
             key={track.id}
-            onClick={() => setCurrentTrack(track)}
+            onClick={() => dispatch(setCurrentTrack(track))}
           >
             <S.PlaylistTrack>
               <S.TrackTitle>
                 <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref={loading ? '' : titleSvg} />
-                  </S.TrackTitleSvg>
+                  {currentTrack?.id !== track.id ? (
+                    <S.TrackTitleSvg alt="music">
+                      <use xlinkHref={loading ? '' : titleSvg} />
+                    </S.TrackTitleSvg>
+                  ) : (
+                    <S.TrackTitleSvgActive
+                      alt="music"
+                      isPlaying={isPlaying}
+                    >
+                      <use xlinkHref="img/icon/sprite.svg#icon-colorcircle" />
+                    </S.TrackTitleSvgActive>
+                  )}
                 </S.TrackTitleImg>
                 {loading ? <S.TrackTitleSkeleton /> : track.name}
               </S.TrackTitle>

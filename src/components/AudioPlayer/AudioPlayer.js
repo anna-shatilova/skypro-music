@@ -1,25 +1,37 @@
 import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
+
 import { Buttons } from './Buttons/Buttons'
 import { Track } from './Track/Track'
 import { VolumeBar } from './VolumeBar/VolumeBar'
 import { ProgressBar } from './ProgressBar/ProgressBar'
+import {
+  playNextTrack,
+  playTrack,
+  stopTrack,
+  playPrevTrack,
+} from '../../store/playlistSlice'
 
-export const AudioPlayer = ({ currentTrack }) => {
+export const AudioPlayer = () => {
+  const currentTrack = useSelector((state) => state.tracks.currentTrack)
+
   const audioRef = useRef(null)
 
   // старт/пауза
 
-  const [isPlaying, setIsPlaying] = useState(false)
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+
+  const dispatch = useDispatch()
 
   const handleStart = () => {
     audioRef.current.play()
-    setIsPlaying(true)
+    dispatch(playTrack(true))
   }
 
   const handleStop = () => {
     audioRef.current.pause()
-    setIsPlaying(false)
+    dispatch(stopTrack(false))
   }
 
   const togglePlay = isPlaying ? handleStop : handleStart
@@ -27,7 +39,9 @@ export const AudioPlayer = ({ currentTrack }) => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0
-      handleStart()
+      audioRef.current.onloadeddata = () => {
+        handleStart()
+      }
     }
   }, [currentTrack])
 
@@ -66,6 +80,17 @@ export const AudioPlayer = ({ currentTrack }) => {
     audioRef.current.currentTime = newTime
   }
 
+  // перемотка трека на начало, если он играет дольше 5 сек
+  // или переключение на предыдущий трек, если он играет меньше 5 сек
+
+  const handlePlayPrevTrack = () => {
+    if (audioRef.current.currentTime > 5) {
+      audioRef.current.currentTime = 0
+    } else {
+      dispatch(playPrevTrack())
+    }
+  }
+
   // регулятор громкости
 
   const [volume, setVolume] = useState(0, 5)
@@ -82,6 +107,7 @@ export const AudioPlayer = ({ currentTrack }) => {
           controls
           ref={audioRef}
           src={currentTrack.track_file}
+          onEnded={() => dispatch(playNextTrack())}
           style={{ display: 'none' }}
         >
           <track kind="captions" />
@@ -96,11 +122,11 @@ export const AudioPlayer = ({ currentTrack }) => {
           <S.BarPlayer>
             <Buttons
               togglePlay={togglePlay}
-              isPlaying={isPlaying}
               isLoop={isLoop}
               toggleLoop={toggleLoop}
+              handlePlayPrevTrack={handlePlayPrevTrack}
             />
-            <Track currentTrack={currentTrack} />
+            <Track />
           </S.BarPlayer>
           <VolumeBar
             volume={volume}

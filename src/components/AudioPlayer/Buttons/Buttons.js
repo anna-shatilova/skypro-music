@@ -1,13 +1,39 @@
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Styles'
+import {
+  toggleShuffle,
+  playNextTrack,
+  shuffleMode,
+} from '../../../store/playlistSlice'
 
-export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop}) => {
-  const handleNotRealized = () => {
-    alert('Эта функция еще не реализована')
+export const Buttons = ({
+  togglePlay,
+  isLoop,
+  toggleLoop,
+  handlePlayPrevTrack,
+}) => {
+  const dispatch = useDispatch()
+
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+  const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
+  const tracks = useSelector((state) => state.tracks.tracks)
+
+  const handleShuffle = () => {
+    dispatch(shuffleMode(!isShuffleMode))
+
+    const shuffleArray = (array) => {
+      return array.sort(() => Math.random() - 0.5)
+    }
+    if (!isShuffleMode) {
+      dispatch(toggleShuffle(shuffleArray([...tracks])))
+    } else {
+      dispatch(toggleShuffle([...tracks]))
+    }
   }
 
   return (
     <S.PlayerControls>
-      <S.PlayerBtnPrev onClick={handleNotRealized}>
+      <S.PlayerBtnPrev onClick={handlePlayPrevTrack}>
         <S.PlayerBtnPrevSvg alt="prev">
           <use xlinkHref="img/icon/sprite.svg#icon-prev" />
         </S.PlayerBtnPrevSvg>
@@ -26,21 +52,30 @@ export const Buttons = ({ isPlaying, togglePlay, isLoop, toggleLoop}) => {
           </S.PlayerBtnPlaySvg>
         )}
       </S.PlayerBtnPlay>
-      <S.PlayerBtnNext onClick={handleNotRealized}>
+      <S.PlayerBtnNext onClick={() => dispatch(playNextTrack())}>
         <S.PlayerBtnNextSvg alt="next">
           <use xlinkHref="img/icon/sprite.svg#icon-next" />
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
-      <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
-        <S.PlayerBtnRepeatSvg alt="repeat" $isLoop={isLoop}>
+      <S.PlayerBtnRepeat
+        className="_btn-icon"
+        onClick={toggleLoop}
+      >
+        <S.PlayerBtnRepeatSvg
+          alt="repeat"
+          $isLoop={isLoop}
+        >
           <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
       <S.PlayerBtnShuffle
         className="_btn-icon"
-        onClick={handleNotRealized}
+        onClick={handleShuffle}
       >
-        <S.PlayerBtnShuffleSvg alt="shuffle">
+        <S.PlayerBtnShuffleSvg
+          $isShuffleMode={isShuffleMode}
+          alt="shuffle"
+        >
           <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
         </S.PlayerBtnShuffleSvg>
       </S.PlayerBtnShuffle>
