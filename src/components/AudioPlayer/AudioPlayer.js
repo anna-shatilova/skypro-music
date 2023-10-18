@@ -39,7 +39,9 @@ export const AudioPlayer = () => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0
-      handleStart()
+      audioRef.current.onloadeddata = () => {
+        handleStart()
+      }
     }
   }, [currentTrack])
 
