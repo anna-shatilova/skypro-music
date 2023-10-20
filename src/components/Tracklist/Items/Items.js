@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import * as S from './Styles'
 import { setCurrentTrack } from '../../../store/playlistSlice'
+import { useGetFavoriteTracksQuery } from '../../../store/favoritesApi'
 
 const titleSvg = 'img/icon/sprite.svg#icon-note'
 const likeSvg = 'img/icon/sprite.svg#icon-like'
@@ -31,38 +32,13 @@ export const Items = ({ loading }) => {
   const dispatch = useDispatch()
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
+  const { data = [] } = useGetFavoriteTracksQuery()
 
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
   const tracksData =
-    pageName === 'Main'
-      ? useSelector((state) => state.tracks.tracks)
-      : [
-          {
-            id: 8,
-            name: 'Chase',
-            author: 'Alexander Nakarada',
-            release_date: '2005-06-11',
-            genre: 'Классическая музыка',
-            duration_in_seconds: 205,
-            album: 'Chase',
-            logo: null,
-            track_file:
-              'https://skypro-music-api.skyeng.tech/media/music_files/Alexander_Nakarada_-_Chase.mp3',
-          },
-          {
-            id: 9,
-            name: 'Chase',
-            author: 'Alexander Nakarada',
-            release_date: '2005-06-11',
-            genre: 'Классическая музыка',
-            duration_in_seconds: 205,
-            album: 'Chase',
-            logo: null,
-            track_file:
-              'https://skypro-music-api.skyeng.tech/media/music_files/Alexander_Nakarada_-_Chase.mp3',
-          },
-        ]
+    pageName === 'Main' ? useSelector((state) => state.tracks.tracks) : data
+
   const tracks = loading
     ? [
         { id: 1 },
