@@ -18,7 +18,7 @@ export const Filter = () => {
   }
 
   return (
-    <S.CenterblockFilter>
+    <>
       <S.FilterTitle>Искать по:</S.FilterTitle>
       {filters.map((filter) => {
         return (
@@ -39,6 +39,6 @@ export const Filter = () => {
       {activeFilter === filters[0].id && <PopupPerformer />}
       {activeFilter === filters[1].id && <PopupYear />}
       {activeFilter === filters[2].id && <PopupGenre />}
-    </S.CenterblockFilter>
+    </>
   )
 }
