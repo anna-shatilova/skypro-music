@@ -15,6 +15,15 @@ function getAuthFromLocalStorage() {
   }
 }
 
+export function getTokenFromLocalStorage() {
+  try {
+    return JSON.parse(localStorage.getItem('token'))
+  } catch (error) {
+    return null
+  }
+}
+
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(getAuthFromLocalStorage())
   const navigate = useNavigate()

@@ -32,7 +32,8 @@ export const Items = ({ loading }) => {
   const dispatch = useDispatch()
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
-  const { data = [] } = useGetFavoriteTracksQuery()
+  const token = useSelector((state) => state.tracks.accessToken)
+  const { data = [] } = useGetFavoriteTracksQuery(token)
 
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'

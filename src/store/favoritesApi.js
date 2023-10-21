@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { getToken } from '../api/apiUser'
 
 export const favoritesApi = createApi({
   reducerPath: 'favoritesApi',
@@ -8,9 +7,9 @@ export const favoritesApi = createApi({
   }),
   endpoints: (build) => ({
     getFavoriteTracks: build.query({
-      query: () => ({
+      query: (accessToken) => ({
         url: 'favorite/all',
-        headers: { Authorization: `Bearer ${getToken}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
       }),
     }),
   }),
