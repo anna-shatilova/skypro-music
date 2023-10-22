@@ -70,6 +70,11 @@ const playlistSlice = createSlice({
     fetchRefreshToken(state, action) {
       state.refreshToken = action.payload
     },
+
+    favoriteMode(state, action) {
+      state.activePlaylist = action.payload
+    },
+
   },
 })
 
@@ -84,6 +89,7 @@ export const {
   toggleShuffle,
   fetchAccessToken,
   fetchRefreshToken,
+  favoriteMode,
 } = playlistSlice.actions
 
 export const playlistReducer = playlistSlice.reducer
