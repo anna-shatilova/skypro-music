@@ -12,7 +12,25 @@ export const favoritesApi = createApi({
         headers: { Authorization: `Bearer ${accessToken}` },
       }),
     }),
+    addFavoriteTracks: build.mutation({
+      query: ({ id, accessToken }) => ({
+        url: `${id}/favorite/`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+        method: 'POST',
+      }),
+    }),
+    deleteFavoriteTracks: build.mutation({
+      query: ({ id, accessToken }) => ({
+        url: `${id}/favorite/`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
-export const { useGetFavoriteTracksQuery } = favoritesApi
+export const {
+  useGetFavoriteTracksQuery,
+  useAddFavoriteTracksMutation,
+  useDeleteFavoriteTracksMutation,
+} = favoritesApi

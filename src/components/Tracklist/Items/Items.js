@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import * as S from './Styles'
 import { setCurrentTrack } from '../../../store/playlistSlice'
-import { useGetFavoriteTracksQuery } from '../../../store/favoritesApi'
+import {
+  useGetFavoriteTracksQuery,
+  useAddFavoriteTracksMutation,
+  useDeleteFavoriteTracksMutation,
+} from '../../../store/favoritesApi'
 
-const titleSvg = 'img/icon/sprite.svg#icon-note'
-const likeSvg = 'img/icon/sprite.svg#icon-like'
 // const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
 
 export const formatTime = (time) => {
@@ -32,14 +34,37 @@ export const Items = ({ loading }) => {
   const dispatch = useDispatch()
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
+
+  // токен пришел из стора и ушел в RTK Qery для авторизованного запроса в апи
   const token = useSelector((state) => state.tracks.accessToken)
   const { data = [] } = useGetFavoriteTracksQuery(token)
+  const favoritesPlaylist = data
 
+  // реализация лайков
+  const [addFavoriteTrack] = useAddFavoriteTracksMutation()
+  const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
+
+  const handleAddFavoriteTrack = (track) => {
+    addFavoriteTrack({ id: track.id, accessToken: token })
+  }
+  const handleDeleteFavoriteTrack = (track) => {
+    deleteFavoriteTrack({ id: track.id, accessToken: token })
+  }
+  const statusLike = (arr, item) => {
+    if (arr === undefined) return 'nolike'
+    const newArr = arr.map((elem) => elem.id)
+    return newArr.includes(item.id) ? 'like' : 'nolike'
+  }
+
+  // переключение компонента между страницами "Главная" и "Мои треки"
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
   const tracksData =
-    pageName === 'Main' ? useSelector((state) => state.tracks.tracks) : data
+    pageName === 'Main'
+      ? useSelector((state) => state.tracks.tracks)
+      : favoritesPlaylist || []
 
+  // лоадер загрузки треков (скелетоны при загрузке)
   const tracks = loading
     ? [
         { id: 1 },
@@ -52,54 +77,75 @@ export const Items = ({ loading }) => {
       ]
     : tracksData
 
+  // рендерит список треков
+  const listItems = tracks.map((track) => {
+    return (
+      <S.PlaylistItem key={track.id}>
+        <S.PlaylistTrack>
+          <S.TrackTitle onClick={() => dispatch(setCurrentTrack(track))}>
+            <S.TrackTitleImg>
+              {currentTrack?.id !== track.id ? (
+                <S.TrackTitleSvg alt="music">
+                  <use
+                    xlinkHref={loading ? '' : 'img/icon/sprite.svg#icon-note'}
+                  />
+                </S.TrackTitleSvg>
+              ) : (
+                <S.TrackTitleSvgActive
+                  alt="music"
+                  isPlaying={isPlaying}
+                >
+                  <use xlinkHref="img/icon/sprite.svg#icon-colorcircle" />
+                </S.TrackTitleSvgActive>
+              )}
+            </S.TrackTitleImg>
+            {loading ? <S.TrackTitleSkeleton /> : track.name}
+          </S.TrackTitle>
+          {loading ? (
+            <S.TrackAuthorSkeleton />
+          ) : (
+            <S.TrackAuthor>{track.author}</S.TrackAuthor>
+          )}
+          {loading ? (
+            <S.TrackAlbumSkeleton />
+          ) : (
+            <S.TrackAlbum>{track.album}</S.TrackAlbum>
+          )}
+          {loading ? (
+            ''
+          ) : (
+            <div>
+              <S.TrackLikeSvg
+                alt="like"
+                onClick={() =>
+                  statusLike(favoritesPlaylist, track) === 'nolike'
+                    ? handleAddFavoriteTrack(track)
+                    : handleDeleteFavoriteTrack(track)
+                }
+              >
+                {statusLike(favoritesPlaylist, track) === 'nolike' ? (
+                  <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
+                ) : (
+                  <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                )}
+              </S.TrackLikeSvg>
+              <S.TrackTimeText>
+                {formatTime(track.duration_in_seconds)}
+              </S.TrackTimeText>
+            </div>
+          )}
+        </S.PlaylistTrack>
+      </S.PlaylistItem>
+    )
+  })
+
+  const emptyList = (
+    <S.FavoritesEmpty>В этом плейлисте нет треков</S.FavoritesEmpty>
+  )
+
   return (
-    <>
-      {tracks.map((track) => {
-        return (
-          <S.PlaylistItem
-            key={track.id}
-            onClick={() => dispatch(setCurrentTrack(track))}
-          >
-            <S.PlaylistTrack>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  {currentTrack?.id !== track.id ? (
-                    <S.TrackTitleSvg alt="music">
-                      <use xlinkHref={loading ? '' : titleSvg} />
-                    </S.TrackTitleSvg>
-                  ) : (
-                    <S.TrackTitleSvgActive
-                      alt="music"
-                      isPlaying={isPlaying}
-                    >
-                      <use xlinkHref="img/icon/sprite.svg#icon-colorcircle" />
-                    </S.TrackTitleSvgActive>
-                  )}
-                </S.TrackTitleImg>
-                {loading ? <S.TrackTitleSkeleton /> : track.name}
-              </S.TrackTitle>
-              {loading ? (
-                <S.TrackAuthorSkeleton />
-              ) : (
-                <S.TrackAuthor>{track.author}</S.TrackAuthor>
-              )}
-              {loading ? (
-                <S.TrackAlbumSkeleton />
-              ) : (
-                <S.TrackAlbum>{track.album}</S.TrackAlbum>
-              )}
-              <div>
-                <S.TrackTimeSvg alt="time">
-                  <use xlinkHref={likeSvg} />
-                </S.TrackTimeSvg>
-                <S.TrackTimeText>
-                  {formatTime(track.duration_in_seconds)}
-                </S.TrackTimeText>
-              </div>
-            </S.PlaylistTrack>
-          </S.PlaylistItem>
-        )
-      })}
-    </>
+    <S.ContentPlaylist>
+      {tracks.length !== 0 ? listItems : emptyList}
+    </S.ContentPlaylist>
   )
 }
