@@ -22,8 +22,7 @@ export const Buttons = ({
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
   const tracks = useSelector((state) => state.tracks.tracks)
 
-  const token = useSelector((state) => state.tracks.accessToken)
-  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery(token)
+  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery()
 
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'

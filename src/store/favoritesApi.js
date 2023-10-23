@@ -5,12 +5,18 @@ export const favoritesApi = createApi({
   tagTypes: ['FavoriteTracks'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track/',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().tracks.accessToken
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`)
+      }
+      return headers
+    },
   }),
   endpoints: (build) => ({
     getFavoriteTracks: build.query({
-      query: (accessToken) => ({
+      query: () => ({
         url: 'favorite/all',
-        headers: { Authorization: `Bearer ${accessToken}` },
       }),
       providesTags: (result) =>
         result
@@ -21,17 +27,15 @@ export const favoritesApi = createApi({
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
     addFavoriteTracks: build.mutation({
-      query: ({ id, accessToken }) => ({
+      query: ({ id }) => ({
         url: `${id}/favorite/`,
-        headers: { Authorization: `Bearer ${accessToken}` },
         method: 'POST',
       }),
       invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
     deleteFavoriteTracks: build.mutation({
-      query: ({ id, accessToken }) => ({
+      query: ({ id }) => ({
         url: `${id}/favorite/`,
-        headers: { Authorization: `Bearer ${accessToken}` },
         method: 'DELETE',
       }),
       invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],

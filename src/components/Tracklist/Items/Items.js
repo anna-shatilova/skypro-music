@@ -36,12 +36,10 @@ export const Items = ({ loading }) => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
 
-  // токен пришел из стора и ушел в RTK Qery для авторизованного запроса в апи
-  const token = useSelector((state) => state.tracks.accessToken)
-  const { data: favoritesPlaylist, error: favoriteError } =
-    useGetFavoriteTracksQuery(token)
-
   // реализация лайков
+  const { data: favoritesPlaylist, error: favoriteError } =
+    useGetFavoriteTracksQuery()
+
   const navigate = useNavigate()
   const { logout } = useUserContext()
 
@@ -49,7 +47,7 @@ export const Items = ({ loading }) => {
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
   const handleAddFavoriteTrack = (track) => {
-    addFavoriteTrack({ id: track.id, accessToken: token })
+    addFavoriteTrack({ id: track.id })
       .unwrap()
       .catch(() => {
         if (favoriteError?.status === 401) {
@@ -59,7 +57,7 @@ export const Items = ({ loading }) => {
       })
   }
   const handleDeleteFavoriteTrack = (track) => {
-    deleteFavoriteTrack({ id: track.id, accessToken: token })
+    deleteFavoriteTrack({ id: track.id })
       .unwrap()
       .catch(() => {
         if (favoriteError?.status === 401) {

@@ -9,8 +9,8 @@ const playlistSlice = createSlice({
     shuffleTracks: [],
     isShuffleMode: false,
     activePlaylist: [],
-    accessToken: null,
-    refreshToken: null,
+    accessToken: '',
+    refreshToken: '',
   },
   reducers: {
     addTracks(state, action) {
@@ -74,7 +74,6 @@ const playlistSlice = createSlice({
     favoriteMode(state, action) {
       state.activePlaylist = action.payload
     },
-
   },
 })
 
