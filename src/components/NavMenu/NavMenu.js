@@ -5,7 +5,7 @@ import { useUserContext } from '../../context/UserProvider'
 export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
   const { logout } = useUserContext()
-  
+
   const handleLogout = () => {
     logout()
   }
@@ -35,7 +35,7 @@ export const NavMenu = () => {
               <S.MenuLink to="/">Главное</S.MenuLink>
             </S.MenuItem>
             <S.MenuItem key={2}>
-              <S.MenuLink to="/favorites">Мой плейлист</S.MenuLink>
+              <S.MenuLink to="/favorites">Мои треки</S.MenuLink>
             </S.MenuItem>
             <S.MenuItem key={3}>
               <S.MenuLink

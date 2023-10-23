@@ -1,10 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+
 import * as S from './Styles'
 import {
   toggleShuffle,
   playNextTrack,
   shuffleMode,
+  favoriteMode,
 } from '../../../store/playlistSlice'
+import { useGetFavoriteTracksQuery } from '../../../store/favoritesApi'
 
 export const Buttons = ({
   togglePlay,
@@ -17,6 +21,17 @@ export const Buttons = ({
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
   const tracks = useSelector((state) => state.tracks.tracks)
+
+  const token = useSelector((state) => state.tracks.accessToken)
+  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery(token)
+
+  const location = useLocation()
+  const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
+  if (pageName === 'Favorites' && favoritesPlaylist) {
+    dispatch(favoriteMode([...favoritesPlaylist]))
+  } else {
+    dispatch(favoriteMode([...tracks]))
+  }
 
   const handleShuffle = () => {
     dispatch(shuffleMode(!isShuffleMode))

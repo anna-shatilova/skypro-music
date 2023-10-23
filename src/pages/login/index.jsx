@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
 import { Link } from 'react-router-dom'
 import * as S from './LoginAndRegister.styles'
 import { getToken, loginUser } from '../../api/apiUser'
 import { useUserContext } from '../../context/UserProvider'
+import { fetchAccessToken, fetchRefreshToken } from '../../store/playlistSlice'
 
 export const Login = () => {
   const [loginError, setLoginError] = useState(null)
@@ -10,6 +13,7 @@ export const Login = () => {
   const [password, setPassword] = useState('')
 
   const { login } = useUserContext()
+  const dispatch = useDispatch()
 
   const handleLogin = async () => {
     try {
@@ -24,6 +28,9 @@ export const Login = () => {
 
       await loginUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
+          dispatch(fetchAccessToken(tokenData.access))
+          dispatch(fetchRefreshToken(tokenData.refresh))
+
           login(loginData, tokenData.access)
         })
       })

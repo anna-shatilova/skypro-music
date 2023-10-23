@@ -1,5 +1,22 @@
 import styled, { css, keyframes } from 'styled-components'
 
+export const ContentPlaylist = styled.div`
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-y: auto;
+`
+export const FavoritesEmpty =styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;  
+  color: #ffffff;  
+`
 export const PlaylistItem = styled.div`
   width: 100%;
   display: block;
@@ -67,16 +84,17 @@ const active = keyframes`
     transform: scale(1);
   }
 `
- const animationCode = css`${active} 0.6s ease-in-out infinite both`;
-
+const animationCode = css`
+  ${active} 0.6s ease-in-out infinite both
+`
 
 export const TrackTitleSvgActive = styled.svg`
-    width: 16px;
-    height: 16px;
-    background-color: #b672ff;
-    border-radius: 8px;
-    display: block;
-    animation: ${props => props.isPlaying ? animationCode : "none"};
+  width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  animation: ${(props) => (props.isPlaying ? animationCode : 'none')};
 `
 
 export const TrackTitleSkeleton = styled.div`
@@ -139,13 +157,14 @@ export const TrackAlbum = styled.div`
 //   line-height: 24px;
 //   color: #696969;
 // `
-export const TrackTimeSvg = styled.svg`
+export const TrackLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
 `
+
 export const TrackTimeText = styled.span`
   font-style: normal;
   font-weight: 400;

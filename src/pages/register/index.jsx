@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
 import { Link } from 'react-router-dom'
 import * as S from '../login/LoginAndRegister.styles'
+
 import { registerUser, getToken } from '../../api/apiUser'
 import { useUserContext } from '../../context/UserProvider'
+import { fetchAccessToken, fetchRefreshToken } from '../../store/playlistSlice'
 
 export const Register = () => {
   const [regError, setRegError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+  const dispatch = useDispatch()
 
   const { login } = useUserContext()
 
@@ -34,6 +39,9 @@ export const Register = () => {
       }
       await registerUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
+          dispatch(fetchAccessToken(tokenData.access))
+          dispatch(fetchRefreshToken(tokenData.refresh))
+
           login(loginData, tokenData.access)
         })
       })

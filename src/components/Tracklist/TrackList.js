@@ -1,15 +1,23 @@
+import { useLocation } from 'react-router-dom'
+
 import * as S from './Styles'
 
 import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ loading, trackListError}) => {
+export const TrackList = ({ loading, trackListError }) => {
+  const location = useLocation()
+  const pageTitle = location.pathname === '/' ? 'Треки' : 'Мои треки'
+  const displayFilter = location.pathname === '/' ? 'flex' : 'none'
+
   return (
     <S.MainCenterblock>
       <Search />
-      <S.CenterblockTitle>Треки</S.CenterblockTitle>
-      <Filter />
+      <S.CenterblockTitle>{pageTitle}</S.CenterblockTitle>
+      <S.CenterblockFilter style={{ display: displayFilter }}>
+        <Filter />
+      </S.CenterblockFilter>
       <S.CenterblockContent>
         <S.ContentTitle>
           <S.PlaylistTitle01>Трек</S.PlaylistTitle01>
@@ -25,9 +33,7 @@ export const TrackList = ({ loading, trackListError}) => {
           {trackListError ? (
             <p> Не удалось загрузить плейлист, попробуйте позже</p>
           ) : (
-            <Items
-              loading={loading}
-            />
+            <Items loading={loading} />
           )}
         </S.ContentPlaylistTitle>
       </S.CenterblockContent>
