@@ -38,7 +38,8 @@ export const Items = ({ loading }) => {
 
   // токен пришел из стора и ушел в RTK Qery для авторизованного запроса в апи
   const token = useSelector((state) => state.tracks.accessToken)
-  const { data: favoritesPlaylist } = useGetFavoriteTracksQuery(token)
+  const { data: favoritesPlaylist, error: favoriteError } =
+    useGetFavoriteTracksQuery(token)
 
   // реализация лайков
   const navigate = useNavigate()
@@ -50,8 +51,8 @@ export const Items = ({ loading }) => {
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id, accessToken: token })
       .unwrap()
-      .catch((response) => {
-        if (response.status === 401) {
+      .catch(() => {
+        if (favoriteError?.status === 401) {
           navigate('/login')
           logout()
         }
@@ -60,13 +61,14 @@ export const Items = ({ loading }) => {
   const handleDeleteFavoriteTrack = (track) => {
     deleteFavoriteTrack({ id: track.id, accessToken: token })
       .unwrap()
-      .catch((response) => {
-        if (response.status === 401) {
+      .catch(() => {
+        if (favoriteError?.status === 401) {
           navigate('/login')
           logout()
         }
       })
   }
+
   const statusLike = (arr, item) => {
     if (arr === undefined) return 'nolike'
     const newArr = arr.map((elem) => elem.id)
