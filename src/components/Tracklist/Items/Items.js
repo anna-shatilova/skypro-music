@@ -36,21 +36,22 @@ export const Items = ({ loading }) => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
 
-  // реализация лайков
-  const { data: favoritesPlaylist, error: favoriteError } =
-    useGetFavoriteTracksQuery()
+  // реализация лайков и обработка 401 ошибки - нет авторизации
+  const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
 
   const navigate = useNavigate()
   const { logout } = useUserContext()
 
-  const [addFavoriteTrack] = useAddFavoriteTracksMutation()
-  const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
+  const [addFavoriteTrack, { error: addFavoriteError }] =
+    useAddFavoriteTracksMutation()
+  const [deleteFavoriteTrack, { error: deleteFavoriteError }] =
+    useDeleteFavoriteTracksMutation()
 
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id })
       .unwrap()
       .catch(() => {
-        if (favoriteError?.status === 401) {
+        if (addFavoriteError?.status === 401) {
           navigate('/login')
           logout()
         }
@@ -60,7 +61,7 @@ export const Items = ({ loading }) => {
     deleteFavoriteTrack({ id: track.id })
       .unwrap()
       .catch(() => {
-        if (favoriteError?.status === 401) {
+        if (deleteFavoriteError?.status === 401) {
           navigate('/login')
           logout()
         }
