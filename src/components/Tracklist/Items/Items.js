@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as S from './Styles'
 import { setCurrentTrack } from '../../../store/playlistSlice'
 import {
@@ -7,6 +7,7 @@ import {
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
 } from '../../../store/favoritesApi'
+import { useUserContext } from '../../../context/UserProvider'
 
 // const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
 
@@ -37,18 +38,34 @@ export const Items = ({ loading }) => {
 
   // токен пришел из стора и ушел в RTK Qery для авторизованного запроса в апи
   const token = useSelector((state) => state.tracks.accessToken)
-  const { data = [] } = useGetFavoriteTracksQuery(token)
-  const favoritesPlaylist = data
+  const { data: favoritesPlaylist } = useGetFavoriteTracksQuery(token)
 
   // реализация лайков
+  const navigate = useNavigate()
+  const { logout } = useUserContext()
+
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id, accessToken: token })
+      .unwrap()
+      .catch((response) => {
+        if (response.status === 401) {
+          navigate('/login')
+          logout()
+        }
+      })
   }
   const handleDeleteFavoriteTrack = (track) => {
     deleteFavoriteTrack({ id: track.id, accessToken: token })
+      .unwrap()
+      .catch((response) => {
+        if (response.status === 401) {
+          navigate('/login')
+          logout()
+        }
+      })
   }
   const statusLike = (arr, item) => {
     if (arr === undefined) return 'nolike'

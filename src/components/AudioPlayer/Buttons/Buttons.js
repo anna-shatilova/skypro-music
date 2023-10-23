@@ -23,8 +23,7 @@ export const Buttons = ({
   const tracks = useSelector((state) => state.tracks.tracks)
 
   const token = useSelector((state) => state.tracks.accessToken)
-  const { data = [] } = useGetFavoriteTracksQuery(token)
-  const favoritesPlaylist = data
+  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery(token)
 
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
