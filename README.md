@@ -1,3 +1,6 @@
+Домашняя работа  Redux RTKQery
+Оценка - 15 часов, затраченное время - 20,5 часов
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
