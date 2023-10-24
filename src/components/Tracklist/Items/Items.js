@@ -42,28 +42,26 @@ export const Items = ({ loading }) => {
   const navigate = useNavigate()
   const { logout } = useUserContext()
 
-  const [addFavoriteTrack, { error: addFavoriteError }] =
-    useAddFavoriteTracksMutation()
-  const [deleteFavoriteTrack, { error: deleteFavoriteError }] =
-    useDeleteFavoriteTracksMutation()
+  const [addFavoriteTrack] = useAddFavoriteTracksMutation()
+  const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id })
       .unwrap()
-      .catch(() => {
-        if (addFavoriteError?.status === 401) {
-          navigate('/login')
+      .catch((error) => {
+        if (error.status === 401) {
           logout()
+          navigate('/login')
         }
       })
   }
   const handleDeleteFavoriteTrack = (track) => {
     deleteFavoriteTrack({ id: track.id })
       .unwrap()
-      .catch(() => {
-        if (deleteFavoriteError?.status === 401) {
-          navigate('/login')
+      .catch((error) => {
+        if (error.status === 401) {
           logout()
+          navigate('/login')
         }
       })
   }
