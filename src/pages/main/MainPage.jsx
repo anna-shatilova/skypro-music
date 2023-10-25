@@ -7,7 +7,7 @@ import { AudioPlayer } from '../../components/AudioPlayer/AudioPlayer'
 import { NavMenu } from '../../components/NavMenu/NavMenu'
 import { Sidebar } from '../../components/SideBar/Sidebar'
 
-export const MainPage = ({ loading }) => {
+export const MainPage = () => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
 
   return (
@@ -18,9 +18,9 @@ export const MainPage = ({ loading }) => {
           <S.Main>
             <NavMenu />
             <Outlet />
-            <Sidebar loading={loading} />
+            <Sidebar />
           </S.Main>
-          {currentTrack ? <AudioPlayer loading={loading} /> : null}
+          {currentTrack ? <AudioPlayer /> : null}
           <footer />
         </S.Container>
       </S.Wrapper>

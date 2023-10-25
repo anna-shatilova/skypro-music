@@ -14,6 +14,11 @@ export const favoritesApi = createApi({
     },
   }),
   endpoints: (build) => ({
+    getTracks: build.query({
+      query: () => ({
+        url: 'all',
+      }),
+    }),
     getFavoriteTracks: build.query({
       query: () => ({
         url: 'favorite/all',
@@ -44,7 +49,20 @@ export const favoritesApi = createApi({
 })
 
 export const {
+  useGetTracksQuery,
   useGetFavoriteTracksQuery,
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
 } = favoritesApi
+
+// export const baseURL = 'https://skypro-music-api.skyeng.tech'
+
+// export async function getTracks() {
+//   const response = await fetch(`${baseURL}/catalog/track/all/`)
+//   if (!response.ok) {
+//     throw new Error('Ошибка сервера')
+//   }
+//   const data = await response.json()
+
+//   return data
+// }

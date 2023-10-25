@@ -1,4 +1,5 @@
 import { useUserContext } from '../../context/UserProvider'
+import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
 export const sidebarItems = [
@@ -6,8 +7,10 @@ export const sidebarItems = [
   { id: 2, imgSrc: 'img/playlist02.png' },
   { id: 3, imgSrc: 'img/playlist03.png' },
 ]
-export const Sidebar = ({ loading }) => {
+export const Sidebar = () => {
   const { user, logout } = useUserContext()
+  const { isLoading } = useGetTracksQuery()
+
 
   const handleLogout = () => {
     logout()
@@ -27,7 +30,7 @@ export const Sidebar = ({ loading }) => {
           {sidebarItems.map((sidebarItem) => {
             return (
               <S.SidebarItem key={sidebarItem.id}>
-                {loading ? (
+                {isLoading ? (
                   <S.SidebarSkeleton />
                 ) : (
                   <S.SidebarLink to={`/category/${sidebarItem.id}`}>

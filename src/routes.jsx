@@ -9,7 +9,7 @@ import { Favorites } from './pages/favorites'
 import { ProtectedRout } from './components/ProtectedRout/index'
 import { TrackList } from './components/Tracklist/TrackList'
 
-export const AppRoutes = ({ user, loading, trackListError }) => {
+export const AppRoutes = ({ user, data, isLoading, error }) => {
   return (
     <Routes>
       <Route
@@ -29,7 +29,7 @@ export const AppRoutes = ({ user, loading, trackListError }) => {
             user={user}
             isAllowed={Boolean(user)}
           >
-            <MainPage loading={loading} />
+            <MainPage />
           </ProtectedRout>
         }
       >
@@ -37,8 +37,9 @@ export const AppRoutes = ({ user, loading, trackListError }) => {
           index
           element={
             <TrackList
-              loading={loading}
-              trackListError={trackListError}
+              isLoading={isLoading}
+              error={error}
+              data={data}
             />
           }
         />

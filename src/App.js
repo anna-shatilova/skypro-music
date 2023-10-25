@@ -1,35 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { AppRoutes } from './routes'
-import { getTracks } from './api/apiTrack'
 import { UserProvider } from './context/UserProvider'
-import { addTracks } from './store/playlistSlice'
+import { useGetTracksQuery } from './store/favoritesApi'
 
 export const App = () => {
+  const { data = [], isLoading, error } = useGetTracksQuery()
+
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
-  const [trackListError, setTrackListError] = useState(null)
-  const dispatch = useDispatch()
+  // const [loading, setLoading] = useState(false)
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    async function handleGetTracks() {
-      try {
-        setLoading(true)
-        setTrackListError(null)
-        await getTracks().then((data) => {
-          dispatch(addTracks(data))
-        })
-      } catch (error) {
-        setTrackListError(error.message)
-      } finally {
-        setLoading(false)
-      }
-    }
+  // useEffect(() => {
+  //   async function handleGetTracks() {
+  //     try {
+  //       // setLoading(true)
+  //       // setTrackListError(null)
+  //       await getTracks().then((data) => {
+  //         dispatch(addTracks(data))
+  //       })
+  //     } catch (error) {
+  //       // setTrackListError(error.message)
+  //     } finally {
+  //       // setLoading(false)
+  //     }
+  //   }
 
-    handleGetTracks()
-  }, [])
+  //   handleGetTracks()
+  // }, [])
 
   const handleLogin = () => setUser(localStorage.setItem('user', 'token'))
   const handleLogout = () => {
@@ -41,9 +41,10 @@ export const App = () => {
     <UserProvider>
       <AppRoutes
         user={user}
+        data={data}
+        isLoading={isLoading}
+        error={error}
         onAuthButtonClick={user ? handleLogout : handleLogin}
-        loading={loading}
-        trackListError={trackListError}
       />
     </UserProvider>
   )
