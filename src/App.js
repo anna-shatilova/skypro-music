@@ -3,10 +3,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from './routes'
 import { UserProvider } from './context/UserProvider'
-import { useGetTracksQuery } from './store/favoritesApi'
 
 export const App = () => {
-  const { data = [], isLoading, error } = useGetTracksQuery()
 
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
@@ -41,9 +39,6 @@ export const App = () => {
     <UserProvider>
       <AppRoutes
         user={user}
-        data={data}
-        isLoading={isLoading}
-        error={error}
         onAuthButtonClick={user ? handleLogout : handleLogin}
       />
     </UserProvider>

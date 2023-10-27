@@ -1,29 +1,13 @@
-import { useSelector } from 'react-redux'
-import { Outlet } from 'react-router-dom'
-
-import * as S from '../../AppStyles'
-
-import { AudioPlayer } from '../../components/AudioPlayer/AudioPlayer'
-import { NavMenu } from '../../components/NavMenu/NavMenu'
-import { Sidebar } from '../../components/SideBar/Sidebar'
+import { TrackList } from '../../components/Tracklist/TrackList'
+import { useGetTracksQuery } from '../../store/favoritesApi'
 
 export const MainPage = () => {
-  const currentTrack = useSelector((state) => state.tracks.currentTrack)
-
+  const { data = [], isLoading, error } = useGetTracksQuery()
   return (
-    <>
-      <S.GlobalStyle />
-      <S.Wrapper>
-        <S.Container>
-          <S.Main>
-            <NavMenu />
-            <Outlet />
-            <Sidebar />
-          </S.Main>
-          {currentTrack ? <AudioPlayer /> : null}
-          <footer />
-        </S.Container>
-      </S.Wrapper>
-    </>
+    <TrackList
+      isLoading={isLoading}
+      error={error}
+      data={data}
+    />
   )
 }

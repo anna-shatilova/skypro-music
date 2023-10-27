@@ -31,7 +31,6 @@ export const formatTime = (time) => {
 }
 
 export const Items = ({ data, isLoading }) => {
-  console.log(data)
   const dispatch = useDispatch()
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
@@ -39,7 +38,7 @@ export const Items = ({ data, isLoading }) => {
   // реализация лайков и обработка 401 ошибки - нет авторизации
 
   const navigate = useNavigate()
-  const { logout } = useUserContext()
+  const { user, logout } = useUserContext()
 
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
@@ -64,21 +63,18 @@ export const Items = ({ data, isLoading }) => {
         }
       })
   }
-  const statusLike = (arr, item) => {
-    
-    if (arr === undefined) return 'nolike'
-    const newArr = arr.map((elem) => elem.id)
-    return newArr.includes(item.id) ? 'like' : 'nolike'
+  const statusLike = (track) => {
+    (track?.stared_user ?? []).find(({ id }) => id === user.id)
   }
 
   //   // // переключение компонента между страницами "Главная" и "Мои треки"
-    // const location = useLocation()
-    // const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
-    // if (pageName === 'Main') {
-    //   data = mainPlaylis
-    // } else {
-    //   data = favoritesPlaylist || []
-    // }
+  // const location = useLocation()
+  // const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
+  // if (pageName === 'Main') {
+  //   data = mainPlaylis
+  // } else {
+  //   data = favoritesPlaylist || []
+  // }
 
   // лоадер загрузки треков (скелетоны при загрузке)
   const tracks = isLoading
@@ -140,12 +136,12 @@ export const Items = ({ data, isLoading }) => {
                     <S.TrackLikeSvg
                       alt="like"
                       onClick={() =>
-                        statusLike(data, track) === 'nolike'
+                        statusLike(track) === 'nolike'
                           ? handleAddFavoriteTrack(track)
                           : handleDeleteFavoriteTrack(track)
                       }
                     >
-                      {statusLike(data, track) === 'nolike' ? (
+                      {statusLike(track) === 'nolike' ? (
                         <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
                       ) : (
                         <use xlinkHref="img/icon/sprite.svg#icon-like" />

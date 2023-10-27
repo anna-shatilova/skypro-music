@@ -33,7 +33,10 @@ export const TrackList = ({ isLoading, error, data }) => {
           {error ? (
             <p> Не удалось загрузить плейлист, попробуйте позже</p>
           ) : (
-            <Items isLoading={isLoading} data={data} />
+            <Items
+              isLoading={isLoading}
+              data={data}
+            />
           )}
         </S.ContentPlaylistTitle>
       </S.CenterblockContent>
