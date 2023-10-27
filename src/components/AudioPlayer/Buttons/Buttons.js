@@ -8,7 +8,10 @@ import {
   shuffleMode,
   favoriteMode,
 } from '../../../store/playlistSlice'
-import { useGetFavoriteTracksQuery } from '../../../store/favoritesApi'
+import {
+  useGetFavoriteTracksQuery,
+  useGetTracksQuery,
+} from '../../../store/favoritesApi'
 
 export const Buttons = ({
   togglePlay,
@@ -20,16 +23,17 @@ export const Buttons = ({
 
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
-  const tracks = useSelector((state) => state.tracks.tracks)
+  // const tracks = useSelector((state) => state.tracks.tracks)
 
-  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery()
+  const { data: mainPlaylist } = useGetTracksQuery()
+  const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
 
   const location = useLocation()
   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
   if (pageName === 'Favorites' && favoritesPlaylist) {
     dispatch(favoriteMode([...favoritesPlaylist]))
   } else {
-    dispatch(favoriteMode([...tracks]))
+    dispatch(favoriteMode([...mainPlaylist]))
   }
 
   const handleShuffle = () => {
@@ -39,9 +43,9 @@ export const Buttons = ({
       return array.sort(() => Math.random() - 0.5)
     }
     if (!isShuffleMode) {
-      dispatch(toggleShuffle(shuffleArray([...tracks])))
+      dispatch(toggleShuffle(shuffleArray([...mainPlaylist])))
     } else {
-      dispatch(toggleShuffle([...tracks]))
+      dispatch(toggleShuffle([...mainPlaylist]))
     }
   }
 

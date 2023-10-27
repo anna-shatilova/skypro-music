@@ -5,6 +5,8 @@ import { setCurrentTrack } from '../../../store/playlistSlice'
 import {
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
+  // useGetFavoriteTracksQuery,
+  // useGetTracksQuery,
 } from '../../../store/favoritesApi'
 import { useUserContext } from '../../../context/UserProvider'
 
@@ -43,6 +45,17 @@ export const Items = ({ data, isLoading }) => {
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
+  // //  обновление страниц "Главная" и "Мои треки" после лайка/дизлайка
+  // const { data: mainPlaylist } = useGetTracksQuery()
+  // const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
+  // const location = useLocation()
+
+  // const updatePage = () => {
+  //   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
+  //   if (pageName === 'Main') return mainPlaylist
+  //   return favoritesPlaylist
+  // }
+
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id })
       .unwrap()
@@ -52,6 +65,7 @@ export const Items = ({ data, isLoading }) => {
           navigate('/login')
         }
       })
+    // updatePage()
   }
   const handleDeleteFavoriteTrack = (track) => {
     deleteFavoriteTrack({ id: track.id })
@@ -62,25 +76,13 @@ export const Items = ({ data, isLoading }) => {
           navigate('/login')
         }
       })
+    // updatePage()
   }
-  // const statusLike = (track) => {
-  //   ;(track?.stared_user ?? []).find(({ id }) => id === user.id)
-  // }
 
   const findLike = (track) => {
-    let isLiked = false
-    isLiked = (track?.stared_user ?? []).find(({ id }) => id === user.id)
-    return isLiked
+    const arrayUsersLikedId = (track?.stared_user ?? []).map((elem) => elem.id)
+    return arrayUsersLikedId.includes(user.id)
   }
-
-  //   // // переключение компонента между страницами "Главная" и "Мои треки"
-  // const location = useLocation()
-  // const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
-  // if (pageName === 'Main') {
-  //   data = mainPlaylis
-  // } else {
-  //   data = favoritesPlaylist || []
-  // }
 
   // лоадер загрузки треков (скелетоны при загрузке)
   const tracks = isLoading
@@ -143,14 +145,14 @@ export const Items = ({ data, isLoading }) => {
                       alt="like"
                       onClick={() =>
                         findLike(track)
-                          ? handleAddFavoriteTrack(track)
-                          : handleDeleteFavoriteTrack(track)
+                          ? handleDeleteFavoriteTrack(track)
+                          : handleAddFavoriteTrack(track)
                       }
                     >
                       {findLike(track) ? (
-                        <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
-                      ) : (
                         <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                      ) : (
+                        <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
                       )}
                     </S.TrackLikeSvg>
                     <S.TrackTimeText>

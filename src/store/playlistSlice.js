@@ -72,7 +72,6 @@ const playlistSlice = createSlice({
 })
 
 export const {
-  // addTracks,
   setCurrentTrack,
   playNextTrack,
   playPrevTrack,
