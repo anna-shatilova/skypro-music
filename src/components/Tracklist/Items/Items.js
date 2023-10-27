@@ -63,8 +63,14 @@ export const Items = ({ data, isLoading }) => {
         }
       })
   }
-  const statusLike = (track) => {
-    (track?.stared_user ?? []).find(({ id }) => id === user.id)
+  // const statusLike = (track) => {
+  //   ;(track?.stared_user ?? []).find(({ id }) => id === user.id)
+  // }
+
+  const findLike = (track) => {
+    let isLiked = false
+    isLiked = (track?.stared_user ?? []).find(({ id }) => id === user.id)
+    return isLiked
   }
 
   //   // // переключение компонента между страницами "Главная" и "Мои треки"
@@ -136,12 +142,12 @@ export const Items = ({ data, isLoading }) => {
                     <S.TrackLikeSvg
                       alt="like"
                       onClick={() =>
-                        statusLike(track) === 'nolike'
+                        findLike(track)
                           ? handleAddFavoriteTrack(track)
                           : handleDeleteFavoriteTrack(track)
                       }
                     >
-                      {statusLike(track) === 'nolike' ? (
+                      {findLike(track) ? (
                         <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
                       ) : (
                         <use xlinkHref="img/icon/sprite.svg#icon-like" />

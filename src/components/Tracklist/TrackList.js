@@ -6,15 +6,14 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ isLoading, error, data }) => {
+export const TrackList = ({ isLoading, error, data, title}) => {
   const location = useLocation()
-  const pageTitle = location.pathname === '/' ? 'Треки' : 'Мои треки'
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
   return (
     <S.MainCenterblock>
       <Search />
-      <S.CenterblockTitle>{pageTitle}</S.CenterblockTitle>
+      <S.CenterblockTitle>{title}</S.CenterblockTitle>
       <S.CenterblockFilter style={{ display: displayFilter }}>
         <Filter />
       </S.CenterblockFilter>

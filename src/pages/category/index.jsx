@@ -7,6 +7,7 @@ export const Category = () => {
   return (
     <p>Category Page ${params.id}</p>
     //   <TrackList
+    // title=""
     //   isLoading={isLoading}
     //   error={error}
     //   data={data}

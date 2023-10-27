@@ -46,6 +46,7 @@ export const AppRoutes = ({ user }) => {
           />
         </Route>
       </Route>
+      
       <Route
         path="*"
         element={<NotFound />}
