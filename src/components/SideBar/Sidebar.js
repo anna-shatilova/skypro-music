@@ -1,4 +1,8 @@
-import { useUserContext } from '../../context/UserProvider'
+// import { useUserContext } from '../../context/UserProvider'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { setAuth } from '../../store/authSlice'
 import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
@@ -8,17 +12,32 @@ export const sidebarItems = [
   { id: 3, imgSrc: 'img/playlist03.png' },
 ]
 export const Sidebar = () => {
-  const { user, logout } = useUserContext()
+  // const { user, logout } = useUserContext()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const { isLoading } = useGetTracksQuery()
-
-
+  const userUsername = useSelector((state) => state.auth.username)
   const handleLogout = () => {
-    logout()
+    // logout()
+    dispatch(
+      setAuth({
+        id: 0,
+        email: '',
+        username: '',
+        access: '',
+        refresh: '',
+        first_name: '',
+        last_name: '',
+      }),
+    )
+    localStorage.clear()
+    navigate('/login', { replace: true })
   }
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>{user.username}</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{userUsername}</S.SidebarPersonalName>
         <S.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout" />

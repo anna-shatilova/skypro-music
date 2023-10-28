@@ -8,7 +8,8 @@ import {
   // useGetFavoriteTracksQuery,
   // useGetTracksQuery,
 } from '../../../store/favoritesApi'
-import { useUserContext } from '../../../context/UserProvider'
+import { setAuth } from '../../../store/authSlice'
+// import { useUserContext } from '../../../context/UserProvider'
 
 // const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
 
@@ -40,7 +41,9 @@ export const Items = ({ data, isLoading }) => {
   // реализация лайков и обработка 401 ошибки - нет авторизации
 
   const navigate = useNavigate()
-  const { user, logout } = useUserContext()
+  const userId = useSelector((state) => state.auth.id)
+
+  // const { user, logout } = useUserContext()
 
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
@@ -55,14 +58,26 @@ export const Items = ({ data, isLoading }) => {
   //   if (pageName === 'Main') return mainPlaylist
   //   return favoritesPlaylist
   // }
-
+  const logout = () => {
+    dispatch(
+      setAuth({
+        id: 0,
+        email: '',
+        access: '',
+        refresh: '',
+        first_name: '',
+        last_name: '',
+      }),
+    )
+    localStorage.clear()
+    navigate('/login', { replace: true })
+  }
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id })
       .unwrap()
       .catch((error) => {
         if (error.status === 401) {
           logout()
-          navigate('/login')
         }
       })
     // updatePage()
@@ -73,7 +88,6 @@ export const Items = ({ data, isLoading }) => {
       .catch((error) => {
         if (error.status === 401) {
           logout()
-          navigate('/login')
         }
       })
     // updatePage()
@@ -81,7 +95,7 @@ export const Items = ({ data, isLoading }) => {
 
   const findLike = (track) => {
     const arrayUsersLikedId = (track?.stared_user ?? []).map((elem) => elem.id)
-    return arrayUsersLikedId.includes(user.id)
+    return arrayUsersLikedId.includes(userId)
   }
 
   // лоадер загрузки треков (скелетоны при загрузке)

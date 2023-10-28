@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from './routes'
-import { UserProvider } from './context/UserProvider'
+// import { UserProvider } from './context/UserProvider'
 
 export const App = () => {
 
@@ -36,11 +36,11 @@ export const App = () => {
   }
 
   return (
-    <UserProvider>
+    // <UserProvider>
       <AppRoutes
         user={user}
         onAuthButtonClick={user ? handleLogout : handleLogin}
       />
-    </UserProvider>
+    // </UserProvider>
   )
 }

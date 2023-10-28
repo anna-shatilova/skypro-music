@@ -36,6 +36,20 @@ export const favoritesApi = createApi({
               { type: 'FavoriteTracks', id: 'LIST' },
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
+      transformResponse: (response, mate, arg) => {
+        return response.map((item) => ({
+          ...item,
+          stared_user: [
+            {
+              id: arg.auth.id,
+              email: arg.auth.email,
+              username: arg.auth.username,
+              first_name: arg.auth.first_name,
+              last_name: arg.auth.last_name,
+            },
+          ],
+        }))
+      },
     }),
     addFavoriteTracks: build.mutation({
       query: ({ id }) => ({

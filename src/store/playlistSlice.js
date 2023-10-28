@@ -8,8 +8,8 @@ const playlistSlice = createSlice({
     shuffleTracks: [],
     isShuffleMode: false,
     activePlaylist: [],
-    accessToken: '',
-    refreshToken: '',
+    // accessToken: '',
+    // refreshToken: '',
   },
   reducers: {
     setCurrentTrack(state, action) {
@@ -57,13 +57,13 @@ const playlistSlice = createSlice({
       state.isShuffleMode = action.payload
     },
 
-    fetchAccessToken(state, action) {
-      state.accessToken = action.payload
-    },
+    // fetchAccessToken(state, action) {
+    //   state.accessToken = action.payload
+    // },
 
-    fetchRefreshToken(state, action) {
-      state.refreshToken = action.payload
-    },
+    // fetchRefreshToken(state, action) {
+    //   state.refreshToken = action.payload
+    // },
 
     favoriteMode(state, action) {
       state.activePlaylist = action.payload
@@ -79,8 +79,8 @@ export const {
   stopTrack,
   shuffleMode,
   toggleShuffle,
-  fetchAccessToken,
-  fetchRefreshToken,
+  // fetchAccessToken,
+  // fetchRefreshToken,
   favoriteMode,
 } = playlistSlice.actions
 
