@@ -33,7 +33,7 @@ export const formatTime = (time) => {
   return fulltime
 }
 
-export const Items = ({ data, isLoading }) => {
+export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
   const dispatch = useDispatch()
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
@@ -43,8 +43,6 @@ export const Items = ({ data, isLoading }) => {
   const navigate = useNavigate()
   const userId = useSelector((state) => state.auth.id)
 
-  // const { user, logout } = useUserContext()
-
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
@@ -53,11 +51,6 @@ export const Items = ({ data, isLoading }) => {
   // const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
   // const location = useLocation()
 
-  // const updatePage = () => {
-  //   const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
-  //   if (pageName === 'Main') return mainPlaylist
-  //   return favoritesPlaylist
-  // }
   const logout = () => {
     dispatch(
       setAuth({
@@ -72,6 +65,7 @@ export const Items = ({ data, isLoading }) => {
     localStorage.clear()
     navigate('/login', { replace: true })
   }
+
   const handleAddFavoriteTrack = (track) => {
     addFavoriteTrack({ id: track.id })
       .unwrap()
@@ -80,7 +74,6 @@ export const Items = ({ data, isLoading }) => {
           logout()
         }
       })
-    // updatePage()
   }
   const handleDeleteFavoriteTrack = (track) => {
     deleteFavoriteTrack({ id: track.id })
@@ -90,10 +83,10 @@ export const Items = ({ data, isLoading }) => {
           logout()
         }
       })
-    // updatePage()
   }
 
   const findLike = (track) => {
+    if (showAllTracksAsLiked) return true
     const arrayUsersLikedId = (track?.stared_user ?? []).map((elem) => elem.id)
     return arrayUsersLikedId.includes(userId)
   }

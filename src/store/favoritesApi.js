@@ -19,12 +19,12 @@ export const favoritesApi = createApi({
         url: 'track/all',
       }),
       providesTags: (result) =>
-      result
-        ? [
-            ...result.map(({ id }) => ({ type: 'FavoriteTracks', id })),
-            { type: 'FavoriteTracks', id: 'LIST' },
-          ]
-        : [{ type: 'FavoriteTracks', id: 'LIST' }],
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'FavoriteTracks', id })),
+              { type: 'FavoriteTracks', id: 'LIST' },
+            ]
+          : [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
     // getIdTrack: build.query({
     //   query: ({ id }) => ({
@@ -43,20 +43,6 @@ export const favoritesApi = createApi({
               { type: 'FavoriteTracks', id: 'LIST' },
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
-      // transformResponse: (response, arg) => {
-      //   return response.map((item) => ({
-      //     ...item,
-      //     stared_user: [
-      //       {
-      //         id: arg.auth.id,
-      //         email: arg.auth.email,
-      //         username: arg.auth.username,
-      //         first_name: arg.auth.first_name,
-      //         last_name: arg.auth.last_name,
-      //       },
-      //     ],
-      //   }))
-      // },
     }),
     addFavoriteTracks: build.mutation({
       query: ({ id }) => ({
@@ -78,7 +64,6 @@ export const favoritesApi = createApi({
         method: 'GET',
       }),
     }),
-
   }),
 })
 

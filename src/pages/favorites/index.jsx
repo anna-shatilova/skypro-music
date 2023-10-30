@@ -10,6 +10,7 @@ export const Favorites = () => {
       isLoading={isLoading}
       error={error}
       data={data}
+      showAllTracksAsLiked
     />
   )
 }

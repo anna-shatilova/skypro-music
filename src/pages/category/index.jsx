@@ -4,15 +4,18 @@ import { TrackList } from '../../components/Tracklist/TrackList'
 
 export const Category = () => {
   const params = useParams
+  console.log(params.id)
   const { data = [], error, isLoading } = useGetCategoryTracksQuery(params.id)
-  const categoryTitle = () => {
-    // params.id === 1 && 'Классическая музыка' 
-    // params.id === 2 && 'Электронная музыка'
-    // params.id === 3 && 'Рок музыка'
-  }
+  // const categoryTitle = () => {
+  // params.id === 1
+  //   ? 'Классическая музыка'
+  //   : params.id === 2
+  //   ? 'Электронная музыка'
+  //   : 'Рок музыка'
+  // }
   return (
     <TrackList
-      title={categoryTitle}
+      title="Классическая музыка"
       isLoading={isLoading}
       error={error}
       data={data}
