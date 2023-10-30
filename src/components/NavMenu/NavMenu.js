@@ -4,17 +4,14 @@ import { useDispatch } from 'react-redux'
 
 import * as S from './Styles'
 import { setAuth } from '../../store/authSlice'
-// import { useUserContext } from '../../context/UserProvider'
 
 export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // const { logout } = useUserContext()
 
   const handleLogout = () => {
-    // logout()
     dispatch(
       setAuth({
         id: 0,

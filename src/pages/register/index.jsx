@@ -6,8 +6,6 @@ import * as S from '../login/LoginAndRegister.styles'
 
 import { registerUser, getToken } from '../../api/apiUser'
 import { setAuth } from '../../store/authSlice'
-// import { useUserContext } from '../../context/UserProvider'
-// import { fetchAccessToken, fetchRefreshToken } from '../../store/playlistSlice'
 
 export const Register = () => {
   const navigate = useNavigate()
@@ -17,7 +15,6 @@ export const Register = () => {
   const [repeatPassword, setRepeatPassword] = useState('')
   const dispatch = useDispatch()
 
-  // const { login } = useUserContext()
 
   const handleRegister = async () => {
     try {
@@ -41,10 +38,6 @@ export const Register = () => {
       }
       await registerUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
-          // dispatch(fetchAccessToken(tokenData.access))
-          // dispatch(fetchRefreshToken(tokenData.refresh))
-
-          // login(loginData, tokenData.access)
           dispatch(
             setAuth({
               id: loginData.id,

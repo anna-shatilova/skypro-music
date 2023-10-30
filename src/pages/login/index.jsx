@@ -4,14 +4,11 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import * as S from './LoginAndRegister.styles'
 import { getToken, loginUser } from '../../api/apiUser'
-// import { useUserContext } from '../../context/UserProvider'
-// import { fetchAccessToken, fetchRefreshToken } from '../../store/playlistSlice'
 import { setAuth } from '../../store/authSlice'
 
 export const Login = () => {
   const [loginError, setLoginError] = useState(null)
   const [email, setEmail] = useState('')
-  // const { login } = useUserContext()
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
@@ -30,8 +27,6 @@ export const Login = () => {
 
       await loginUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
-          // dispatch(fetchAccessToken(tokenData.access))
-          // dispatch(fetchRefreshToken(tokenData.refresh))
           dispatch(
             setAuth({
               id: loginData.id,
@@ -44,7 +39,6 @@ export const Login = () => {
             }),
           )
           navigate('/')
-          // login(loginData, tokenData.access)
         })
       })
     } catch (error) {

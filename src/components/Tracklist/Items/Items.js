@@ -5,13 +5,8 @@ import { setCurrentTrack } from '../../../store/playlistSlice'
 import {
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
-  // useGetFavoriteTracksQuery,
-  // useGetTracksQuery,
 } from '../../../store/favoritesApi'
 import { setAuth } from '../../../store/authSlice'
-// import { useUserContext } from '../../../context/UserProvider'
-
-// const formatTime = (time) => new Date(time * 1000).toISOString().slice(14, 19)
 
 export const formatTime = (time) => {
   const hours = Math.floor(time / 3600)
@@ -45,11 +40,6 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
 
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
-
-  // //  обновление страниц "Главная" и "Мои треки" после лайка/дизлайка
-  // const { data: mainPlaylist } = useGetTracksQuery()
-  // const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
-  // const location = useLocation()
 
   const logout = () => {
     dispatch(
