@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import * as S from './Styles'
-import { setCurrentTrack } from '../../../store/playlistSlice'
+import { favoriteMode, setCurrentTrack } from '../../../store/playlistSlice'
 import {
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
@@ -94,6 +94,13 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
       ]
     : data
 
+  // передаем в стор выбранный трек и плейлист
+
+  const handleCurrentTrackAndPlaylist = (track) => {
+    dispatch(setCurrentTrack(track))
+    dispatch(favoriteMode([...tracks]))
+  }
+
   // рендерит список треков
 
   return (
@@ -103,7 +110,7 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
           return (
             <S.PlaylistItem key={track.id}>
               <S.PlaylistTrack>
-                <S.TrackTitle onClick={() => dispatch(setCurrentTrack(track))}>
+                <S.TrackTitle onClick={handleCurrentTrackAndPlaylist(track)}>
                   <S.TrackTitleImg>
                     {currentTrack?.id !== track.id ? (
                       <S.TrackTitleSvg alt="music">
