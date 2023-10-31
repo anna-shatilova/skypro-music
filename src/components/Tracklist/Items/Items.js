@@ -110,7 +110,9 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
           return (
             <S.PlaylistItem key={track.id}>
               <S.PlaylistTrack>
-                <S.TrackTitle onClick={handleCurrentTrackAndPlaylist(track)}>
+                <S.TrackTitle
+                  onClick={() => handleCurrentTrackAndPlaylist(track)}
+                >
                   <S.TrackTitleImg>
                     {currentTrack?.id !== track.id ? (
                       <S.TrackTitleSvg alt="music">
