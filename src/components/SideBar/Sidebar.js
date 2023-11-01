@@ -1,4 +1,3 @@
-// import { useUserContext } from '../../context/UserProvider'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,19 +6,17 @@ import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
 export const sidebarItems = [
-  { id: 1, title: 'Классическая музыка', imgSrc: 'img/playlist01.png' },
-  { id: 2, title: 'Электронная музыка', imgSrc: 'img/playlist02.png' },
-  { id: 3, title: 'Рок музыка', imgSrc: 'img/playlist03.png' },
+  { id: 1, title: 'Классическая музыка', imgSrc: 'img/playlist1.png' },
+  { id: 2, title: 'Электронная музыка', imgSrc: 'img/playlist2.png' },
+  { id: 3, title: 'Рок музыка', imgSrc: 'img/playlist3.png' },
 ]
 export const Sidebar = () => {
-  // const { user, logout } = useUserContext()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { isLoading } = useGetTracksQuery()
   const userUsername = useSelector((state) => state.auth.username)
   const handleLogout = () => {
-    // logout()
     dispatch(
       setAuth({
         id: 0,
