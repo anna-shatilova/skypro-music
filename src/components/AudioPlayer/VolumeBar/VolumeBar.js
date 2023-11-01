@@ -6,7 +6,7 @@ export const VolumeBar = ({ volume, handleVolumeChange }) => {
       <S.VolumeContent>
         <S.VolumeImg>
           <S.VolumeSvg alt="volume">
-            <use xlinkHref="img/icon/sprite.svg#icon-volume" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-volume" />
           </S.VolumeSvg>
         </S.VolumeImg>
         <S.VolumeProgress>

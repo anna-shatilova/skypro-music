@@ -9,7 +9,7 @@ export const Track = () => {
       <S.TrackPlayContain>
         <S.TrackPlayImg>
           <S.TrackPlaySvg alt="music">
-            <use xlinkHref="img/icon/sprite.svg#icon-note" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-note" />
           </S.TrackPlaySvg>
         </S.TrackPlayImg>
         <S.TrackPlayAuthor>
@@ -26,12 +26,12 @@ export const Track = () => {
       <S.TrackPlayLikeDis>
         <S.TrackPlayLike className="_btn-icon">
           <S.TrackPlayLikeSvg alt="like">
-            <use xlinkHref="img/icon/sprite.svg#icon-like" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-like" />
           </S.TrackPlayLikeSvg>
         </S.TrackPlayLike>
         <S.TrackPlayDislike className="_btn-icon">
           <S.TrackPlayDislikeSvg alt="dislike">
-            <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
           </S.TrackPlayDislikeSvg>
         </S.TrackPlayDislike>
       </S.TrackPlayLikeDis>

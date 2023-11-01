@@ -6,9 +6,9 @@ import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
 export const sidebarItems = [
-  { id: 1, title: 'Классическая музыка', imgSrc: 'img/playlist1.png' },
-  { id: 2, title: 'Электронная музыка', imgSrc: 'img/playlist2.png' },
-  { id: 3, title: 'Рок музыка', imgSrc: 'img/playlist3.png' },
+  { id: 1, title: 'Классическая музыка', imgSrc: '/img/playlist1.png' },
+  { id: 2, title: 'Электронная музыка', imgSrc: '/img/playlist2.png' },
+  { id: 3, title: 'Рок музыка', imgSrc: '/img/playlist3.png' },
 ]
 export const Sidebar = () => {
   const navigate = useNavigate()
@@ -37,7 +37,7 @@ export const Sidebar = () => {
         <S.SidebarPersonalName>{userUsername}</S.SidebarPersonalName>
         <S.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
-            <use xlinkHref="img/icon/sprite.svg#logout" />
+            <use xlinkHref="/img/icon/sprite.svg#logout" />
           </svg>
         </S.SidebarIcon>
       </S.SidebarPersonal>
