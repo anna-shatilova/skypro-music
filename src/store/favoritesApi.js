@@ -63,6 +63,14 @@ export const favoritesApi = createApi({
         url: `selection/${id}/`,
         method: 'GET',
       }),
+      // providesTags: (result) =>
+      //   result
+      //     ? [
+      //         ...result.map(({ id }) => ({ type: 'FavoriteTracks', id })),
+      //         { type: 'FavoriteTracks', id: 'LIST' },
+      //       ]
+      //     : [{ type: 'FavoriteTracks', id: 'LIST' }],
+      // invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
   }),
 })
