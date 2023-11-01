@@ -7,9 +7,9 @@ import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
 export const sidebarItems = [
-  { id: 1, imgSrc: 'img/playlist01.png' },
-  { id: 2, imgSrc: 'img/playlist02.png' },
-  { id: 3, imgSrc: 'img/playlist03.png' },
+  { id: 1, title: 'Классическая музыка', imgSrc: 'img/playlist01.png' },
+  { id: 2, title: 'Электронная музыка', imgSrc: 'img/playlist02.png' },
+  { id: 3, title: 'Рок музыка', imgSrc: 'img/playlist03.png' },
 ]
 export const Sidebar = () => {
   // const { user, logout } = useUserContext()

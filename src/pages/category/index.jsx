@@ -4,8 +4,11 @@ import { TrackList } from '../../components/Tracklist/TrackList'
 
 export const Category = () => {
   const params = useParams
-  console.log(params.id)
-  const { data = [], error, isLoading } = useGetCategoryTracksQuery(params.id)
+  const {
+    data = [],
+    error,
+    isLoading,
+  } = useGetCategoryTracksQuery({ id: params.id })
   // const categoryTitle = () => {
   // params.id === 1
   //   ? 'Классическая музыка'
