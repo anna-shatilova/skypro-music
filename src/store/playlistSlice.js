@@ -3,21 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 const playlistSlice = createSlice({
   name: 'playlist',
   initialState: {
-    tracks: [],
     currentTrack: null,
     isPlaying: false,
     shuffleTracks: [],
     isShuffleMode: false,
     activePlaylist: [],
-    accessToken: null,
-    refreshToken: null,
   },
   reducers: {
-    addTracks(state, action) {
-      state.tracks = action.payload
-      state.activePlaylist = [...state.tracks]
-    },
-
     setCurrentTrack(state, action) {
       state.currentTrack = action.payload
     },
@@ -63,23 +55,13 @@ const playlistSlice = createSlice({
       state.isShuffleMode = action.payload
     },
 
-    fetchAccessToken(state, action) {
-      state.accessToken = action.payload
-    },
-
-    fetchRefreshToken(state, action) {
-      state.refreshToken = action.payload
-    },
-
     favoriteMode(state, action) {
       state.activePlaylist = action.payload
     },
-
   },
 })
 
 export const {
-  addTracks,
   setCurrentTrack,
   playNextTrack,
   playPrevTrack,
@@ -87,8 +69,6 @@ export const {
   stopTrack,
   shuffleMode,
   toggleShuffle,
-  fetchAccessToken,
-  fetchRefreshToken,
   favoriteMode,
 } = playlistSlice.actions
 

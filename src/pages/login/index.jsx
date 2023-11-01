@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as S from './LoginAndRegister.styles'
 import { getToken, loginUser } from '../../api/apiUser'
-import { useUserContext } from '../../context/UserProvider'
-import { fetchAccessToken, fetchRefreshToken } from '../../store/playlistSlice'
+import { setAuth } from '../../store/authSlice'
 
 export const Login = () => {
   const [loginError, setLoginError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { login } = useUserContext()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleLogin = async () => {
@@ -28,10 +27,18 @@ export const Login = () => {
 
       await loginUser({ email, password }).then((loginData) => {
         getToken({ email, password }).then((tokenData) => {
-          dispatch(fetchAccessToken(tokenData.access))
-          dispatch(fetchRefreshToken(tokenData.refresh))
-
-          login(loginData, tokenData.access)
+          dispatch(
+            setAuth({
+              id: loginData.id,
+              email: loginData.email,
+              username: loginData.username,
+              access: tokenData.access,
+              refresh: tokenData.refresh,
+              first_name: loginData.first_name,
+              last_name: loginData.last_name,
+            }),
+          )
+          navigate('/')
         })
       })
     } catch (error) {

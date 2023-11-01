@@ -6,15 +6,14 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ loading, trackListError }) => {
+export const TrackList = ({ isLoading, error, data, title, showAllTracksAsLiked}) => {
   const location = useLocation()
-  const pageTitle = location.pathname === '/' ? 'Треки' : 'Мои треки'
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
   return (
     <S.MainCenterblock>
       <Search />
-      <S.CenterblockTitle>{pageTitle}</S.CenterblockTitle>
+      <S.CenterblockTitle>{title}</S.CenterblockTitle>
       <S.CenterblockFilter style={{ display: displayFilter }}>
         <Filter />
       </S.CenterblockFilter>
@@ -30,10 +29,14 @@ export const TrackList = ({ loading, trackListError }) => {
           </S.PlaylistTitle04>
         </S.ContentTitle>
         <S.ContentPlaylistTitle>
-          {trackListError ? (
+          {error ? (
             <p> Не удалось загрузить плейлист, попробуйте позже</p>
           ) : (
-            <Items loading={loading} />
+            <Items
+              isLoading={isLoading}
+              data={data}
+              showAllTracksAsLiked={showAllTracksAsLiked}
+            />
           )}
         </S.ContentPlaylistTitle>
       </S.CenterblockContent>

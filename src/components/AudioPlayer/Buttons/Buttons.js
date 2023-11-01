@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom'
 
 import * as S from './Styles'
 import {
   toggleShuffle,
   playNextTrack,
   shuffleMode,
-  favoriteMode,
 } from '../../../store/playlistSlice'
-import { useGetFavoriteTracksQuery } from '../../../store/favoritesApi'
 
 export const Buttons = ({
   togglePlay,
@@ -20,18 +18,19 @@ export const Buttons = ({
 
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
-  const tracks = useSelector((state) => state.tracks.tracks)
+  const activePlaylist =useSelector((state) => state.tracks.activePlaylist)
+  // const tracks = useSelector((state) => state.tracks.tracks)
 
-  const token = useSelector((state) => state.tracks.accessToken)
-  const {data: favoritesPlaylist} = useGetFavoriteTracksQuery(token)
+  // const { data: mainPlaylist } = useGetTracksQuery()
+  // const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
 
-  const location = useLocation()
-  const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
-  if (pageName === 'Favorites' && favoritesPlaylist) {
-    dispatch(favoriteMode([...favoritesPlaylist]))
-  } else {
-    dispatch(favoriteMode([...tracks]))
-  }
+  // const location = useLocation()
+  // const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
+  // if (pageName === 'Favorites' && favoritesPlaylist) {
+  //   dispatch(favoriteMode([...favoritesPlaylist]))
+  // } else {
+  //   dispatch(favoriteMode([...mainPlaylist]))
+  // }
 
   const handleShuffle = () => {
     dispatch(shuffleMode(!isShuffleMode))
@@ -40,9 +39,9 @@ export const Buttons = ({
       return array.sort(() => Math.random() - 0.5)
     }
     if (!isShuffleMode) {
-      dispatch(toggleShuffle(shuffleArray([...tracks])))
+      dispatch(toggleShuffle(shuffleArray([...activePlaylist])))
     } else {
-      dispatch(toggleShuffle([...tracks]))
+      dispatch(toggleShuffle([...activePlaylist]))
     }
   }
 

@@ -1,13 +1,30 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
 import * as S from './Styles'
-import { useUserContext } from '../../context/UserProvider'
+import { setAuth } from '../../store/authSlice'
 
 export const NavMenu = () => {
   const [openBurger, setOpenBurger] = useState(false)
-  const { logout } = useUserContext()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
 
   const handleLogout = () => {
-    logout()
+    dispatch(
+      setAuth({
+        id: 0,
+        email: '',
+        username: '',
+        access: '',
+        refresh: '',
+        first_name: '',
+        last_name: '',
+      }),
+    )
+    localStorage.clear()
+    navigate('/login', { replace: true })
   }
 
   return (

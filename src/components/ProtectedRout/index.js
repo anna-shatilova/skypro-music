@@ -1,11 +1,13 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
-export const ProtectedRout = ({ children, redirectPath = '/login' }) => {
-  if (!localStorage.getItem('user')) {
-    return <Navigate
-      to={redirectPath}
-      replace
-    />
+export const ProtectedRout = ({ redirectPath = '/login' }) => {
+  if (!localStorage.getItem('auth')) {
+    return (
+      <Navigate
+        to={redirectPath}
+        replace
+      />
+    )
   }
-  return children
+  return <Outlet />
 }

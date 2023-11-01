@@ -1,4 +1,4 @@
-import { baseURL } from './apiTrack'
+const baseURL = 'https://skypro-music-api.skyeng.tech'
 
 export async function registerUser({ email, password }) {
   const response = await fetch(`${baseURL}/user/signup/`, {
@@ -16,7 +16,7 @@ export async function registerUser({ email, password }) {
   const data = await response.json()
 
   if (!response.ok) {
-    const error = data.email?.[0] ?? data.username?.[0] ?? data.password?.[0];
+    const error = data.email?.[0] ?? data.username?.[0] ?? data.password?.[0]
     throw new Error(error)
   }
 
@@ -38,7 +38,7 @@ export async function loginUser({ email, password }) {
   const data = await response.json()
 
   if (!response.ok) {
-    const error = data.email ?? data.password ?? data.detail;
+    const error = data.email ?? data.password ?? data.detail
     throw new Error(error)
   }
 
@@ -60,7 +60,7 @@ export async function getToken({ email, password }) {
   const data = await response.json()
 
   if (!response.ok) {
-    const error = data.email?.[0] ?? data.username?.[0] ?? data.password?.[0];
+    const error = data.email?.[0] ?? data.username?.[0] ?? data.password?.[0]
     throw new Error(error)
   }
 
