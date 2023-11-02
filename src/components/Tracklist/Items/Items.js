@@ -156,9 +156,9 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
                       }
                     >
                       {findLike(track) ? (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                       ) : (
-                        <use xlinkHref="img/icon/sprite.svg#icon-nolike" />
+                        <use xlinkHref="/img/icon/sprite.svg#icon-nolike" />
                       )}
                     </S.TrackLikeSvg>
                     <S.TrackTimeText>

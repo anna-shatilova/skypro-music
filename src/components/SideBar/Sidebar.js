@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setAuth } from '../../store/authSlice'
@@ -31,6 +31,9 @@ export const Sidebar = () => {
     localStorage.clear()
     navigate('/login', { replace: true })
   }
+  const location = useLocation()
+  const displaySidebarList = location.pathname === '/' ? 'flex' : 'none'
+
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
@@ -42,7 +45,7 @@ export const Sidebar = () => {
         </S.SidebarIcon>
       </S.SidebarPersonal>
       <S.SidebarBlock>
-        <S.SidebarList>
+        <S.SidebarList style={{ display: displaySidebarList }}>
           {sidebarItems.map((sidebarItem) => {
             return (
               <S.SidebarItem key={sidebarItem.id}>
