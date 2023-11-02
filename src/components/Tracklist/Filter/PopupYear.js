@@ -2,7 +2,7 @@ import * as S from './Styles'
 
 export const PopupYear = () => {
   return (
-    <S.FilterPopup style={{ top: '49px', left: '240px' }}>
+    <S.FilterPopup >
       <S.PopupList>
         <li key="1">
           <S.PopupText href="#!">1992</S.PopupText>

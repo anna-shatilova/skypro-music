@@ -1,5 +1,25 @@
 import styled from 'styled-components'
 
+export const MainCenterBlockFilter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+export const CenterblockFilter = styled.div`
+  position: relative;
+  display: box;
+  display: -ms-flexbox;
+  display: flex;
+  box-orient: horizontal;
+  box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 51px;
+`
+
 export const FilterTitle = styled.div`
   font-style: normal;
   font-weight: 400;
@@ -16,6 +36,7 @@ export const FilterButton = styled.div`
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+  position: relative;
 
   &:not(:last-child) {
     margin-right: 10px;
@@ -31,12 +52,13 @@ export const FilterPopup = styled.div`
   font-weight: 400;
   line-height: 24px;
   border-radius: 12px;
-  overflow: auto;
-  background-color: #313131;
+  background: #313131;
+  box-sizing: border-box;
+  left: 0;
+  min-width: 269px;
+  padding: 32px;
   position: absolute;
-  width: 248px;
-  height: 305px;
-  padding: 34px;
+  top: 50px;
 `
 
 export const PopupList = styled.ul`
@@ -64,4 +86,23 @@ export const PopupText = styled.a`
     color: #b672ff;
     text-decoration-line: underline;
   }
+`
+
+export const FilterCounter = styled.span`
+  color: white;
+  background-color: rgb(173, 97, 255);
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  font-family: StratosSkyeng;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px;
 `

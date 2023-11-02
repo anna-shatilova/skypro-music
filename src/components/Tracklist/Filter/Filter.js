@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import * as S from './Styles'
 import { PopupPerformer } from './PopupPerformer'
-import { PopupYear } from './PopupYear'
 import { PopupGenre } from './PopupGenre'
+import { PopupYear } from './PopupYear'
 
-export const Filter = () => {
+export const Filter = ({ data }) => {
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = [
     { id: 'author', name: 'исполнителю' },
-    { id: 'year', name: 'году выпуска' },
     { id: 'genre', name: 'жанру' },
   ]
 
@@ -18,27 +17,45 @@ export const Filter = () => {
   }
 
   return (
-    <>
-      <S.FilterTitle>Искать по:</S.FilterTitle>
-      {filters.map((filter) => {
-        return (
-          <S.FilterButton
-            aria-hidden="true"
-            className="_btn-text"
-            $activeButton={activeFilter === filter.id}
-            key={filter.id}
-            onClick={() => {
-              return filterClickHandler(filter.id)
-            }}
-          >
-            {filter.name}
-          </S.FilterButton>
-        )
-      })}
+    <S.MainCenterBlockFilter>
+      <S.CenterblockFilter>
+        <S.FilterTitle>Искать по:</S.FilterTitle>
+        {filters.map((filter) => {
+          return (
+            <S.FilterButton
+              aria-hidden="true"
+              className="_btn-text"
+              $activeButton={activeFilter === filter.id}
+              key={filter.id}
+              onClick={() => {
+                return filterClickHandler(filter.id)
+              }}
+            >
+              {filter.name}
+              {/* {matchedAuthor.length === 0 ? null : (
+              <S.FilterCounter> {matchedAuthor.length} </S.FilterCounter>
+            )} */}
+            </S.FilterButton>
+          )
+        })}
+        {activeFilter === filters[0].id && <PopupPerformer data={data} />}
+        {activeFilter === filters[1].id && <PopupGenre />}
+      </S.CenterblockFilter>
 
-      {activeFilter === filters[0].id && <PopupPerformer />}
-      {activeFilter === filters[1].id && <PopupYear />}
-      {activeFilter === filters[2].id && <PopupGenre />}
-    </>
+      <S.CenterblockFilter>
+        <S.FilterTitle>Сортировка:</S.FilterTitle>
+        <S.FilterButton
+          aria-hidden="true"
+          className="_btn-text"
+          $activeButton={activeFilter === 'year'}
+          onClick={() => {
+            return filterClickHandler('year')
+          }}
+        >
+          По умолчанию
+        </S.FilterButton>
+        {activeFilter === 'year' && <PopupYear />}
+      </S.CenterblockFilter>
+    </S.MainCenterBlockFilter>
   )
 }

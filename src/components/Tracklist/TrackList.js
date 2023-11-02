@@ -20,9 +20,7 @@ export const TrackList = ({
     <S.MainCenterblock>
       <Search />
       <S.CenterblockTitle>{title}</S.CenterblockTitle>
-      <S.CenterblockFilter style={{ display: displayFilter }}>
-        <Filter />
-      </S.CenterblockFilter>
+        <Filter data={data} style={{ display: displayFilter }}/>
       <S.CenterblockContent>
         <S.ContentTitle>
           <S.PlaylistTitle01>Трек</S.PlaylistTitle01>

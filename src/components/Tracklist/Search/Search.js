@@ -20,7 +20,7 @@ export const Search = () => {
   const handlerSearchTracks = (event) => {
     dispatch(setSearchText(event.target.value))
     const resultArrTracks = searchTracks(data, searchText)
-    console.log(resultArrTracks)
+    // console.log(resultArrTracks)
     dispatch(favoriteMode([...resultArrTracks]))
   }
   // useEffect(() => {
