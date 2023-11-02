@@ -6,7 +6,13 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ isLoading, error, data, title, showAllTracksAsLiked}) => {
+export const TrackList = ({
+  isLoading,
+  error,
+  data,
+  title,
+  showAllTracksAsLiked,
+}) => {
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
