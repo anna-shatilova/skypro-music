@@ -4,15 +4,9 @@ export const PopupYear = () => {
   return (
     <S.FilterPopup >
       <S.PopupList>
-        <li key="1">
-          <S.PopupText href="#!">1992</S.PopupText>
-        </li>
-        <li key="2">
-          <S.PopupText href="#!">1993</S.PopupText>
-        </li>
-        <li key="3">
-          <S.PopupText href="#!">1994</S.PopupText>
-        </li>
+          <S.PopupText key="1">По умолчанию</S.PopupText>
+          <S.PopupText key="2">Сначала старые</S.PopupText>
+          <S.PopupText key="3">Сначала новые</S.PopupText>
       </S.PopupList>
     </S.FilterPopup>
   )

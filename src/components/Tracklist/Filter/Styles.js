@@ -65,7 +65,6 @@ export const PopupList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 28px;
 
   &::scrollbar {
     width: 4px;
@@ -79,14 +78,25 @@ export const PopupList = styled.ul`
   }
 `
 
-export const PopupText = styled.a`
-  color: #fff;
+export const PopupText = styled.li`
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  padding-bottom: 28px;
+  color: "#ffffff";
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 
   &:hover {
     color: #b672ff;
-    text-decoration-line: underline;
+    cursor: pointer;
+    text-decoration: underline #b672ff;
   }
-`
+`;
 
 export const FilterCounter = styled.span`
   color: white;
