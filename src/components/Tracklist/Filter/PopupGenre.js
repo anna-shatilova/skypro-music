@@ -1,12 +1,24 @@
 import * as S from './Styles'
 
-export const PopupGenre = () => {
+const genres = [
+  { id: 1, name: 'Классическая музыка' },
+  { id: 2, name: 'Рок музыка' },
+  { id: 3, name: 'Электронная музыка' },
+]
+export const PopupGenre = ({ setGenreTrack }) => {
   return (
     <S.FilterPopup style={{ left: '250px' }}>
       <S.PopupList>
-          <S.PopupText key="1">Классическая музыка</S.PopupText>
-          <S.PopupText key="2">Рок музыка</S.PopupText>
-          <S.PopupText key="3">Электронная музыка</S.PopupText>
+        {genres.map((genre) => {
+          return (
+            <S.PopupText
+              key={genre.id}
+              onClick={() => setGenreTrack(genre.name)}
+            >
+              {genre.name}
+            </S.PopupText>
+          )
+        })}
       </S.PopupList>
     </S.FilterPopup>
   )

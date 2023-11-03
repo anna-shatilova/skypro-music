@@ -56,15 +56,15 @@ export const FilterPopup = styled.div`
   box-sizing: border-box;
   left: 0;
   min-width: 269px;
-  padding: 32px;
+  padding: 32px 32px 4px 32px;
   position: absolute;
   top: 50px;
 `
 
 export const PopupList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-height: 212px;
+  max-width: 242px;
+  overflow-y: auto;
 
   &::scrollbar {
     width: 4px;
@@ -79,24 +79,24 @@ export const PopupList = styled.ul`
 `
 
 export const PopupText = styled.li`
+  cursor: pointer;
   font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  padding-bottom: 28px;
-  color: "#ffffff";
-
+  color: '#ffffff';
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+  padding-bottom: 28px;
 
   &:hover {
     color: #b672ff;
     cursor: pointer;
     text-decoration: underline #b672ff;
   }
-`;
+`
 
 export const FilterCounter = styled.span`
   color: white;

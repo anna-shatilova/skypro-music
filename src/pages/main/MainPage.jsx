@@ -18,13 +18,45 @@ export const MainPage = () => {
     )
   const searchQ = searchTracks(data, searchText)
 
+  // фильтр: по авторам
+
+  const [authorTrack, setAuthorTrack] = useState('')
+
+  const searchAuthor = (tracks, search) =>
+    tracks?.filter((track) =>
+      track?.author.toLowerCase().includes(search?.toLowerCase()),
+    )
+  const selectedAuthor = searchAuthor(data, authorTrack)
+
+  // фильтр: по жанрам
+
+  const [genreTrack, setGenreTrack] = useState('')
+
+  const searchGenre = (tracks, search) =>
+    tracks?.filter((track) =>
+      track?.genre.toLowerCase().includes(search?.toLowerCase()),
+    )
+  const selectedGenre = searchGenre(data, genreTrack)
+
+  // фильтр: сортировка по дате
+
   // функция фильтрации: передает массив треков в компонент
-  
+
   const filterTracks = () => {
     let filteredTracks = data
+
     if (searchQ.length > 0) {
       filteredTracks = searchQ
     }
+
+    if (selectedAuthor.length > 0) {
+      filteredTracks = selectedAuthor
+    }
+
+    if (selectedGenre.length > 0) {
+      filteredTracks = selectedGenre
+    }
+
     return filteredTracks
   }
 
@@ -37,6 +69,8 @@ export const MainPage = () => {
       data={filteredTracks}
       searchText={searchText}
       setSearchText={setSearchText}
+      setAuthorTrack={setAuthorTrack}
+      setGenreTrack={setGenreTrack}
     />
   )
 }

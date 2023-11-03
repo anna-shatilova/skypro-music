@@ -14,6 +14,8 @@ export const TrackList = ({
   showAllTracksAsLiked,
   searchText,
   setSearchText,
+  setAuthorTrack,
+  setGenreTrack,
 }) => {
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
@@ -26,8 +28,9 @@ export const TrackList = ({
       />
       <S.CenterblockTitle>{title}</S.CenterblockTitle>
       <Filter
-        data={data}
         style={{ display: displayFilter }}
+        setAuthorTrack={setAuthorTrack}
+        setGenreTrack={setGenreTrack}
       />
       <S.CenterblockContent>
         <S.ContentTitle>

@@ -4,7 +4,7 @@ import { PopupPerformer } from './PopupPerformer'
 import { PopupGenre } from './PopupGenre'
 import { PopupYear } from './PopupYear'
 
-export const Filter = ({ data }) => {
+export const Filter = ({ setAuthorTrack, setGenreTrack }) => {
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = [
@@ -34,12 +34,16 @@ export const Filter = ({ data }) => {
               {filter.name}
               {/* {matchedAuthor.length === 0 ? null : ( */}
               <S.FilterCounter> 2 </S.FilterCounter>
-            {/* )}  */}
+              {/* )}  */}
             </S.FilterButton>
           )
         })}
-        {activeFilter === filters[0].id && <PopupPerformer data={data} />}
-        {activeFilter === filters[1].id && <PopupGenre />}
+        {activeFilter === filters[0].id && (
+          <PopupPerformer setAuthorTrack={setAuthorTrack} />
+        )}
+        {activeFilter === filters[1].id && (
+          <PopupGenre setGenreTrack={setGenreTrack} />
+        )}
       </S.CenterblockFilter>
 
       <S.CenterblockFilter>
@@ -60,15 +64,13 @@ export const Filter = ({ data }) => {
   )
 }
 
-
 // const authors = ['Alexander Nakarada', Frank Schroter', 'Kevin Macleod'];
 // function FilterButton(props) {
 //   const dispatch = useDispatch();
 
-//   const nameFilter = useSelector((state) => state.filter.nameFilter); 
+//   const nameFilter = useSelector((state) => state.filter.nameFilter);
 //   const dateFilter = useSelector((state) => state.filter.dateFilter);
 //   const genreFilter = useSelector((state) => state.filter.genreFilter);
-
 
 //   const theme = useSelector((state) => state.themes.value);
 //   const [filters, setFilters] = useState(authors);
@@ -83,7 +85,6 @@ export const Filter = ({ data }) => {
 //         nameFilter.includes(value)
 //           ? dispatch(removeNameFilter(value))
 //           : dispatch(setNameFilters(value));
-
 
 //         break;
 // //
