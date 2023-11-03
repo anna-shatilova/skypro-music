@@ -12,15 +12,23 @@ export const TrackList = ({
   data,
   title,
   showAllTracksAsLiked,
+  searchText,
+  setSearchText,
 }) => {
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
   return (
     <S.MainCenterblock>
-      <Search />
+      <Search
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
       <S.CenterblockTitle>{title}</S.CenterblockTitle>
-        <Filter data={data} style={{ display: displayFilter }}/>
+      <Filter
+        data={data}
+        style={{ display: displayFilter }}
+      />
       <S.CenterblockContent>
         <S.ContentTitle>
           <S.PlaylistTitle01>Трек</S.PlaylistTitle01>

@@ -8,7 +8,6 @@ const playlistSlice = createSlice({
     shuffleTracks: [],
     isShuffleMode: false,
     activePlaylist: [],
-    searchText: '',
   },
   reducers: {
     setCurrentTrack(state, action) {
@@ -59,10 +58,6 @@ const playlistSlice = createSlice({
     favoriteMode(state, action) {
       state.activePlaylist = action.payload
     },
-
-    setSearchText(state, action) {
-      state.searchText = action.payload
-    },
   },
 })
 
@@ -75,7 +70,6 @@ export const {
   shuffleMode,
   toggleShuffle,
   favoriteMode,
-  setSearchText,
 } = playlistSlice.actions
 
 export const playlistReducer = playlistSlice.reducer

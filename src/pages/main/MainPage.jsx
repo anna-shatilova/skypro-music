@@ -1,26 +1,42 @@
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
+
 import { TrackList } from '../../components/Tracklist/TrackList'
 import { useGetTracksQuery } from '../../store/favoritesApi'
 
 export const MainPage = () => {
   const { data = [], isLoading, error } = useGetTracksQuery()
 
-  const searchText = useSelector((state) => state.tracks.searchText)
-  const activePlaylist =  useSelector((state) => state.tracks.activePlaylist)
+  // фильтр: строка поиска
 
-  const playlist = () => {
-    if (searchText) {
-      return activePlaylist
+  const [searchText, setSearchText] = useState('')
+
+  const searchTracks = (tracks, search) =>
+    tracks?.filter(
+      (track) =>
+        track?.name.toLowerCase().includes(search?.toLowerCase()) ||
+        track?.author.toLowerCase().includes(search?.toLowerCase()),
+    )
+  const searchQ = searchTracks(data, searchText)
+
+  // функция фильтрации: передает массив треков в компонент
+  
+  const filterTracks = () => {
+    let filteredTracks = data
+    if (searchQ.length > 0) {
+      filteredTracks = searchQ
     }
-    return data
+    return filteredTracks
   }
 
+  const filteredTracks = filterTracks()
   return (
     <TrackList
       title="Треки"
       isLoading={isLoading}
       error={error}
-      data={playlist()}
+      data={filteredTracks}
+      searchText={searchText}
+      setSearchText={setSearchText}
     />
   )
 }
