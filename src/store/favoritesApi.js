@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const favoritesApi = createApi({
   reducerPath: 'favoritesApi',
-  tagTypes: ['FavoriteTracks'],
+  tagTypes: ['FavoriteTracks', 'Track'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/',
     prepareHeaders: (headers, { getState }) => {
@@ -26,12 +26,13 @@ export const favoritesApi = createApi({
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
-    // getIdTrack: build.query({
-    //   query: ({ id }) => ({
-    //     url: `${id}`,
-    //     method: 'GET',
-    //   }),
-    // }),
+    getIdTrack: build.query({
+      query: ({ id }) => ({
+        url: `track/${id}`,
+        method: 'GET',
+      }),
+      providesTags: [{ type: 'Track' }],
+    }),
     getFavoriteTracks: build.query({
       query: () => ({
         url: 'track/favorite/all',
@@ -49,14 +50,20 @@ export const favoritesApi = createApi({
         url: `track/${id}/favorite/`,
         method: 'POST',
       }),
-      invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'FavoriteTracks', id: 'LIST' },
+        { type: 'Track' },
+      ],
     }),
     deleteFavoriteTracks: build.mutation({
       query: ({ id }) => ({
         url: `track/${id}/favorite/`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'FavoriteTracks', id: 'LIST' },
+        { type: 'Track' },
+      ],
     }),
     getCategoryTracks: build.query({
       query: ({ id }) => ({
@@ -76,7 +83,7 @@ export const favoritesApi = createApi({
 
 export const {
   useGetTracksQuery,
-  // useGetIdTrackQuery,
+  useGetIdTrackQuery,
   useGetFavoriteTracksQuery,
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,

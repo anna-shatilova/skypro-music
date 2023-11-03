@@ -3,22 +3,30 @@ import * as S from './Styles'
 import {
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
+  useGetIdTrackQuery,
 } from '../../../store/favoritesApi'
 
 export const Track = () => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
 
   // // лайкер в плеере
+  const { data } = useGetIdTrackQuery({ id: currentTrack.id })
   const userId = useSelector((state) => state.auth.id)
 
-  const isLiked = (track) => {
-    const arrayUsersLikedId = (track?.stared_user ?? []).map((elem) => elem.id)
+  const isLiked = () => {
+    const arrayUsersLikedId = (data?.stared_user ?? []).map((elem) => elem.id)
     return arrayUsersLikedId.includes(userId)
   }
-
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
+  const handlerToggleLike = () => {
+    if (isLiked ()) {
+      deleteFavoriteTrack({ id: data.id })
+    } else {
+      addFavoriteTrack({ id: data.id })
+    }
+  }
   return (
     <S.PlayerTrackPlay>
       <S.TrackPlayContain>
@@ -29,35 +37,27 @@ export const Track = () => {
         </S.TrackPlayImg>
         <S.TrackPlayAuthor>
           <S.TrackPlayAuthorLink href="http://">
-            {currentTrack ? currentTrack.name : null}
+            {data ? data.name : null}
           </S.TrackPlayAuthorLink>
         </S.TrackPlayAuthor>
         <S.TrackPlayAlbum>
           <S.TrackPlayAlbumLink href="http://">
-            {currentTrack ? currentTrack.author : null}
+            {data ? data.author : null}
           </S.TrackPlayAlbumLink>
         </S.TrackPlayAlbum>
       </S.TrackPlayContain>
-      <S.TrackPlayLikeDis
-        onClick={() =>
-          isLiked(currentTrack)
-            ? deleteFavoriteTrack({ id: currentTrack.id })
-            : addFavoriteTrack({ id: currentTrack.id })
-        }
-      >
-        {isLiked(currentTrack) ? (
-          <S.TrackPlayLike className="_btn-icon">
+      <S.TrackPlayLikeDis onClick={handlerToggleLike}>
+        <S.TrackPlayLike className="_btn-icon">
+          {isLiked () ? (
             <S.TrackPlayLikeSvg alt="like">
               <use xlinkHref="/img/icon/sprite.svg#icon-like" />
             </S.TrackPlayLikeSvg>
-          </S.TrackPlayLike>
-        ) : (
-          <S.TrackPlayDislike className="_btn-icon">
-            <S.TrackPlayDislikeSvg alt="dislike">
+          ) : (
+            <S.TrackPlayLikeSvg alt="nolike">
               <use xlinkHref="/img/icon/sprite.svg#icon-nolike" />
-            </S.TrackPlayDislikeSvg>
-          </S.TrackPlayDislike>
-        )}
+            </S.TrackPlayLikeSvg>
+          )}
+        </S.TrackPlayLike>
       </S.TrackPlayLikeDis>
     </S.PlayerTrackPlay>
   )
