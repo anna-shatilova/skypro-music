@@ -40,6 +40,28 @@ export const MainPage = () => {
 
   // фильтр: сортировка по дате
 
+  // const [dateTrack, setDateTrack] = useState('')
+
+  // const sortDate = (tracks, search) => {
+  //   tracks?.sort((a, b) => {
+  //     if (
+  //       search === 'old' &&
+  //       new Date(a.release_date) < new Date(b.release_date)
+  //     ) {
+  //       return -1
+  //     }
+
+  //     if (
+  //       search === 'new' &&
+  //       new Date(a.release_date) > new Date(b.release_date)
+  //     ) {
+  //       return -1
+  //     }
+  //     return 0
+  //   })
+  // }
+  // const selectedSortDate = sortDate(data, dateTrack)
+
   // функция фильтрации: передает массив треков в компонент
 
   const filterTracks = () => {
@@ -57,6 +79,10 @@ export const MainPage = () => {
       filteredTracks = selectedGenre
     }
 
+    // if (selectedSortDate) {
+    //   filteredTracks = selectedSortDate
+    // }
+
     return filteredTracks
   }
 
@@ -71,6 +97,7 @@ export const MainPage = () => {
       setSearchText={setSearchText}
       setAuthorTrack={setAuthorTrack}
       setGenreTrack={setGenreTrack}
+      // setDateTrack={setDateTrack}
     />
   )
 }

@@ -1,12 +1,25 @@
 import * as S from './Styles'
 
-export const PopupYear = () => {
+const date = [
+  { value: 'default', name: 'По умолчанию' },
+  { value: 'new', name: 'Сначала новые' },
+  { value: 'old', name: 'Сначала старые' },
+]
+
+export const PopupYear = ({ setDateTrack }) => {
   return (
-    <S.FilterPopup >
+    <S.FilterPopup>
       <S.PopupList>
-          <S.PopupText key="1">По умолчанию</S.PopupText>
-          <S.PopupText key="2">Сначала старые</S.PopupText>
-          <S.PopupText key="3">Сначала новые</S.PopupText>
+        {date.map((item) => {
+          return (
+            <S.PopupText
+              key={item.value}
+              onClick={() => setDateTrack(item.value)}
+            >
+              {item.name}
+            </S.PopupText>
+          )
+        })}
       </S.PopupList>
     </S.FilterPopup>
   )

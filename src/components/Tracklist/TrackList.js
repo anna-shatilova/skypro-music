@@ -16,6 +16,7 @@ export const TrackList = ({
   setSearchText,
   setAuthorTrack,
   setGenreTrack,
+  setDateTrack,
 }) => {
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
@@ -31,6 +32,7 @@ export const TrackList = ({
         style={{ display: displayFilter }}
         setAuthorTrack={setAuthorTrack}
         setGenreTrack={setGenreTrack}
+        setDateTrack={setDateTrack}
       />
       <S.CenterblockContent>
         <S.ContentTitle>
