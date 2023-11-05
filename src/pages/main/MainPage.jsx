@@ -20,7 +20,7 @@ export const MainPage = () => {
 
   // фильтр: по авторам
 
-  const [authorTrack, setAuthorTrack] = useState('')
+  const [authorTrack, setAuthorTrack] = useState()
 
   const searchAuthor = (tracks, search) =>
     tracks?.filter((track) =>
