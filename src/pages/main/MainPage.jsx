@@ -28,17 +28,7 @@ export const MainPage = () => {
     )
   const selectedAuthor = searchAuthor(data, authorTrack)
 
-  // фильтр: по жанрам
-
-  const [genreTrack, setGenreTrack] = useState('')
-
-  const searchGenre = (tracks, search) =>
-    tracks?.filter((track) =>
-      track?.genre.toLowerCase().includes(search?.toLowerCase()),
-    )
-  const selectedGenre = searchGenre(data, genreTrack)
-
-  // фильтр: сортировка по дате
+  const [genreTrack, setGenreTrack] = useState([])
 
   const [dateTrack, setDateTrack] = useState('')
 
@@ -55,20 +45,28 @@ export const MainPage = () => {
       filteredTracks = selectedAuthor
     }
 
-    if (selectedGenre.length > 0) {
-      filteredTracks = selectedGenre
+    // фильтр: по жанрам
+
+    if (genreTrack.length > 0) {
+      filteredTracks = filteredTracks.filter(({ genre }) =>
+        genreTrack.includes(genre),
+      )
+      console.log(genreTrack)
     }
+
+    // фильтр: сортировка по дате
+
     if (dateTrack === 'new') {
-      filteredTracks= filteredTracks.sort(
+      filteredTracks = filteredTracks.sort(
         (a, b) => Date.parse(b.release_date) - Date.parse(a.release_date),
       )
     }
     if (dateTrack === 'old') {
-      filteredTracks=filteredTracks.sort(
+      filteredTracks = filteredTracks.sort(
         (a, b) => Date.parse(a.release_date) - Date.parse(b.release_date),
       )
     }
-  
+
     return filteredTracks
   }
 
@@ -82,6 +80,7 @@ export const MainPage = () => {
       searchText={searchText}
       setSearchText={setSearchText}
       setAuthorTrack={setAuthorTrack}
+      genreTrack={genreTrack}
       setGenreTrack={setGenreTrack}
       setDateTrack={setDateTrack}
     />

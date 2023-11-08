@@ -4,7 +4,12 @@ import { PopupPerformer } from './PopupPerformer'
 import { PopupGenre } from './PopupGenre'
 import { PopupYear } from './PopupYear'
 
-export const Filter = ({ setAuthorTrack, setGenreTrack, setDateTrack }) => {
+export const Filter = ({
+  setAuthorTrack,
+  genreTrack,
+  setGenreTrack,
+  setDateTrack,
+}) => {
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filterClickHandler = (id) => {
@@ -26,7 +31,7 @@ export const Filter = ({ setAuthorTrack, setGenreTrack, setDateTrack }) => {
         >
           исполнителю
           {/* {currentAuthors.length === 0 ? null : ( */}
-            <S.FilterCounter> 2 </S.FilterCounter>
+          <S.FilterCounter> 2 </S.FilterCounter>
           {/* )} */}
         </S.FilterButton>
         {activeFilter === 'author' && (
@@ -42,12 +47,15 @@ export const Filter = ({ setAuthorTrack, setGenreTrack, setDateTrack }) => {
           }}
         >
           жанру
-          {/* {matchedAuthor.length === 0 ? null : ( */}
-          <S.FilterCounter> 2 </S.FilterCounter>
-          {/* )}  */}
+          {genreTrack.length === 0 ? null : (
+            <S.FilterCounter> {genreTrack.length} </S.FilterCounter>
+          )}
         </S.FilterButton>
         {activeFilter === 'genre' && (
-          <PopupGenre setGenreTrack={setGenreTrack} />
+          <PopupGenre
+            genreTrack={genreTrack}
+            setGenreTrack={setGenreTrack}
+          />
         )}
       </S.CenterblockFilter>
 

@@ -84,7 +84,7 @@ export const PopupText = styled.li`
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  color: '#ffffff';
+  color: #ffffff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -96,6 +96,9 @@ export const PopupText = styled.li`
     cursor: pointer;
     text-decoration: underline #b672ff;
   }
+
+  ${({ $activeFilter }) =>
+    $activeFilter ? 'color: rgb(182, 114, 255)' : 'color: #ffffff'}
 `
 
 export const FilterCounter = styled.span`

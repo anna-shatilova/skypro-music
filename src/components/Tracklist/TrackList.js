@@ -15,6 +15,7 @@ export const TrackList = ({
   searchText,
   setSearchText,
   setAuthorTrack,
+  genreTrack,
   setGenreTrack,
   setDateTrack,
 }) => {
@@ -31,6 +32,7 @@ export const TrackList = ({
       <Filter
         style={{ display: displayFilter }}
         setAuthorTrack={setAuthorTrack}
+        genreTrack={genreTrack}
         setGenreTrack={setGenreTrack}
         setDateTrack={setDateTrack}
       />
