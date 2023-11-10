@@ -17,18 +17,7 @@ export const TrackList = ({
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
-  // фильтр: строка поиска
-
   const [searchText, setSearchText] = useState('')
-
-  const searchTracks = (tracks, search) =>
-    tracks?.filter(
-      (track) =>
-        track?.name.toLowerCase().includes(search?.toLowerCase()) ||
-        track?.author.toLowerCase().includes(search?.toLowerCase()),
-    )
-  const searchQ = searchTracks(data, searchText)
-
   const [authorTrack, setAuthorTrack] = useState([])
   const [genreTrack, setGenreTrack] = useState([])
   const [dateTrack, setDateTrack] = useState('')
@@ -38,8 +27,13 @@ export const TrackList = ({
   const filterTracks = () => {
     let filteredTracks = data
 
-    if (searchQ.length > 0) {
-      filteredTracks = searchQ
+    // фильтр: строка поиска
+    if (searchText.length > 0) {
+      filteredTracks = filteredTracks.filter(
+        (track) =>
+          track.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          track.author.toLowerCase().includes(searchText.toLowerCase()),
+      )
     }
 
     // фильтр: по авторам
