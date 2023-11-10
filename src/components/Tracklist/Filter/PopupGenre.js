@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import * as S from './Styles'
 
 const genres = [
@@ -7,18 +6,13 @@ const genres = [
   { id: 3, name: 'Электронная музыка' },
 ]
 export const PopupGenre = ({ genreTrack, setGenreTrack }) => {
-  const [activeFilter, setActiveFilter] = useState(null)
   const handlerSetGenres = (genre) => {
     const index = genreTrack.indexOf(genre)
     if (index !== -1) {
-      genreTrack.splice(index, 1)
-      setGenreTrack(genreTrack)
-      setActiveFilter(null)
+      setGenreTrack(genreTrack.toSpliced(index, 1))
     } else {
       setGenreTrack([...genreTrack, genre])
-      setActiveFilter(genre)
     }
-    console.log(genreTrack)
   }
 
   return (
@@ -28,9 +22,7 @@ export const PopupGenre = ({ genreTrack, setGenreTrack }) => {
           return (
             <S.PopupText
               key={genre.id}
-              $activeFilter={
-                activeFilter === genre.name && genreTrack.includes(genre.name)
-              }
+              $activeFilter={genre.name && genreTrack.includes(genre.name)}
               onClick={() => {
                 handlerSetGenres(genre.name)
               }}
