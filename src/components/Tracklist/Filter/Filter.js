@@ -5,6 +5,7 @@ import { PopupGenre } from './PopupGenre'
 import { PopupYear } from './PopupYear'
 
 export const Filter = ({
+  authorTrack,
   setAuthorTrack,
   genreTrack,
   setGenreTrack,
@@ -30,12 +31,15 @@ export const Filter = ({
           }}
         >
           исполнителю
-          {/* {currentAuthors.length === 0 ? null : ( */}
-          <S.FilterCounter> 2 </S.FilterCounter>
-          {/* )} */}
+          {authorTrack?.length === 0 ? null : (
+            <S.FilterCounter> {authorTrack?.length} </S.FilterCounter>
+          )}
         </S.FilterButton>
         {activeFilter === 'author' && (
-          <PopupPerformer setAuthorTrack={setAuthorTrack} />
+          <PopupPerformer
+            authorTrack={authorTrack}
+            setAuthorTrack={setAuthorTrack}
+          />
         )}
         <S.FilterButton
           aria-hidden="true"

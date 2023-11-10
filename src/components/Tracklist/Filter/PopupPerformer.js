@@ -1,20 +1,16 @@
-import { useState } from 'react'
 import { useGetTracksQuery } from '../../../store/favoritesApi'
 import * as S from './Styles'
 
-export const PopupPerformer = ({ setAuthorTrack }) => {
-  const { data } = useGetTracksQuery()
-  const [currentAuthors, setCurrentAuthors] = useState([])
+export const PopupPerformer = ({ authorTrack, setAuthorTrack }) => {
+  const { data = [] } = useGetTracksQuery()
 
-  const handlerSetAuthors = (track) => {
-    const index = currentAuthors.indexOf(track.author)
+  const handlerSetAuthors = (author) => {
+    const index = authorTrack.indexOf(author)
     if (index !== -1) {
-      setCurrentAuthors(currentAuthors.splice(index, 1))
+      setAuthorTrack(authorTrack.toSpliced(index, 1))
     } else {
-      setCurrentAuthors(currentAuthors.push(track.author))
+      setAuthorTrack([...authorTrack, author])
     }
-    console.log(currentAuthors)
-    setAuthorTrack(track.author)
   }
 
   return (
@@ -24,7 +20,8 @@ export const PopupPerformer = ({ setAuthorTrack }) => {
           return (
             <S.PopupText
               key={track.id}
-              onClick={() => handlerSetAuthors(track)}
+              onClick={() => handlerSetAuthors(track.author)}
+              $activeFilter={track.author && authorTrack.includes(track.author)}
             >
               {track.author}
             </S.PopupText>
