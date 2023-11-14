@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 
 import * as S from './Styles'
 
@@ -6,17 +7,82 @@ import { Items } from './Items/Items'
 import { Filter } from './Filter/Filter'
 import { Search } from './Search/Search'
 
-export const TrackList = ({ isLoading, error, data, title, showAllTracksAsLiked}) => {
+export const TrackList = ({
+  isLoading,
+  error,
+  data,
+  title,
+  showAllTracksAsLiked,
+}) => {
   const location = useLocation()
   const displayFilter = location.pathname === '/' ? 'flex' : 'none'
 
+  const [searchText, setSearchText] = useState('')
+  const [authorTrack, setAuthorTrack] = useState([])
+  const [genreTrack, setGenreTrack] = useState([])
+  const [dateTrack, setDateTrack] = useState('')
+
+  // функция фильтрации: передает массив треков в компонент
+
+  const filterTracks = () => {
+    let filteredTracks = data
+
+    // фильтр: строка поиска
+    if (searchText.length > 0) {
+      filteredTracks = filteredTracks.filter(
+        (track) =>
+          track.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          track.author.toLowerCase().includes(searchText.toLowerCase()),
+      )
+    }
+
+    // фильтр: по авторам
+    if (authorTrack.length > 0) {
+      filteredTracks = filteredTracks.filter(({ author }) =>
+        authorTrack.includes(author),
+      )
+    }
+
+    // фильтр: по жанрам
+    if (genreTrack.length > 0) {
+      filteredTracks = filteredTracks.filter(({ genre }) =>
+        genreTrack.includes(genre),
+      )
+    }
+
+    // фильтр: сортировка по дате
+    if (dateTrack === 'new') {
+      filteredTracks = filteredTracks.sort(
+        (a, b) => Date.parse(b.release_date) - Date.parse(a.release_date),
+      )
+    }
+    if (dateTrack === 'old') {
+      filteredTracks = filteredTracks.sort(
+        (a, b) => Date.parse(a.release_date) - Date.parse(b.release_date),
+      )
+    }
+
+    return filteredTracks
+  }
+
+  const filteredTracks = filterTracks()
+
   return (
     <S.MainCenterblock>
-      <Search />
+      <Search
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
       <S.CenterblockTitle>{title}</S.CenterblockTitle>
-      <S.CenterblockFilter style={{ display: displayFilter }}>
-        <Filter />
-      </S.CenterblockFilter>
+      <Filter
+        style={{ display: displayFilter }}
+        data={data}
+        authorTrack={authorTrack}
+        setAuthorTrack={setAuthorTrack}
+        genreTrack={genreTrack}
+        setGenreTrack={setGenreTrack}
+        setDateTrack={setDateTrack}
+      />
       <S.CenterblockContent>
         <S.ContentTitle>
           <S.PlaylistTitle01>Трек</S.PlaylistTitle01>
@@ -34,7 +100,7 @@ export const TrackList = ({ isLoading, error, data, title, showAllTracksAsLiked}
           ) : (
             <Items
               isLoading={isLoading}
-              data={data}
+              data={filteredTracks}
               showAllTracksAsLiked={showAllTracksAsLiked}
             />
           )}

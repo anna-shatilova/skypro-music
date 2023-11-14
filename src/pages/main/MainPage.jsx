@@ -3,6 +3,7 @@ import { useGetTracksQuery } from '../../store/favoritesApi'
 
 export const MainPage = () => {
   const { data = [], isLoading, error } = useGetTracksQuery()
+
   return (
     <TrackList
       title="Треки"

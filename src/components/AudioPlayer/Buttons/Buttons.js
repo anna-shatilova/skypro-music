@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-// import { useLocation } from 'react-router-dom'
 
 import * as S from './Styles'
 import {
@@ -19,18 +18,6 @@ export const Buttons = ({
   const isPlaying = useSelector((state) => state.tracks.isPlaying)
   const isShuffleMode = useSelector((state) => state.tracks.isShuffleMode)
   const activePlaylist =useSelector((state) => state.tracks.activePlaylist)
-  // const tracks = useSelector((state) => state.tracks.tracks)
-
-  // const { data: mainPlaylist } = useGetTracksQuery()
-  // const { data: favoritesPlaylist } = useGetFavoriteTracksQuery()
-
-  // const location = useLocation()
-  // const pageName = location.pathname === '/' ? 'Main' : 'Favorites'
-  // if (pageName === 'Favorites' && favoritesPlaylist) {
-  //   dispatch(favoriteMode([...favoritesPlaylist]))
-  // } else {
-  //   dispatch(favoriteMode([...mainPlaylist]))
-  // }
 
   const handleShuffle = () => {
     dispatch(shuffleMode(!isShuffleMode))
@@ -49,7 +36,7 @@ export const Buttons = ({
     <S.PlayerControls>
       <S.PlayerBtnPrev onClick={handlePlayPrevTrack}>
         <S.PlayerBtnPrevSvg alt="prev">
-          <use xlinkHref="img/icon/sprite.svg#icon-prev" />
+          <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
         </S.PlayerBtnPrevSvg>
       </S.PlayerBtnPrev>
       <S.PlayerBtnPlay
@@ -58,17 +45,17 @@ export const Buttons = ({
       >
         {isPlaying ? (
           <S.PlayerBtnPlaySvg alt="pause">
-            <use xlinkHref="img/icon/sprite.svg#icon-pause" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-pause" />
           </S.PlayerBtnPlaySvg>
         ) : (
           <S.PlayerBtnPlaySvg alt="play">
-            <use xlinkHref="img/icon/sprite.svg#icon-play" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-play" />
           </S.PlayerBtnPlaySvg>
         )}
       </S.PlayerBtnPlay>
       <S.PlayerBtnNext onClick={() => dispatch(playNextTrack())}>
         <S.PlayerBtnNextSvg alt="next">
-          <use xlinkHref="img/icon/sprite.svg#icon-next" />
+          <use xlinkHref="/img/icon/sprite.svg#icon-next" />
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
       <S.PlayerBtnRepeat
@@ -79,7 +66,7 @@ export const Buttons = ({
           alt="repeat"
           $isLoop={isLoop}
         >
-          <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+          <use xlinkHref="/img/icon/sprite.svg#icon-repeat" />
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
       <S.PlayerBtnShuffle
@@ -90,7 +77,7 @@ export const Buttons = ({
           $isShuffleMode={isShuffleMode}
           alt="shuffle"
         >
-          <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+          <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
         </S.PlayerBtnShuffleSvg>
       </S.PlayerBtnShuffle>
     </S.PlayerControls>

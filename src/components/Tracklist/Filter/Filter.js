@@ -1,44 +1,84 @@
 import { useState } from 'react'
 import * as S from './Styles'
 import { PopupPerformer } from './PopupPerformer'
-import { PopupYear } from './PopupYear'
 import { PopupGenre } from './PopupGenre'
+import { PopupYear } from './PopupYear'
 
-export const Filter = () => {
+export const Filter = ({
+  data,
+  authorTrack,
+  setAuthorTrack,
+  genreTrack,
+  setGenreTrack,
+  setDateTrack,
+}) => {
   const [activeFilter, setActiveFilter] = useState(null)
-
-  const filters = [
-    { id: 'author', name: 'исполнителю' },
-    { id: 'year', name: 'году выпуска' },
-    { id: 'genre', name: 'жанру' },
-  ]
 
   const filterClickHandler = (id) => {
     setActiveFilter(activeFilter === id ? null : id)
   }
 
   return (
-    <>
-      <S.FilterTitle>Искать по:</S.FilterTitle>
-      {filters.map((filter) => {
-        return (
-          <S.FilterButton
-            aria-hidden="true"
-            className="_btn-text"
-            $activeButton={activeFilter === filter.id}
-            key={filter.id}
-            onClick={() => {
-              return filterClickHandler(filter.id)
-            }}
-          >
-            {filter.name}
-          </S.FilterButton>
-        )
-      })}
+    <S.MainCenterBlockFilter>
+      <S.CenterblockFilter>
+        <S.FilterTitle>Искать по:</S.FilterTitle>
+        <S.FilterButton
+          aria-hidden="true"
+          className="_btn-text"
+          $activeButton={activeFilter === 'author'}
+          key="author"
+          onClick={() => {
+            return filterClickHandler('author')
+          }}
+        >
+          исполнителю
+          {authorTrack?.length === 0 ? null : (
+            <S.FilterCounter> {authorTrack?.length} </S.FilterCounter>
+          )}
+        </S.FilterButton>
+        {activeFilter === 'author' && (
+          <PopupPerformer
+            data={data}
+            authorTrack={authorTrack}
+            setAuthorTrack={setAuthorTrack}
+          />
+        )}
+        <S.FilterButton
+          aria-hidden="true"
+          className="_btn-text"
+          $activeButton={activeFilter === 'genre'}
+          key="genre"
+          onClick={() => {
+            return filterClickHandler('genre')
+          }}
+        >
+          жанру
+          {genreTrack.length === 0 ? null : (
+            <S.FilterCounter> {genreTrack.length} </S.FilterCounter>
+          )}
+        </S.FilterButton>
+        {activeFilter === 'genre' && (
+          <PopupGenre
+            genreTrack={genreTrack}
+            setGenreTrack={setGenreTrack}
+          />
+        )}
+      </S.CenterblockFilter>
 
-      {activeFilter === filters[0].id && <PopupPerformer />}
-      {activeFilter === filters[1].id && <PopupYear />}
-      {activeFilter === filters[2].id && <PopupGenre />}
-    </>
+      <S.CenterblockFilter>
+        <S.FilterTitle>Сортировка:</S.FilterTitle>
+        <S.FilterButton
+          aria-hidden="true"
+          className="_btn-text"
+          $activeButton={activeFilter === 'year'}
+          onClick={() => {
+            return filterClickHandler('year')
+          }}
+        >
+          По умолчанию
+        </S.FilterButton>
+        {activeFilter === 'year' && <PopupYear setDateTrack={setDateTrack} />}
+      </S.CenterblockFilter>
+    </S.MainCenterBlockFilter>
   )
 }

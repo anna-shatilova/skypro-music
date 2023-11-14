@@ -1,24 +1,36 @@
 import * as S from './Styles'
 
-export const PopupGenre = () => {
+const genres = [
+  { id: 1, name: 'Классическая музыка' },
+  { id: 2, name: 'Рок музыка' },
+  { id: 3, name: 'Электронная музыка' },
+]
+export const PopupGenre = ({ genreTrack, setGenreTrack }) => {
+  const handlerSetGenres = (genre) => {
+    const index = genreTrack.indexOf(genre)
+    if (index !== -1) {
+      setGenreTrack(genreTrack.toSpliced(index, 1))
+    } else {
+      setGenreTrack([...genreTrack, genre])
+    }
+  }
+
   return (
-    <S.FilterPopup style={{ top: '49px', left: '390px' }}>
+    <S.FilterPopup style={{ left: '250px' }}>
       <S.PopupList>
-        <li key="1">
-          <S.PopupText href="#!">Рок</S.PopupText>
-        </li>
-        <li key="2">
-          <S.PopupText href="#!">Хип-хоп</S.PopupText>
-        </li>
-        <li key="3">
-          <S.PopupText href="#!">Поп-музыка</S.PopupText>
-        </li>
-        <li key="4">
-          <S.PopupText href="#!">Техно</S.PopupText>
-        </li>
-        <li key="5">
-          <S.PopupText href="#!">Инди</S.PopupText>
-        </li>
+        {genres.map((genre) => {
+          return (
+            <S.PopupText
+              key={genre.id}
+              $activeFilter={genre.name && genreTrack.includes(genre.name)}
+              onClick={() => {
+                handlerSetGenres(genre.name)
+              }}
+            >
+              {genre.name}
+            </S.PopupText>
+          )
+        })}
       </S.PopupList>
     </S.FilterPopup>
   )

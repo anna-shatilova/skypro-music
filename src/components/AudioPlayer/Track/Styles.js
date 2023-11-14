@@ -92,19 +92,11 @@ export const TrackPlayLikeDis = styled.div`
 `
 export const TrackPlayLike = styled.div`
   padding: 5px;
+  margin-left: 28.5px;
 `
 export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
-  fill: transparent;
-  stroke: #696969;
-`
-export const TrackPlayDislike = styled(TrackPlayLike)`
-  margin-left: 28.5px;
-`
-export const TrackPlayDislikeSvg = styled.svg`
-  width: 14.34px;
-  height: 13px;
   fill: transparent;
   stroke: #696969;
 `

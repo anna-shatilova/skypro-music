@@ -1,5 +1,4 @@
-// import { useUserContext } from '../../context/UserProvider'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setAuth } from '../../store/authSlice'
@@ -7,19 +6,17 @@ import { useGetTracksQuery } from '../../store/favoritesApi'
 import * as S from './Styles'
 
 export const sidebarItems = [
-  { id: 1, imgSrc: 'img/playlist01.png' },
-  { id: 2, imgSrc: 'img/playlist02.png' },
-  { id: 3, imgSrc: 'img/playlist03.png' },
+  { id: 1, title: 'Классическая музыка', imgSrc: '/img/playlist1.png' },
+  { id: 2, title: 'Электронная музыка', imgSrc: '/img/playlist2.png' },
+  { id: 3, title: 'Рок музыка', imgSrc: '/img/playlist3.png' },
 ]
 export const Sidebar = () => {
-  // const { user, logout } = useUserContext()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { isLoading } = useGetTracksQuery()
   const userUsername = useSelector((state) => state.auth.username)
   const handleLogout = () => {
-    // logout()
     dispatch(
       setAuth({
         id: 0,
@@ -34,18 +31,21 @@ export const Sidebar = () => {
     localStorage.clear()
     navigate('/login', { replace: true })
   }
+  const location = useLocation()
+  const displaySidebarList = location.pathname === '/' ? 'flex' : 'none'
+
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
         <S.SidebarPersonalName>{userUsername}</S.SidebarPersonalName>
         <S.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
-            <use xlinkHref="img/icon/sprite.svg#logout" />
+            <use xlinkHref="/img/icon/sprite.svg#logout" />
           </svg>
         </S.SidebarIcon>
       </S.SidebarPersonal>
       <S.SidebarBlock>
-        <S.SidebarList>
+        <S.SidebarList style={{ display: displaySidebarList }}>
           {sidebarItems.map((sidebarItem) => {
             return (
               <S.SidebarItem key={sidebarItem.id}>

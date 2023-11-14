@@ -31,7 +31,7 @@ export const NavMenu = () => {
     <S.MainNav>
       <S.NavLogo>
         <S.LogoImg
-          src="img/logo.png"
+          src="/img/logo.png"
           alt="logo"
         />
       </S.NavLogo>

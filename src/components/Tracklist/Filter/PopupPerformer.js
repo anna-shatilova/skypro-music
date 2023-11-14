@@ -1,17 +1,37 @@
-import { useSelector } from 'react-redux'
 import * as S from './Styles'
 
-export const PopupPerformer = () => {
-  const tracks = useSelector((state) => state.tracks.tracks[0].tracks)
+export const PopupPerformer = ({ data, authorTrack, setAuthorTrack }) => {
+
+  const handlerSetAuthors = (author) => {
+    const index = authorTrack.indexOf(author)
+    if (index !== -1) {
+      setAuthorTrack(authorTrack.toSpliced(index, 1))
+    } else {
+      setAuthorTrack([...authorTrack, author])
+    }
+  }
+
+  // Функция для фильтрации повторяющихся авторов и сортировки их по алфавиту
+  const uniq = (value, index, array) => array.indexOf(value) === index
+
+  const artists = data
+    .map(({ author }) => author ?? 'Неизвестный исполнитель')
+    .filter((i) => i)
+    .filter(uniq)
+    .sort()
 
   return (
-    <S.FilterPopup style={{ top: '49px', left: '92px' }}>
+    <S.FilterPopup style={{ left: '85px' }}>
       <S.PopupList>
-        {tracks.map((track) => {
+        {artists.map((artist) => {
           return (
-            <li key={track.id}>
-              <S.PopupText href="!#">{track.author}</S.PopupText>
-            </li>
+            <S.PopupText
+              key={artist}
+              onClick={() => handlerSetAuthors(artist)}
+              $activeFilter={artist && authorTrack.includes(artist)}
+            >
+              {artist}
+            </S.PopupText>
           )
         })}
       </S.PopupList>

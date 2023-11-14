@@ -100,11 +100,6 @@ export const AudioPlayer = () => {
     audioRef.current.volume = newVolume
   }
 
-  // // лайкер в плеере
-
-  // const idUser = useSelector((state) => state.auth.id)
-
-
   return (
     <S.Bar>
       <S.BarContent>

@@ -1,18 +1,68 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { setAuth } from './authSlice'
 
-export const favoritesApi = createApi({
-  reducerPath: 'favoritesApi',
-  tagTypes: ['FavoriteTracks'],
-  baseQuery: fetchBaseQuery({
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const baseQuery = fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.access
+
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
+        headers.set('authorization', `Bearer ${token}`)
       }
+
       return headers
     },
-  }),
+  })
+
+  const result = await baseQuery(args, api, extraOptions)
+
+  if (result?.error?.status !== 401) {
+    return result
+  }
+
+  const forceLogout = () => {
+    api.dispatch(setAuth(null))
+    window.location.assign('/login')
+  }
+
+  const { auth } = api.getState()
+
+  if (!auth.refresh) {
+    return forceLogout()
+  }
+
+  const refreshResult = await baseQuery(
+    {
+      url: '/user/token/refresh/',
+      method: 'POST',
+      body: {
+        refresh: auth.refresh,
+      },
+    },
+    api,
+    extraOptions,
+  )
+
+  if (refreshResult?.error?.data) {
+    return forceLogout()
+  }
+
+  api.dispatch(setAuth({ ...auth, access: refreshResult.data.access }))
+
+  const retryResult = await baseQuery(args, api, extraOptions)
+
+  if (retryResult?.error?.status === 401) {
+    return forceLogout()
+  }
+
+  return retryResult
+}
+
+export const favoritesApi = createApi({
+  reducerPath: 'favoritesApi',
+  tagTypes: ['FavoriteTracks', 'Track'],
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getTracks: build.query({
       query: () => ({
@@ -26,12 +76,13 @@ export const favoritesApi = createApi({
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
-    // getIdTrack: build.query({
-    //   query: ({ id }) => ({
-    //     url: `${id}`,
-    //     method: 'GET',
-    //   }),
-    // }),
+    getIdTrack: build.query({
+      query: ({ id }) => ({
+        url: `track/${id}`,
+        method: 'GET',
+      }),
+      providesTags: [{ type: 'Track' }],
+    }),
     getFavoriteTracks: build.query({
       query: () => ({
         url: 'track/favorite/all',
@@ -49,29 +100,163 @@ export const favoritesApi = createApi({
         url: `track/${id}/favorite/`,
         method: 'POST',
       }),
-      invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'FavoriteTracks', id: 'LIST' },
+        { type: 'Track' },
+      ],
     }),
     deleteFavoriteTracks: build.mutation({
       query: ({ id }) => ({
         url: `track/${id}/favorite/`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'FavoriteTracks', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'FavoriteTracks', id: 'LIST' },
+        { type: 'Track' },
+      ],
     }),
     getCategoryTracks: build.query({
       query: ({ id }) => ({
         url: `selection/${id}/`,
         method: 'GET',
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map(({ id }) => ({ type: 'FavoriteTracks', id })),
+              { type: 'FavoriteTracks', id: 'LIST' },
+            ]
+          : [{ type: 'FavoriteTracks', id: 'LIST' }],
     }),
   }),
 })
 
 export const {
   useGetTracksQuery,
-  // useGetIdTrackQuery,
+  useGetIdTrackQuery,
   useGetFavoriteTracksQuery,
   useAddFavoriteTracksMutation,
   useDeleteFavoriteTracksMutation,
   useGetCategoryTracksQuery,
 } = favoritesApi
+
+/** ПОДРОБНЕЕ О ТОКЕНАХ
+ *
+ * baseQueryWithReauth –это наша кастомная обертка над fetchBaseQuery, которая умеет обновлять access токен если запрос вернул 401 код.
+ * Эта функция подразумевает, что access и refresh токены хранятся в redux сторе auth.
+ *
+ * args - это параметры конкретного запроса, там лежит url, method и другие параметры запроса
+ * api и extraOptions - это доп. параметры с хелперами
+ */
+// const baseQueryWithReauth = async (args, api, extraOptions) => {
+/**
+ * fetchBaseQuery - это обертка от rtk-quert над fetch функцией
+ * https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery
+ *
+ * fetchBaseQuery возвращает функцию, которую можно воспринимать как аналог fetch или axios функции.
+ * то есть вызов "await baseQuery(...)" можно воспринимать как вызов "await fetch(...)"
+ */
+// const baseQuery = fetchBaseQuery({
+//   baseUrl: "https://painassasin.online",
+// prepareHeaders - это часть api fetchBaseQuery, которая позволяет сформировать общие заголовки для всех запросов
+// prepareHeaders: (headers, { getState }) => {
+// Мы достаем из стора access токен и прикрепляем его ко всем запросам, чтобы не пробрасывать токен в каждый запрос вручную
+// Мы находимся внутри callback функции, которая вызывается непосредственно перед каждым запросом,
+// таким образом все запросы всегда используют актуальный acces токен из redux стора
+// const token = getState().auth.access;
+
+// Чтобы выключить отображение debug логов в консоли браузера, включите уровень Verbose\Debug в консоли разработчика
+// console.debug("Использую токен из стора", { token });
+
+//     if (token) {
+//       headers.set("authorization", `Bearer ${token}`);
+//     }
+
+//     return headers;
+//   },
+// });
+
+// Делаем запрос
+// const result = await baseQuery(args, api, extraOptions);
+// console.debug("Результат первого запроса", { result });
+
+// Если запрос выполнился не с 401 кодом, то все хорошо, просто отдаем результат запроса наружу
+// if (result?.error?.status !== 401) {
+//   return result;
+// }
+
+// Ниже обрабатываем 401 код
+
+// Функция которая отчищает данные о юзере в сторе и отправляет на страницу логина
+// const forceLogout = () => {
+//   console.debug("Принудительная авторизация!");
+//   api.dispatch(setAuth(null));
+//   window.location.navigate("/login");
+// };
+
+// Функция getState возвращает состояние redux стейта целиком, ее нам предоставляет rtk query, она прилетает параметром запроса в функцию
+// const { auth } = api.getState();
+// console.debug("Данные пользователя в сторе", { auth });
+// Если в сторе нет refresh токена, то помочь пользователю мы уже ничем не сможем, разлогиниваем его и отправляем авторизоваться руками
+// if (!auth.refresh) {
+//   return forceLogout();
+// }
+
+// Делаем запрос за новым access токеном в API обновления токена
+// const refreshResult = await baseQuery(
+//   {
+//     url: "/user/token/refresh/",
+//     method: "POST",
+//     body: {
+//       refresh: auth.refresh,
+//     },
+//   },
+//   api,
+//   extraOptions
+// );
+
+// console.debug("Результат запроса на обновление токена", { refreshResult });
+
+// Если api обновления токена не вернуло новый access токен, то ничего сделать мы не можем, разлогиниваем юзера
+// Апи может не вернуть новый access токен по разным причинам, например у нас неверный refresh токен или refresh токен протух (обычно refresh токены не протухаю, но бывает и такое)
+// if (!refreshResult.data.access) {
+//   return forceLogout();
+// }
+
+// Мы наконец получили новый access токен, сохраняем его в стор, чтобы последующие запросы могли его использовать внутри prepareHeaders
+// api.dispatch(setAuth({ ...auth, access: refreshResult.data.access }));
+
+// Делаем повторный запрос с теми же параметрами что и исходный,
+// но помним, что повторный запрос произойдет уже с новым токеном,
+// потому что для него вызовется callback prepareHeaders, который получит актуальный access токен из стора,
+// который мы положили в стор строчкой выше
+// const retryResult = await baseQuery(args, api, extraOptions);
+
+// Если повторный запрос выполнился с 401 кодом, то что-то совсем пошло не так, отправляем на принудительную ручную авторизацию
+//   if (retryResult?.error?.status === 401) {
+//     return forceLogout();
+//   }
+
+//   console.debug("Повторный запрос завершился успешно");
+
+//   return retryResult;
+// };
+
+// export const playlistApi = createApi({
+//   reducerPath: "playlistApi",
+//   // Используем кастомную baseQueryWithReauth вместо стандартной fetchBaseQuery
+//   baseQuery: baseQueryWithReauth,
+//   // baseQuery: fetchBaseQuery({
+//   //   baseUrl: 'https://painassasin.online',
+//   // }),
+//   endpoints: (builder) => ({
+//     getMainPlaylist: builder.query({
+//       query: () => "/catalog/track/all/",
+//     }),
+//     getMyPlaylist: builder.query({
+//       query: () => ({
+//         url: "/catalog/track/favorite/all/",
+//       }),
+//     }),
+//   }),
+// });

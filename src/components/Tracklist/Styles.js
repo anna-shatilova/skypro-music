@@ -16,20 +16,6 @@ export const CenterblockTitle = styled.h2`
   letter-spacing: -0.8px;
   margin-bottom: 45px;
 `
-export const CenterblockFilter = styled.div`
-  position: relative;
-  display: box;
-  display: -ms-flexbox;
-  display: flex;
-  box-orient: horizontal;
-  box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 51px;
-`
 
 export const CenterblockContent = styled.div`
   display: box;
