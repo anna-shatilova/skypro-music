@@ -76,6 +76,7 @@ export const TrackList = ({
       <S.CenterblockTitle>{title}</S.CenterblockTitle>
       <Filter
         style={{ display: displayFilter }}
+        data={data}
         authorTrack={authorTrack}
         setAuthorTrack={setAuthorTrack}
         genreTrack={genreTrack}

@@ -5,6 +5,7 @@ import { PopupGenre } from './PopupGenre'
 import { PopupYear } from './PopupYear'
 
 export const Filter = ({
+  data,
   authorTrack,
   setAuthorTrack,
   genreTrack,
@@ -37,6 +38,7 @@ export const Filter = ({
         </S.FilterButton>
         {activeFilter === 'author' && (
           <PopupPerformer
+            data={data}
             authorTrack={authorTrack}
             setAuthorTrack={setAuthorTrack}
           />

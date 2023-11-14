@@ -1,8 +1,6 @@
-import { useGetTracksQuery } from '../../../store/favoritesApi'
 import * as S from './Styles'
 
-export const PopupPerformer = ({ authorTrack, setAuthorTrack }) => {
-  const { data = [] } = useGetTracksQuery()
+export const PopupPerformer = ({ data, authorTrack, setAuthorTrack }) => {
 
   const handlerSetAuthors = (author) => {
     const index = authorTrack.indexOf(author)
@@ -13,17 +11,26 @@ export const PopupPerformer = ({ authorTrack, setAuthorTrack }) => {
     }
   }
 
+  // Функция для фильтрации повторяющихся авторов и сортировки их по алфавиту
+  const uniq = (value, index, array) => array.indexOf(value) === index
+
+  const artists = data
+    .map(({ author }) => author ?? 'Неизвестный исполнитель')
+    .filter((i) => i)
+    .filter(uniq)
+    .sort()
+
   return (
     <S.FilterPopup style={{ left: '85px' }}>
       <S.PopupList>
-        {data.map((track) => {
+        {artists.map((artist) => {
           return (
             <S.PopupText
-              key={track.id}
-              onClick={() => handlerSetAuthors(track.author)}
-              $activeFilter={track.author && authorTrack.includes(track.author)}
+              key={artist}
+              onClick={() => handlerSetAuthors(artist)}
+              $activeFilter={artist && authorTrack.includes(artist)}
             >
-              {track.author}
+              {artist}
             </S.PopupText>
           )
         })}
