@@ -10,21 +10,21 @@ export const Track = () => {
   const currentTrack = useSelector((state) => state.tracks.currentTrack)
 
   // // лайкер в плеере
-  const { data } = useGetIdTrackQuery({ id: currentTrack.id })
+  const { data } = useGetIdTrackQuery({ id: currentTrack._id })
   const userId = useSelector((state) => state.auth.id)
 
   const isLiked = () => {
-    const arrayUsersLikedId = (data?.stared_user ?? []).map((elem) => elem.id)
+    const arrayUsersLikedId = data?.data?.staredUser ?? []
     return arrayUsersLikedId.includes(userId)
   }
   const [addFavoriteTrack] = useAddFavoriteTracksMutation()
   const [deleteFavoriteTrack] = useDeleteFavoriteTracksMutation()
 
   const handlerToggleLike = () => {
-    if (isLiked ()) {
-      deleteFavoriteTrack({ id: data.id })
+    if (isLiked()) {
+      deleteFavoriteTrack({ id: data.data._id })
     } else {
-      addFavoriteTrack({ id: data.id })
+      addFavoriteTrack({ id: data.data._id })
     }
   }
   return (
@@ -37,18 +37,18 @@ export const Track = () => {
         </S.TrackPlayImg>
         <S.TrackPlayAuthor>
           <S.TrackPlayAuthorLink href="http://">
-            {data ? data.name : null}
+            {data ? data.data.name : null}
           </S.TrackPlayAuthorLink>
         </S.TrackPlayAuthor>
         <S.TrackPlayAlbum>
           <S.TrackPlayAlbumLink href="http://">
-            {data ? data.author : null}
+            {data ? data.data.author : null}
           </S.TrackPlayAlbumLink>
         </S.TrackPlayAlbum>
       </S.TrackPlayContain>
       <S.TrackPlayLikeDis onClick={handlerToggleLike}>
         <S.TrackPlayLike className="_btn-icon">
-          {isLiked () ? (
+          {isLiked() ? (
             <S.TrackPlayLikeSvg alt="like">
               <use xlinkHref="/img/icon/sprite.svg#icon-like" />
             </S.TrackPlayLikeSvg>

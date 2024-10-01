@@ -1,4 +1,4 @@
-const baseURL = 'https://skypro-music-api.skyeng.tech'
+const baseURL = 'https://webdev-music-003b5b991590.herokuapp.com'
 
 export async function registerUser({ email, password }) {
   const response = await fetch(`${baseURL}/user/signup/`, {

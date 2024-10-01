@@ -57,7 +57,7 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
   }
 
   const handleAddFavoriteTrack = (track) => {
-    addFavoriteTrack({ id: track.id })
+    addFavoriteTrack({ id: track._id })
       .unwrap()
       .catch((error) => {
         if (error.status === 401) {
@@ -66,7 +66,7 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
       })
   }
   const handleDeleteFavoriteTrack = (track) => {
-    deleteFavoriteTrack({ id: track.id })
+    deleteFavoriteTrack({ id: track._id })
       .unwrap()
       .catch((error) => {
         if (error.status === 401) {
@@ -77,23 +77,22 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
 
   const findLike = (track) => {
     if (showAllTracksAsLiked) return true
-    const arrayUsersLikedId = (track?.stared_user ?? []).map((elem) => elem.id)
+    const arrayUsersLikedId = (track?.staredUser ?? []).map((elem) => elem)
     return arrayUsersLikedId.includes(userId)
   }
 
   // лоадер загрузки треков (скелетоны при загрузке)
   const tracks = isLoading
     ? [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 },
-        { id: 6 },
-        { id: 7 },
+        { _id: 1 },
+        { _id: 2 },
+        { _id: 3 },
+        { _id: 4 },
+        { _id: 5 },
+        { _id: 6 },
+        { _id: 7 },
       ]
     : data
-
   // передаем в стор выбранный трек и плейлист
 
   const handleCurrentTrackAndPlaylist = (track) => {
@@ -105,16 +104,16 @@ export const Items = ({ data, isLoading, showAllTracksAsLiked = false }) => {
 
   return (
     <S.ContentPlaylist>
-      {tracks.length !== 0 ? (
-        tracks.map((track) => {
+      {tracks?.length !== 0 ? (
+        tracks?.map((track) => {
           return (
-            <S.PlaylistItem key={track.id}>
+            <S.PlaylistItem key={track._id}>
               <S.PlaylistTrack>
                 <S.TrackTitle
                   onClick={() => handleCurrentTrackAndPlaylist(track)}
                 >
                   <S.TrackTitleImg>
-                    {currentTrack?.id !== track.id ? (
+                    {currentTrack?._id !== track._id ? (
                       <S.TrackTitleSvg alt="music">
                         <use
                           xlinkHref={

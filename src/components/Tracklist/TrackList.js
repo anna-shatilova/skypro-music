@@ -46,7 +46,7 @@ export const TrackList = ({
     // фильтр: по жанрам
     if (genreTrack.length > 0) {
       filteredTracks = filteredTracks.filter(({ genre }) =>
-        genreTrack.includes(genre),
+        genreTrack.includes(genre[0]),
       )
     }
 

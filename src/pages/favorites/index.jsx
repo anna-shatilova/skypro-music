@@ -9,7 +9,7 @@ export const Favorites = () => {
       title="Мои треки"
       isLoading={isLoading}
       error={error}
-      data={data}
+      data={data.data}
       showAllTracksAsLiked
     />
   )

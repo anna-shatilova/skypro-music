@@ -3,7 +3,7 @@ import { setAuth } from './authSlice'
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/',
+    baseUrl: 'https://webdev-music-003b5b991590.herokuapp.com/catalog/',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.access
 
@@ -71,7 +71,7 @@ export const favoritesApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: 'FavoriteTracks', id })),
+              ...result.data.map(({ id }) => ({ type: 'FavoriteTracks', id })),
               { type: 'FavoriteTracks', id: 'LIST' },
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],
@@ -90,7 +90,7 @@ export const favoritesApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: 'FavoriteTracks', id })),
+              ...result.data.map(({ id }) => ({ type: 'FavoriteTracks', id })),
               { type: 'FavoriteTracks', id: 'LIST' },
             ]
           : [{ type: 'FavoriteTracks', id: 'LIST' }],

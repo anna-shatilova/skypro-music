@@ -26,10 +26,10 @@ export const Login = () => {
       }
 
       await loginUser({ email, password }).then((loginData) => {
-        getToken({ email, password }).then((tokenData) => {
+        getToken({ email, password }).then((tokenData) => {          
           dispatch(
             setAuth({
-              id: loginData.id,
+              id: loginData._id,
               email: loginData.email,
               username: loginData.username,
               access: tokenData.access,

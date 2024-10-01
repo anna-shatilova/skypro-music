@@ -18,7 +18,7 @@ const playlistSlice = createSlice({
       if (!state.currentTrack || state.activePlaylist.length === 0) return
 
       const currentIndex = state.activePlaylist.findIndex(
-        (track) => track.id === state.currentTrack.id,
+        (track) => track._id === state.currentTrack._id,
       )
 
       const nextIndex = currentIndex + 1
@@ -30,7 +30,7 @@ const playlistSlice = createSlice({
       if (!state.currentTrack || state.activePlaylist.length === 0) return
 
       const currentIndex = state.activePlaylist.findIndex(
-        (track) => track.id === state.currentTrack.id,
+        (track) => track._id === state.currentTrack._id,
       )
 
       const nextIndex = currentIndex - 1

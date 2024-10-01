@@ -32,7 +32,7 @@ export const Category = () => {
       title={categoryTitle()}
       isLoading={isLoading}
       error={error}
-      data={data.items}
+      data={data}
     />
   )
 }
